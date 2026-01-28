@@ -4,7 +4,18 @@
   "license": "MIT",
   "scripts": {
     "codegen": "graphql-codegen --config codegen.ts",
-    "codegen:watch": "graphql-codegen --config codegen.ts --watch"
+    "codegen:watch": "graphql-codegen --config codegen.ts --watch",
+    "prepare": "husky",
+    "lint": "nx run-many --target=lint --all",
+    "lint:affected": "nx affected --target=lint"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix"
+    ],
+    "*.{json,md,html,css}": [
+      "prettier --write"
+    ]
   },
   "private": true,
   "dependencies": {
@@ -58,6 +69,7 @@
     "@swc/cli": "~0.6.0",
     "@swc/core": "~1.5.7",
     "@swc/helpers": "~0.5.11",
+    "@tailwindcss/vite": "^4.1.18",
     "@testing-library/dom": "10.4.0",
     "@testing-library/jest-dom": "^6.8.0",
     "@testing-library/react": "16.1.0",
@@ -78,9 +90,11 @@
     "eslint-plugin-playwright": "^1.6.2",
     "eslint-plugin-react": "7.35.0",
     "eslint-plugin-react-hooks": "5.0.0",
+    "husky": "^9.1.7",
     "jiti": "2.4.2",
     "jsdom": "~22.1.0",
     "jsonc-eslint-parser": "^2.1.0",
+    "lint-staged": "^16.2.7",
     "nx": "22.4.0",
     "postcss": "^8.5.6",
     "prettier": "^2.6.2",

@@ -18,12 +18,12 @@ export function RootLayout() {
       <header className="bg-gradient-to-br from-indigo-500 to-purple-600 px-4 py-4 shadow-md md:px-8">
         <div className="mx-auto flex max-w-7xl items-center justify-between">
           <h1 className="text-xl font-semibold text-white md:text-2xl">
-            Nx Shop Demo
+           Glamour And Large
           </h1>
         </div>
       </header>
 
-      <main className="relative mx-auto w-full max-w-7xl flex-1 p-4 md:p-8">
+      <section className="relative mx-auto w-full max-w-7xl flex-1 p-4 md:p-8">
         {isNavigating && (
           <div className="absolute inset-x-0 top-0 z-50 bg-white/80 p-2 text-center">
             <LoadingSpinner />
@@ -32,7 +32,7 @@ export function RootLayout() {
         <Suspense fallback={<LoadingSpinner />}>
           <Outlet />
         </Suspense>
-      </main>
+      </section>
 
       <ScrollRestoration />
     </div>

@@ -1,45 +1,57 @@
-# Nx React Repository
+# Glamour
 
 <a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
 
-✨ A repository showcasing key [Nx](https://nx.dev) features for React monorepos ✨
+✨ A modern fashion e-commerce platform built with React, Redux Toolkit, Apollo GraphQL, and Nx monorepo ✨
 
 ## 📦 Project Overview
 
-This repository demonstrates a production-ready React monorepo with:
+A production-ready React e-commerce monorepo featuring:
 
-- **2 Applications**
+### Applications
 
-  - `shop` - React e-commerce application with product listings and detail views
-  - `api` - Backend API serving product data
+| App        | Description                                                                        |
+| ---------- | ---------------------------------------------------------------------------------- |
+| `shop`     | React e-commerce storefront with product listings, detail views, and shopping cart |
+| `api`      | Express backend API serving product data via REST & GraphQL                        |
+| `shop-e2e` | Playwright end-to-end tests                                                        |
 
-- **7 Libraries**
+### Libraries
 
-  - `@org/shop-feature-products` - Product listing feature (React)
-  - `@org/shop-feature-product-detail` - Product detail feature (React)
-  - `@org/shop-data` - Data access layer for shop features
-  - `@org/shop-shared-ui` - Shared UI components
-  - `@org/models` - Shared data models
-  - `@org/api-products` - API product service library
-  - `@org/shared-test-utils` - Shared testing utilities
+| Library                            | Description                                                               |
+| ---------------------------------- | ------------------------------------------------------------------------- |
+| `@org/shop-feature-products`       | Product listing feature with filtering and pagination                     |
+| `@org/shop-feature-product-detail` | Product detail page with add-to-cart functionality                        |
+| `@org/shop-data`                   | Data access layer (Redux Toolkit, RTK Query, Apollo Client, React Router) |
+| `@org/shop-shared-ui`              | Shared UI components (shadcn/ui, Tailwind CSS) with Storybook             |
+| `@org/models`                      | Shared TypeScript data models                                             |
+| `@org/api-products`                | API product service library                                               |
+| `@org/shared-test-utils`           | Shared testing utilities and mock data                                    |
 
-- **E2E Testing**
-  - `shop-e2e` - Playwright tests for the shop application
+### Tech Stack
+
+- **Frontend**: React 19, TypeScript, Tailwind CSS, shadcn/ui
+- **State Management**: Redux Toolkit, RTK Query
+- **Data Fetching**: Apollo Client (GraphQL), TanStack Query (REST)
+- **Routing**: React Router v6 with type-safe routes
+- **Backend**: Express, GraphQL
+- **Testing**: Vitest (unit), Playwright (e2e), Storybook (component)
+- **Build System**: Nx, Vite
 
 ## 🚀 Quick Start
 
 ```bash
 # Clone the repository
-git clone <your-fork-url>
-cd <your-repository-name>
+git clone git@github.com:juliusossim/glamour.git
+cd glamour
 
 # Install dependencies
-npx install
+npm install
 
 # Serve the React shop application (this will simultaneously serve the API backend)
 npx nx serve shop
 
-# ...or you can serve the API separately
+# ...or serve the API separately
 npx nx serve api
 
 # Build all projects
@@ -54,9 +66,11 @@ npx nx run-many -t lint
 # Run e2e tests
 npx nx e2e shop-e2e
 
-# Run tasks in parallel
+# Run Storybook (component library)
+npx nx storybook shop-shared-ui
 
-npx nx run-many -t lint test build e2e --parallel=3
+# Generate GraphQL types
+npm run codegen
 
 # Visualize the project graph
 npx nx graph
@@ -103,7 +117,23 @@ npx nx e2e-ci shop-e2e
 
 [Learn more about E2E testing →](https://nx.dev/technologies/test-tools/playwright/introduction#e2e-testing)
 
-### 3. ⚡ Vitest for Unit Testing
+### 3. 📖 Storybook Component Library
+
+Interactive component documentation with Storybook:
+
+```bash
+# Run Storybook dev server
+npx nx storybook shop-shared-ui
+
+# Build static Storybook
+npx nx build-storybook shop-shared-ui
+```
+
+Components include: ProductCard, ProductGrid, LoadingSpinner, ErrorMessage, and shadcn/ui primitives.
+
+[Learn more about Storybook →](https://storybook.js.org/)
+
+### 4. ⚡ Vitest for Unit Testing
 
 Fast unit testing with Vitest for React libraries:
 
@@ -117,7 +147,16 @@ npx nx run-many -t test
 
 [Learn more about Vite testing →](https://nx.dev/recipes/vite)
 
-### 4. 🔧 Self-Healing CI
+### 5. 🛒 State Management
+
+Multiple state management patterns are demonstrated:
+
+- **Redux Toolkit** - Global state (cart, filters)
+- **RTK Query** - REST API data fetching with caching
+- **Apollo Client** - GraphQL data fetching
+- **React Router** - Type-safe routing with loaders
+
+### 6. 🔧 Self-Healing CI
 
 The CI pipeline includes `nx fix-ci` which automatically identifies and suggests fixes for common issues:
 
@@ -138,24 +177,40 @@ This feature helps maintain a healthy CI pipeline by automatically detecting and
 ## 📁 Project Structure
 
 ```
+glamour/
 ├── apps/
-│   ├── shop/           [scope:shop]    - React e-commerce app
-│   ├── shop-e2e/                       - E2E tests for shop
-│   └── api/            [scope:api]     - Backend API
+│   ├── shop/               # React e-commerce storefront
+│   │   └── src/
+│   │       ├── app/routes/ # Page components
+│   │       ├── hooks/      # App-specific hooks
+│   │       └── main.tsx    # Application entry
+│   ├── shop-e2e/           # Playwright E2E tests
+│   └── api/                # Express backend API
 ├── libs/
 │   ├── shop/
-│   │   ├── feature-products/        [scope:shop,type:feature] - Product listing
-│   │   ├── feature-product-detail/  [scope:shop,type:feature] - Product details
-│   │   ├── data/                    [scope:shop,type:data]    - Data access
-│   │   └── shared-ui/               [scope:shop,type:ui]      - UI components
+│   │   ├── feature-products/       # Product listing feature
+│   │   ├── feature-product-detail/ # Product detail feature
+│   │   ├── data/                   # Data layer (Redux, Apollo, Router)
+│   │   │   └── src/lib/
+│   │   │       ├── store/          # Redux store & slices
+│   │   │       ├── graphql/        # Apollo Client setup
+│   │   │       ├── http/           # REST API & React Query
+│   │   │       └── router/         # Type-safe routing
+│   │   └── shared-ui/              # UI components & Storybook
+│   │       └── src/lib/
+│   │           ├── ui/             # shadcn/ui components
+│   │           ├── product-card/   # ProductCard component
+│   │           ├── product-grid/   # ProductGrid component
+│   │           └── ...
 │   ├── api/
-│   │   └── products/    [scope:api]    - Product service
+│   │   └── products/       # Product service library
 │   └── shared/
-│       ├── models/      [scope:shared,type:data] - Shared models
-│       └── test-utils/  [scope:shared]           - Testing utilities
-├── nx.json             - Nx configuration
-├── tsconfig.json       - TypeScript configuration
-└── eslint.config.mjs   - ESLint with module boundary rules
+│       ├── models/         # Shared TypeScript models
+│       └── test-utils/     # Testing utilities & mocks
+├── docs/                   # Documentation
+├── nx.json                 # Nx configuration
+├── codegen.ts              # GraphQL codegen config
+└── package.json
 ```
 
 ## 🏷️ Understanding Tags
@@ -176,23 +231,35 @@ This repository uses tags to enforce module boundaries:
 # Project exploration
 npx nx graph                                    # Interactive dependency graph
 npx nx list                                     # List installed plugins
-npx nx show project shop --web                 # View project details
+npx nx show project shop --web                  # View project details
 
 # Development
-npx nx serve shop                              # Serve React app
-npx nx serve api                               # Serve backend API
-npx nx build shop                              # Build React app
-npx nx test shop-data                          # Test a specific library
-npx nx lint shop-feature-products              # Lint a specific library
+npx nx serve shop                               # Serve React app with API
+npx nx serve api                                # Serve backend API only
+npx nx storybook shop-shared-ui                 # Run Storybook
+npm run codegen                                 # Generate GraphQL types
+
+# Building
+npx nx build shop                               # Build React app
+npx nx build-storybook shop-shared-ui           # Build static Storybook
+
+# Testing
+npx nx test shop-data                           # Test a specific library
+npx nx e2e shop-e2e                             # Run E2E tests
+npx nx run-many -t test                         # Test all projects
+
+# Linting
+npx nx lint shop-feature-products               # Lint a specific library
+npx nx run-many -t lint                         # Lint all projects
 
 # Running multiple tasks
-npx nx run-many -t build                       # Build all projects
-npx nx run-many -t test --parallel=3          # Test in parallel
-npx nx run-many -t lint test build            # Run multiple targets
+npx nx run-many -t build                        # Build all projects
+npx nx run-many -t test --parallel=3            # Test in parallel
+npx nx run-many -t lint test build              # Run multiple targets
 
 # Affected commands (great for CI)
-npx nx affected -t build                       # Build only affected projects
-npx nx affected -t test                        # Test only affected projects
+npx nx affected -t build                        # Build only affected projects
+npx nx affected -t test                         # Test only affected projects
 ```
 
 ## 🎯 Adding New Features
@@ -242,19 +309,14 @@ Nx Console is an editor extension that enriches your developer experience. It le
 
 - [Nx Documentation](https://nx.dev)
 - [React Monorepo Tutorial](https://nx.dev/getting-started/tutorials/react-monorepo-tutorial)
-- [Module Boundaries](https://nx.dev/features/enforce-module-boundaries)
-- [Docker Integration](https://nx.dev/recipes/nx-release/release-docker-images)
+- [Redux Toolkit](https://redux-toolkit.js.org/)
+- [Apollo Client](https://www.apollographql.com/docs/react/)
+- [shadcn/ui](https://ui.shadcn.com/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Storybook](https://storybook.js.org/)
 - [Playwright Testing](https://nx.dev/technologies/test-tools/playwright/introduction#e2e-testing)
 - [Vite with React](https://nx.dev/recipes/vite)
-- [Nx Cloud](https://nx.dev/ci/intro/why-nx-cloud)
-- [Releasing Packages](https://nx.dev/features/manage-releases)
 
-## 💬 Community
+## 📄 License
 
-Join the Nx community:
-
-- [Discord](https://go.nx.dev/community)
-- [X (Twitter)](https://twitter.com/nxdevtools)
-- [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [YouTube](https://www.youtube.com/@nxdevtools)
-- [Blog](https://nx.dev/blog)
+MIT

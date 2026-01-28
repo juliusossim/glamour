@@ -1,14 +1,12 @@
-import styles from './loading-spinner.module.css';
-
 export function LoadingSpinner() {
   return (
-    <div className={styles['spinner-container']}>
-      <div className={styles['spinner']} aria-label="Loading...">
-        <div className={styles['bounce1']}></div>
-        <div className={styles['bounce2']}></div>
-        <div className={styles['bounce3']}></div>
+    <div className="flex flex-col items-center justify-center py-12 min-h-[200px]">
+      <div className="flex gap-2 justify-center">
+        <div className="w-4 h-4 bg-primary rounded-full animate-bounce [animation-delay:-0.32s]" />
+        <div className="w-4 h-4 bg-primary rounded-full animate-bounce [animation-delay:-0.16s]" />
+        <div className="w-4 h-4 bg-primary rounded-full animate-bounce" />
       </div>
-      <p className={styles['loading-text']}>Loading...</p>
+      <p className="mt-4 text-muted-foreground">Loading...</p>
     </div>
   );
 }

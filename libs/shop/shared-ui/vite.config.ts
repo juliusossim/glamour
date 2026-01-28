@@ -1,10 +1,11 @@
-import { defineConfig } from 'vite';
+import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
+import { defineConfig } from 'vite';
 
 export default defineConfig(() => ({
   root: __dirname,
   cacheDir: '../../../node_modules/.vite/libs/shop/shared-ui',
-  plugins: [react()],
+  plugins: [react(), tailwindcss()],
   // Uncomment this if you are using workers.
   // worker: {
   //  plugins: [ nxViteTsPaths() ],

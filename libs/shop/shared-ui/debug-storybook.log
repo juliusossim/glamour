@@ -1,0 +1,25 @@
+[09:45:15.176] [INFO] storybook v10.2.0
+[09:45:17.384] [DEBUG] Getting package.json info for /Users/juliusossim/Documents/fashion/package.json...
+[09:45:17.669] [INFO] Starting...
+[09:45:17.793] [DEBUG] Starting preview..
+[09:45:17.834] [WARN] 🚨 Unable to index files:
+- ./src/lib/ui/button.stories.tsx,./src/lib/ui/sidebar--button.stories.tsx: Duplicate stories with id: button--primary
+- ./src/lib/ui/button.stories.tsx,./src/lib/ui/sidebar--button.stories.tsx: Duplicate stories with id: button--heading
+[09:45:17.835] [ERROR] Failed to build the preview
+[09:45:17.836] [ERROR] Error: [38;2;241;97;97mUnable to index files:
+- ./src/lib/ui/button.stories.tsx,./src/lib/ui/sidebar--button.stories.tsx: Duplicate stories with id: button--primary
+- ./src/lib/ui/button.stories.tsx,./src/lib/ui/sidebar--button.stories.tsx: Duplicate stories with id: button--heading[39m
+    at _StoryIndexGenerator.getIndexAndStats (file:///Users/juliusossim/Documents/fashion/node_modules/storybook/dist/core-server/index.js:6092:15)
+    at async _StoryIndexGenerator.getIndex (file:///Users/juliusossim/Documents/fashion/node_modules/storybook/dist/core-server/index.js:6071:13)
+    at async getOptimizeDeps (file:///Users/juliusossim/Documents/fashion/node_modules/@storybook/builder-vite/dist/index.js:1845:15)
+    at async createViteServer (file:///Users/juliusossim/Documents/fashion/node_modules/@storybook/builder-vite/dist/index.js:1871:19)
+    at async Module.start (file:///Users/juliusossim/Documents/fashion/node_modules/@storybook/builder-vite/dist/index.js:1906:17)
+    at async storybookDevServer (file:///Users/juliusossim/Documents/fashion/node_modules/storybook/dist/core-server/index.js:7207:83)
+    at async buildOrThrow (file:///Users/juliusossim/Documents/fashion/node_modules/storybook/dist/core-server/index.js:4504:12)
+    at async buildDevStandalone (file:///Users/juliusossim/Documents/fashion/node_modules/storybook/dist/core-server/index.js:7577:66)
+    at async withTelemetry (file:///Users/juliusossim/Documents/fashion/node_modules/storybook/dist/_node-chunks/chunk-5T2PCIM6.js:218:12)
+    at async dev (file:///Users/juliusossim/Documents/fashion/node_modules/storybook/dist/bin/core.js:2734:3)
+[09:45:17.837] [WARN] Broken build, fix the error above.
+You may need to refresh the browser.
+[09:45:29.967] [PROMPT] Would you like to send anonymous crash reports to improve Storybook and fix bugs faster? {"choice":true}
+[09:45:29.968] [INFO] Storybook collects completely anonymous usage telemetry. We use it to shape Storybook's roadmap and prioritize features. You can learn more, including how to opt out, at https://storybook.js.org/telemetry

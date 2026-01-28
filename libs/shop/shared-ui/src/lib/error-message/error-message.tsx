@@ -1,4 +1,4 @@
-import styles from './error-message.module.css';
+import { Button } from '../ui/button';
 
 interface ErrorMessageProps {
   message?: string;
@@ -7,16 +7,16 @@ interface ErrorMessageProps {
 
 export function ErrorMessage({
   message = 'An error occurred. Please try again.',
-  onRetry
+  onRetry,
 }: ErrorMessageProps) {
   return (
-    <div className={styles['error-container']}>
-      <div className={styles['error-icon']}>⚠️</div>
-      <p className={styles['error-text']}>{message}</p>
+    <div className="flex flex-col items-center justify-center py-12 min-h-[200px] text-center">
+      <div className="text-5xl mb-4">⚠️</div>
+      <p className="text-destructive text-lg mb-6 max-w-[400px]">{message}</p>
       {onRetry && (
-        <button className={styles['retry-button']} onClick={onRetry}>
+        <Button onClick={onRetry} variant="default">
           Try Again
-        </button>
+        </Button>
       )}
     </div>
   );

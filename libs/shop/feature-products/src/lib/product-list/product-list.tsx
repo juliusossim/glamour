@@ -1,13 +1,14 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Product, ProductFilter } from '@org/models';
-import { useProducts, useCategories } from '@org/shop-data';
+import { useCategories, useProducts } from '@org/shop-data';
 import {
-  ProductGrid,
-  LoadingSpinner,
-  ErrorMessage,
+    Button,
+    ErrorMessage,
+    Input,
+    LoadingSpinner,
+    ProductGrid,
 } from '@org/shop-shared-ui';
-import styles from './product-list.module.css';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export function ProductList() {
   const navigate = useNavigate();
@@ -79,28 +80,30 @@ export function ProductList() {
   };
 
   return (
-    <div className={styles['product-list-container']}>
-      <header className={styles['page-header']}>
-        <h1>Our Products</h1>
-        <p>Explore our wide selection of high-quality products</p>
+    <div className="max-w-7xl mx-auto px-6 py-6">
+      <header className="text-center mb-12">
+        <h1 className="text-4xl font-bold text-foreground mb-2">Our Products</h1>
+        <p className="text-lg text-muted-foreground">
+          Explore our wide selection of high-quality products
+        </p>
       </header>
 
-      <div className={styles['filters-section']}>
-        <div className={styles['search-box']}>
-          <input
+      <div className="bg-muted/50 p-6 rounded-lg mb-8">
+        <div className="mb-4">
+          <Input
             type="text"
             placeholder="Search products..."
             value={searchTerm}
             onChange={handleSearchChange}
-            className={styles['search-input']}
+            className="w-full"
           />
         </div>
 
-        <div className={styles['filter-controls']}>
+        <div className="flex gap-4 items-center flex-wrap">
           <select
             value={selectedCategory}
             onChange={handleCategoryChange}
-            className={styles['filter-select']}
+            className="px-4 py-2 text-base border border-input rounded-md bg-background cursor-pointer focus:outline-none focus:ring-2 focus:ring-ring"
           >
             <option value="">All Categories</option>
             {categories.map((category) => (
@@ -110,11 +113,12 @@ export function ProductList() {
             ))}
           </select>
 
-          <label className={styles['checkbox-label']}>
+          <label className="flex items-center gap-2 cursor-pointer text-base">
             <input
               type="checkbox"
               checked={inStockOnly}
               onChange={handleInStockChange}
+              className="w-4 h-4 cursor-pointer accent-primary"
             />
             In Stock Only
           </label>
@@ -127,31 +131,31 @@ export function ProductList() {
         <ErrorMessage message={error} onRetry={handleRetry} />
       ) : (
         <>
-          <div className={styles['results-info']}>
+          <div className="text-muted-foreground mb-4 text-sm">
             Showing {products.length} of {totalProducts} products
           </div>
 
           <ProductGrid products={products} onProductSelect={handleProductSelect} />
 
           {totalPages > 1 && (
-            <div className={styles['pagination']}>
-              <button
-                className={styles['btn-secondary']}
+            <div className="flex justify-center items-center gap-4 mt-12 pt-6 border-t border-border">
+              <Button
+                variant="secondary"
                 disabled={currentPage === 1}
                 onClick={handlePreviousPage}
               >
                 Previous
-              </button>
-              <span className={styles['page-info']}>
+              </Button>
+              <span className="text-muted-foreground">
                 Page {currentPage} of {totalPages}
               </span>
-              <button
-                className={styles['btn-secondary']}
+              <Button
+                variant="secondary"
                 disabled={currentPage === totalPages}
                 onClick={handleNextPage}
               >
                 Next
-              </button>
+              </Button>
             </div>
           )}
         </>

@@ -1,22 +1,29 @@
-import { lazy, Suspense } from 'react';
-import { Route, Routes, Navigate } from 'react-router-dom';
 import { LoadingSpinner } from '@org/shop-shared-ui';
-import './app.css';
+import { lazy, Suspense } from 'react';
+import { Navigate, Route, Routes } from 'react-router-dom';
 
 // Lazy load feature components
-const ProductList = lazy(() => import('@org/shop-feature-products').then(m => ({ default: m.ProductList })));
-const ProductDetail = lazy(() => import('@org/shop-feature-product-detail').then(m => ({ default: m.ProductDetail })));
+const ProductList = lazy(() =>
+  import('@org/shop-feature-products').then((m) => ({
+    default: m.ProductList,
+  }))
+);
+const ProductDetail = lazy(() =>
+  import('@org/shop-feature-product-detail').then((m) => ({
+    default: m.ProductDetail,
+  }))
+);
 
 export function App() {
   return (
-    <div className="app">
-      <header className="app-header">
-        <div className="header-content">
-          <h1 className="app-title">Nx Shop Demo</h1>
+    <div className="min-h-screen flex flex-col">
+      {/* <header className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-6 shadow-md">
+        <div className="max-w-7xl mx-auto px-6">
+          <h1 className="text-3xl font-bold">Glamour And Large</h1>
         </div>
-      </header>
+      </header> */}
 
-      <main className="app-main">
+      <main className="flex-1 bg-background">
         <Suspense fallback={<LoadingSpinner />}>
           <Routes>
             <Route path="/" element={<Navigate to="/products" replace />} />
