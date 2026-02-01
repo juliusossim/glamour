@@ -1,0 +1,21 @@
+fragment ProductFields on Product {
+  id
+  name
+  description
+  price
+  category
+  imageUrl
+  inStock
+  rating
+  reviewCount
+}
+
+fragment ProductBasicFields on Product {
+  id
+  name
+  description
+  price
+  category
+  imageUrl
+  inStock
+}

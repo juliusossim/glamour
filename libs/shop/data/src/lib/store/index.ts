@@ -14,7 +14,6 @@ export {
     addToCart, clearCart, closeCart, decrementQuantity, incrementQuantity, openCart, removeFromCart, selectCartIsOpen,
     selectCartItemCount, selectCartItems, selectCartTotal, toggleCart, updateQuantity
 } from './slices/cart.slice';
-export type { CartItem } from './slices/cart.slice';
 
 // RTK Query API
 export {

@@ -1,0 +1,23 @@
+#import "../fragments/product.graphql"
+
+query GetProducts($filter: ProductFilterInput, $pagination: PaginationInput) {
+  products(filter: $filter, pagination: $pagination) {
+    items {
+      ...ProductFields
+    }
+    total
+    page
+    pageSize
+    totalPages
+  }
+}
+
+query GetProduct($id: ID!) {
+  product(id: $id) {
+    ...ProductFields
+  }
+}
+
+query GetCategories {
+  categories
+}

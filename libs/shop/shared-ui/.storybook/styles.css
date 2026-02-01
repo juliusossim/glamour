@@ -1,0 +1,140 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+/* 
+ * GLAMOUR REAL ESTATE - Luxury Theme
+ * Colors convey: Wealth, Growth, Fulfillment, Luxury, Glamour
+ * 
+ * Primary: Deep Emerald Green - Growth, Wealth, Prosperity
+ * Secondary: Rich Gold/Champagne - Luxury, Opulence
+ * Accent: Burgundy Wine - Sophistication, Fulfillment
+ * Base: Ivory/Cream & Charcoal - Elegance, Premium feel
+ */
+
+/* shadcn/ui theme variables - Light Mode (Elegant Ivory) */
+@theme {
+  /* Warm ivory background - refined elegance */
+  --color-background: hsl(40 33% 97%);
+  /* Deep charcoal text - premium readability */
+  --color-foreground: hsl(160 30% 8%);
+
+  /* Cards: Soft cream with warmth */
+  --color-card: hsl(40 30% 98%);
+  --color-card-foreground: hsl(160 30% 8%);
+
+  /* Popovers: Pure elegance */
+  --color-popover: hsl(40 40% 99%);
+  --color-popover-foreground: hsl(160 30% 8%);
+
+  /* Primary: Deep Emerald - Wealth & Growth */
+  --color-primary: hsl(158 64% 22%);
+  --color-primary-foreground: hsl(40 40% 98%);
+
+  /* Secondary: Rich Gold/Champagne - Luxury */
+  --color-secondary: hsl(43 74% 49%);
+  --color-secondary-foreground: hsl(160 30% 8%);
+
+  /* Muted: Soft sage undertones */
+  --color-muted: hsl(45 20% 92%);
+  --color-muted-foreground: hsl(160 10% 40%);
+
+  /* Accent: Burgundy Wine - Sophistication */
+  --color-accent: hsl(345 58% 35%);
+  --color-accent-foreground: hsl(40 40% 98%);
+
+  /* Destructive: Deep ruby */
+  --color-destructive: hsl(0 72% 45%);
+  --color-destructive-foreground: hsl(40 40% 98%);
+
+  /* Borders: Subtle gold-tinted warmth */
+  --color-border: hsl(40 20% 88%);
+  --color-input: hsl(40 25% 92%);
+  --color-ring: hsl(158 64% 22%);
+
+  /* Refined border radii for luxury feel */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+
+  /* Custom luxury colors */
+  --color-gold: hsl(43 74% 49%);
+  --color-gold-light: hsl(43 70% 65%);
+  --color-gold-dark: hsl(43 80% 35%);
+  --color-emerald: hsl(158 64% 22%);
+  --color-emerald-light: hsl(158 50% 35%);
+  --color-emerald-dark: hsl(158 70% 15%);
+  --color-burgundy: hsl(345 58% 35%);
+  --color-burgundy-light: hsl(345 50% 50%);
+  --color-champagne: hsl(40 45% 90%);
+  --color-ivory: hsl(40 33% 97%);
+  --color-charcoal: hsl(160 30% 8%);
+}
+
+/* Dark mode theme - Opulent Night */
+@media (prefers-color-scheme: dark) {
+  @theme {
+    /* Deep charcoal with green undertone - sophisticated night */
+    --color-background: hsl(160 25% 6%);
+    /* Warm ivory text - elegant contrast */
+    --color-foreground: hsl(40 30% 92%);
+
+    /* Cards: Rich dark with subtle warmth */
+    --color-card: hsl(160 20% 9%);
+    --color-card-foreground: hsl(40 30% 92%);
+
+    /* Popovers: Deep luxury */
+    --color-popover: hsl(160 22% 8%);
+    --color-popover-foreground: hsl(40 30% 92%);
+
+    /* Primary: Luminous Gold - Wealth & Glamour */
+    --color-primary: hsl(43 74% 55%);
+    --color-primary-foreground: hsl(160 30% 6%);
+
+    /* Secondary: Soft Emerald - Growth */
+    --color-secondary: hsl(158 45% 40%);
+    --color-secondary-foreground: hsl(40 30% 95%);
+
+    /* Muted: Deep forest undertones */
+    --color-muted: hsl(160 15% 15%);
+    --color-muted-foreground: hsl(40 15% 60%);
+
+    /* Accent: Rose Gold - Glamour */
+    --color-accent: hsl(15 45% 55%);
+    --color-accent-foreground: hsl(160 25% 8%);
+
+    /* Destructive: Muted ruby */
+    --color-destructive: hsl(0 55% 40%);
+    --color-destructive-foreground: hsl(40 30% 95%);
+
+    /* Borders: Subtle gold shimmer */
+    --color-border: hsl(43 20% 18%);
+    --color-input: hsl(160 15% 15%);
+    --color-ring: hsl(43 74% 55%);
+
+    /* Dark mode luxury colors */
+    --color-gold: hsl(43 74% 55%);
+    --color-gold-light: hsl(43 65% 70%);
+    --color-gold-dark: hsl(43 80% 40%);
+    --color-emerald: hsl(158 45% 40%);
+    --color-emerald-light: hsl(158 40% 55%);
+    --color-emerald-dark: hsl(158 50% 25%);
+    --color-burgundy: hsl(345 45% 45%);
+    --color-burgundy-light: hsl(345 40% 60%);
+    --color-champagne: hsl(40 30% 25%);
+    --color-ivory: hsl(40 30% 92%);
+    --color-charcoal: hsl(160 25% 6%);
+  }
+}
+
+/* Base styles */
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}

@@ -1,0 +1,17 @@
+#import "../fragments/product.graphql"
+
+mutation CreateProduct($input: CreateProductInput!) {
+  createProduct(input: $input) {
+    ...ProductBasicFields
+  }
+}
+
+mutation UpdateProduct($id: ID!, $input: UpdateProductInput!) {
+  updateProduct(id: $id, input: $input) {
+    ...ProductBasicFields
+  }
+}
+
+mutation DeleteProduct($id: ID!) {
+  deleteProduct(id: $id)
+}

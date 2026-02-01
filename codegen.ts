@@ -2,28 +2,25 @@ import type { CodegenConfig } from '@graphql-codegen/cli';
 
 const config: CodegenConfig = {
   overwrite: true,
-  schema: 'http://localhost:3000/graphql',
-  documents: ['libs/shop/data/src/**/*.graphql', 'libs/shop/data/src/**/*.ts'],
+  schema: 'libs/shop/data/src/lib/graphql/schema.graphql',
+  documents: ['libs/shop/data/src/lib/graphql/**/*.graphql'],
   generates: {
-    'libs/shop/data/src/lib/graphql/generated/types.ts': {
-      plugins: ['typescript'],
-      config: {
-        scalars: {
-          DateTime: 'string',
-          JSON: 'Record<string, unknown>',
-        },
-      },
-    },
-    'libs/shop/data/src/lib/graphql/generated/operations.ts': {
-      preset: 'import-types',
-      presetConfig: {
-        typesPath: './types',
-      },
-      plugins: ['typescript-operations', 'typescript-react-apollo'],
+    'libs/shop/data/src/lib/graphql/generated/index.ts': {
+      plugins: [
+        'typescript',
+        'typescript-operations',
+        'typescript-react-apollo',
+      ],
       config: {
         withHooks: true,
         withHOC: false,
         withComponent: false,
+        scalars: {
+          DateTime: 'string',
+          JSON: 'Record<string, unknown>',
+        },
+        fragmentMasking: false,
+        dedupeFragments: true,
       },
     },
   },

@@ -1,0 +1,19 @@
+#import "../fragments/order.graphql"
+
+query GetOrders($pagination: PaginationInput) {
+  orders(pagination: $pagination) {
+    items {
+      ...OrderListFields
+    }
+    total
+    page
+    pageSize
+    totalPages
+  }
+}
+
+query GetOrder($id: ID!) {
+  order(id: $id) {
+    ...OrderDetailFields
+  }
+}

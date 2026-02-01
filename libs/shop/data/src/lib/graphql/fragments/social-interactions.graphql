@@ -1,0 +1,9 @@
+fragment SocialInteractionsFields on SocialInteractions {
+  productId
+  likes
+  shares
+  reglams
+  userLiked
+  userShared
+  userReglammed
+}

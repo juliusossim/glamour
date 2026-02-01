@@ -1,14 +1,15 @@
 // Legacy hooks (can be replaced with RTK Query hooks)
+export { useInteractions } from './lib/hooks/use-interactions';
 export { useProduct } from './lib/hooks/use-product';
 export { useCategories, useProducts } from './lib/hooks/use-products';
 
 // Redux Toolkit Store
 export {
-    StoreProvider, store, useAppDispatch,
+    store, StoreProvider, useAppDispatch,
     useAppSelector,
     useAppStore
 } from './lib/store';
-export type { AppDispatch, CartItem, RootState } from './lib/store';
+export type { AppDispatch, RootState } from './lib/store';
 
 // Products slice actions
 export {
@@ -28,11 +29,11 @@ export {
 } from './lib/store';
 
 // Apollo Client (GraphQL)
-export { ApolloProviderWrapper, apolloClient, gql } from './lib/graphql';
-export * from './lib/graphql/operations';
+export { apolloClient, ApolloProviderWrapper, gql } from './lib/graphql';
+export * from './lib/graphql/generated';
 
 // TanStack Query (HTTP/REST)
-export { QueryProvider, httpClient, queryClient } from './lib/http';
+export { httpClient, queryClient, QueryProvider } from './lib/http';
 
 // Auth hooks and types
 export {
@@ -47,24 +48,24 @@ export type {
 
 // Type-safe Router
 export {
-    ActionError, LoaderError, ROUTE_META,
-    // Route paths and types
-    ROUTE_PATHS, addToCartAction, authGuardLoader,
+    ActionError, addToCartAction, authGuardLoader,
     // Router utilities
     buildPath,
     buildUrl, composeLoaders,
     // Router factory
-    createRouter,
+    createRouter, LoaderError,
     // Actions
     loginAction,
     logoutAction, productDetailLoader,
     // Loaders
-    productsLoader, registerAction, useRouteNavigation, useTypedNavigate,
+    productsLoader, registerAction, ROUTE_META,
+    // Route paths and types
+    ROUTE_PATHS, useRouteNavigation, useTypedNavigate,
     useTypedParams,
     useTypedSearchParams
 } from './lib/router';
 
 export type {
-    ActionResponse, ParamsFor, ProductDetailLoaderData, ProductsLoaderData, RouteMeta, RouteParams, RoutePath, RouteSearchParams, RouterComponents, SearchParamsFor
+    ActionResponse, ParamsFor, ProductDetailLoaderData, ProductsLoaderData, RouteMeta, RouteParams, RoutePath, RouterComponents, RouteSearchParams, SearchParamsFor
 } from './lib/router';
 

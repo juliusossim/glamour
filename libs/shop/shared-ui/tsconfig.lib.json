@@ -50,6 +50,9 @@
     },
     {
       "path": "../../shared/models/tsconfig.lib.json"
+    },
+    {
+      "path": "../data/tsconfig.lib.json"
     }
   ]
 }

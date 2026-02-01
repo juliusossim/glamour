@@ -1,0 +1,135 @@
+# Schema definition for GraphQL Codegen
+# This is used for type generation when the API server is not running
+
+scalar DateTime
+scalar JSON
+
+type Query {
+  products(filter: ProductFilterInput, pagination: PaginationInput): ProductConnection!
+  product(id: ID!): Product
+  categories: [String!]!
+  orders(pagination: PaginationInput): OrderConnection!
+  order(id: ID!): Order
+  interactions(productId: ID!): SocialInteractions!
+}
+
+type Mutation {
+  createProduct(input: CreateProductInput!): Product!
+  updateProduct(id: ID!, input: UpdateProductInput!): Product
+  deleteProduct(id: ID!): Boolean!
+  createOrder(input: CreateOrderInput!): Order!
+  toggleLike(productId: ID!): SocialInteractions!
+  toggleShare(productId: ID!): SocialInteractions!
+  toggleReglam(productId: ID!): SocialInteractions!
+}
+
+type Product {
+  id: ID!
+  name: String!
+  description: String!
+  price: Float!
+  category: String!
+  imageUrl: String!
+  inStock: Boolean!
+  rating: Float!
+  reviewCount: Int!
+}
+
+type ProductConnection {
+  items: [Product!]!
+  total: Int!
+  page: Int!
+  pageSize: Int!
+  totalPages: Int!
+}
+
+type Order {
+  id: ID!
+  status: String!
+  total: Float!
+  createdAt: DateTime!
+  items: [OrderItem!]!
+  shippingAddress: ShippingAddress
+}
+
+type OrderItem {
+  productId: String!
+  quantity: Int!
+  price: Float!
+  product: Product
+}
+
+type ShippingAddress {
+  street: String!
+  city: String!
+  state: String!
+  zipCode: String!
+  country: String!
+}
+
+type OrderConnection {
+  items: [Order!]!
+  total: Int!
+  page: Int!
+  pageSize: Int!
+  totalPages: Int!
+}
+
+type SocialInteractions {
+  productId: ID!
+  likes: Int!
+  shares: Int!
+  reglams: Int!
+  userLiked: Boolean!
+  userShared: Boolean!
+  userReglammed: Boolean!
+}
+
+input ProductFilterInput {
+  category: String
+  minPrice: Float
+  maxPrice: Float
+  inStock: Boolean
+  searchTerm: String
+}
+
+input PaginationInput {
+  page: Int
+  pageSize: Int
+}
+
+input CreateProductInput {
+  name: String!
+  description: String!
+  price: Float!
+  category: String!
+  imageUrl: String!
+  inStock: Boolean!
+}
+
+input UpdateProductInput {
+  name: String
+  description: String
+  price: Float
+  category: String
+  imageUrl: String
+  inStock: Boolean
+}
+
+input CreateOrderInput {
+  items: [OrderItemInput!]!
+  shippingAddress: ShippingAddressInput!
+}
+
+input OrderItemInput {
+  productId: String!
+  quantity: Int!
+}
+
+input ShippingAddressInput {
+  street: String!
+  city: String!
+  state: String!
+  zipCode: String!
+  country: String!
+}

@@ -1,16 +1,5 @@
-import type { Product, ProductFilter } from '@org/models';
+import type { Product, ProductFilter, ProductsState } from '@org/models';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-interface ProductsState {
-  items: Product[];
-  selectedProduct: Product | null;
-  filters: ProductFilter;
-  loading: boolean;
-  error: string | null;
-  page: number;
-  totalPages: number;
-  total: number;
-}
 
 const initialState: ProductsState = {
   items: [],

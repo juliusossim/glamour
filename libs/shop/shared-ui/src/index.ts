@@ -1,14 +1,25 @@
-// Existing components
+// Shared components
+export { Amount } from './lib/amount/Amount';
+export { FashionCard } from './lib/card/FashionCard';
 export { ErrorMessage } from './lib/error-message/error-message';
 export { LoadingSpinner } from './lib/loading-spinner/loading-spinner';
 export { ProductCard } from './lib/product-card/product-card';
 export { ProductGrid } from './lib/product-grid/product-grid';
+export { SocialInteractions } from './lib/socialInteractions/SocialInteractions';
+export { StarRating } from './lib/stars/Star';
+export * from './lib/typography/Typography';
+export { BrandsCarousel } from './lib/carousel/BrandsCarousel';
+export { BrandBadge } from './lib/badge/BrandBadge';
+export { MoreInfoText } from './lib/typography/MoreInfoText';
+
 
 // shadcn/ui utilities
 export { cn } from './lib/utils';
 
 // Hooks
+export { useMedia } from './lib/hooks/use-media';
 export { useIsMobile } from './lib/hooks/use-mobile';
+export { useUserCurrency } from './lib/hooks/useCurrency';
 
 // shadcn/ui components
 export { Button, buttonVariants } from './lib/ui/button';
@@ -69,4 +80,12 @@ export {
     TooltipTrigger
 } from './lib/ui/tooltip';
 
+// Carousel components
+export {
+    Carousel,
+    CarouselContent,
+    CarouselItem,
+    CarouselNext,
+    CarouselPrevious
+} from './lib/ui/carousel';
 

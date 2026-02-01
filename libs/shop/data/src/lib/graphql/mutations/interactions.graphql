@@ -1,0 +1,19 @@
+#import "../fragments/social-interactions.graphql"
+
+mutation ToggleLike($productId: ID!) {
+  toggleLike(productId: $productId) {
+    ...SocialInteractionsFields
+  }
+}
+
+mutation ToggleShare($productId: ID!) {
+  toggleShare(productId: $productId) {
+    ...SocialInteractionsFields
+  }
+}
+
+mutation ToggleReglam($productId: ID!) {
+  toggleReglam(productId: $productId) {
+    ...SocialInteractionsFields
+  }
+}

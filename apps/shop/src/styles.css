@@ -1,57 +1,137 @@
 @import 'tailwindcss';
-@import "tw-animate-css";
+@import 'tw-animate-css';
+
+/* Scan library files for Tailwind classes */
+@source "../../../libs/shop/shared-ui/src/**/*.{js,ts,jsx,tsx}";
+@source "../../../libs/shop/feature-products/src/**/*.{js,ts,jsx,tsx}";
+@source "../../../libs/shop/feature-product-detail/src/**/*.{js,ts,jsx,tsx}";
+@source "../../../libs/shop/data/src/**/*.{js,ts,jsx,tsx}";
 
 @custom-variant dark (&:is(.dark *));
 
-/* shadcn/ui theme variables */
+/* 
+ * GLAMOUR REAL ESTATE - Luxury Theme
+ * Colors convey: Wealth, Growth, Fulfillment, Luxury, Glamour
+ * 
+ * Primary: Deep Emerald Green - Growth, Wealth, Prosperity
+ * Secondary: Rich Gold/Champagne - Luxury, Opulence
+ * Accent: Burgundy Wine - Sophistication, Fulfillment
+ * Base: Ivory/Cream & Charcoal - Elegance, Premium feel
+ */
+
+/* shadcn/ui theme variables - Light Mode (Elegant Ivory) */
 @theme {
-  --color-background: hsl(0 0% 100%);
-  --color-foreground: hsl(222.2 84% 4.9%);
-  --color-card: hsl(0 0% 100%);
-  --color-card-foreground: hsl(222.2 84% 4.9%);
-  --color-popover: hsl(0 0% 100%);
-  --color-popover-foreground: hsl(222.2 84% 4.9%);
-  --color-primary: hsl(222.2 47.4% 11.2%);
-  --color-primary-foreground: hsl(210 40% 98%);
-  --color-secondary: hsl(210 40% 96.1%);
-  --color-secondary-foreground: hsl(222.2 47.4% 11.2%);
-  --color-muted: hsl(210 40% 96.1%);
-  --color-muted-foreground: hsl(215.4 16.3% 46.9%);
-  --color-accent: hsl(210 40% 96.1%);
-  --color-accent-foreground: hsl(222.2 47.4% 11.2%);
-  --color-destructive: hsl(0 84.2% 60.2%);
-  --color-destructive-foreground: hsl(210 40% 98%);
-  --color-border: hsl(214.3 31.8% 91.4%);
-  --color-input: hsl(214.3 31.8% 91.4%);
-  --color-ring: hsl(222.2 84% 4.9%);
+  /* Warm ivory background - refined elegance */
+  --color-background: hsl(40 33% 97%);
+  /* Deep charcoal text - premium readability */
+  --color-foreground: hsl(160 30% 8%);
+
+  /* Cards: Soft cream with warmth */
+  --color-card: hsl(40 30% 98%);
+  --color-card-foreground: hsl(160 30% 8%);
+
+  /* Popovers: Pure elegance */
+  --color-popover: hsl(40 40% 99%);
+  --color-popover-foreground: hsl(160 30% 8%);
+
+  /* Primary: Deep Emerald - Wealth & Growth */
+  --color-primary: hsl(158 64% 22%);
+  --color-primary-foreground: hsl(40 40% 98%);
+
+  /* Secondary: Rich Gold/Champagne - Luxury */
+  --color-secondary: hsl(43 74% 49%);
+  --color-secondary-foreground: hsl(160 30% 8%);
+
+  /* Muted: Soft sage undertones */
+  --color-muted: hsl(45 20% 92%);
+  --color-muted-foreground: hsl(160 10% 40%);
+
+  /* Accent: Burgundy Wine - Sophistication */
+  --color-accent: hsl(345 58% 35%);
+  --color-accent-foreground: hsl(40 40% 98%);
+
+  /* Destructive: Deep ruby */
+  --color-destructive: hsl(0 72% 45%);
+  --color-destructive-foreground: hsl(40 40% 98%);
+
+  /* Borders: Subtle gold-tinted warmth */
+  --color-border: hsl(40 20% 88%);
+  --color-input: hsl(40 25% 92%);
+  --color-ring: hsl(158 64% 22%);
+
+  /* Refined border radii for luxury feel */
   --radius-sm: 0.25rem;
-  --radius-md: 0.375rem;
-  --radius-lg: 0.5rem;
-  --radius-xl: 0.75rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+
+  /* Custom luxury colors */
+  --color-gold: hsl(43 74% 49%);
+  --color-gold-light: hsl(43 70% 65%);
+  --color-gold-dark: hsl(43 80% 35%);
+  --color-emerald: hsl(158 64% 22%);
+  --color-emerald-light: hsl(158 50% 35%);
+  --color-emerald-dark: hsl(158 70% 15%);
+  --color-burgundy: hsl(345 58% 35%);
+  --color-burgundy-light: hsl(345 50% 50%);
+  --color-champagne: hsl(40 45% 90%);
+  --color-ivory: hsl(40 33% 97%);
+  --color-charcoal: hsl(160 30% 8%);
 }
 
-/* Dark mode theme */
+/* Dark mode theme - Opulent Night */
 @media (prefers-color-scheme: dark) {
   @theme {
-    --color-background: hsl(222.2 84% 4.9%);
-    --color-foreground: hsl(210 40% 98%);
-    --color-card: hsl(222.2 84% 4.9%);
-    --color-card-foreground: hsl(210 40% 98%);
-    --color-popover: hsl(222.2 84% 4.9%);
-    --color-popover-foreground: hsl(210 40% 98%);
-    --color-primary: hsl(210 40% 98%);
-    --color-primary-foreground: hsl(222.2 47.4% 11.2%);
-    --color-secondary: hsl(217.2 32.6% 17.5%);
-    --color-secondary-foreground: hsl(210 40% 98%);
-    --color-muted: hsl(217.2 32.6% 17.5%);
-    --color-muted-foreground: hsl(215 20.2% 65.1%);
-    --color-accent: hsl(217.2 32.6% 17.5%);
-    --color-accent-foreground: hsl(210 40% 98%);
-    --color-destructive: hsl(0 62.8% 30.6%);
-    --color-destructive-foreground: hsl(210 40% 98%);
-    --color-border: hsl(217.2 32.6% 17.5%);
-    --color-input: hsl(217.2 32.6% 17.5%);
-    --color-ring: hsl(212.7 26.8% 83.9%);
+    /* Deep charcoal with green undertone - sophisticated night */
+    --color-background: hsl(160 25% 6%);
+    /* Warm ivory text - elegant contrast */
+    --color-foreground: hsl(40 30% 92%);
+
+    /* Cards: Rich dark with subtle warmth */
+    --color-card: hsl(160 20% 9%);
+    --color-card-foreground: hsl(40 30% 92%);
+
+    /* Popovers: Deep luxury */
+    --color-popover: hsl(160 22% 8%);
+    --color-popover-foreground: hsl(40 30% 92%);
+
+    /* Primary: Luminous Gold - Wealth & Glamour */
+    --color-primary: hsl(43 74% 55%);
+    --color-primary-foreground: hsl(160 30% 6%);
+
+    /* Secondary: Soft Emerald - Growth */
+    --color-secondary: hsl(158 45% 40%);
+    --color-secondary-foreground: hsl(40 30% 95%);
+
+    /* Muted: Deep forest undertones */
+    --color-muted: hsl(160 15% 15%);
+    --color-muted-foreground: hsl(40 15% 60%);
+
+    /* Accent: Rose Gold - Glamour */
+    --color-accent: hsl(15 45% 55%);
+    --color-accent-foreground: hsl(160 25% 8%);
+
+    /* Destructive: Muted ruby */
+    --color-destructive: hsl(0 55% 40%);
+    --color-destructive-foreground: hsl(40 30% 95%);
+
+    /* Borders: Subtle gold shimmer */
+    --color-border: hsl(43 20% 18%);
+    --color-input: hsl(160 15% 15%);
+    --color-ring: hsl(43 74% 55%);
+
+    /* Dark mode luxury colors */
+    --color-gold: hsl(43 74% 55%);
+    --color-gold-light: hsl(43 65% 70%);
+    --color-gold-dark: hsl(43 80% 40%);
+    --color-emerald: hsl(158 45% 40%);
+    --color-emerald-light: hsl(158 40% 55%);
+    --color-emerald-dark: hsl(158 50% 25%);
+    --color-burgundy: hsl(345 45% 45%);
+    --color-burgundy-light: hsl(345 40% 60%);
+    --color-champagne: hsl(40 30% 25%);
+    --color-ivory: hsl(40 30% 92%);
+    --color-charcoal: hsl(160 25% 6%);
   }
 }
 
@@ -63,44 +143,47 @@
   border-color: var(--color-border);
 }
 
-html, body {
+html,
+body {
   height: 100%;
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Playfair Display', 'Cormorant Garamond', Georgia,
+    'Times New Roman', serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--color-background);
   color: var(--color-foreground);
+  letter-spacing: 0.01em;
 }
 
 #root {
   height: 100%;
 }
 
+/* Luxury sidebar theme - Light */
 :root {
-  --sidebar: hsl(0 0% 98%);
-  --sidebar-foreground: hsl(240 5.3% 26.1%);
-  --sidebar-primary: hsl(240 5.9% 10%);
-  --sidebar-primary-foreground: hsl(0 0% 98%);
-  --sidebar-accent: hsl(240 4.8% 95.9%);
-  --sidebar-accent-foreground: hsl(240 5.9% 10%);
-  --sidebar-border: hsl(220 13% 91%);
-  --sidebar-ring: hsl(217.2 91.2% 59.8%);
+  --sidebar: hsl(40 35% 96%);
+  --sidebar-foreground: hsl(160 30% 12%);
+  --sidebar-primary: hsl(158 64% 22%);
+  --sidebar-primary-foreground: hsl(40 40% 98%);
+  --sidebar-accent: hsl(43 74% 49%);
+  --sidebar-accent-foreground: hsl(160 30% 8%);
+  --sidebar-border: hsl(40 25% 85%);
+  --sidebar-ring: hsl(158 64% 22%);
 }
 
+/* Luxury sidebar theme - Dark */
 .dark {
-  --sidebar: hsl(240 5.9% 10%);
-  --sidebar-foreground: hsl(240 4.8% 95.9%);
-  --sidebar-primary: hsl(224.3 76.3% 48%);
-  --sidebar-primary-foreground: hsl(0 0% 100%);
-  --sidebar-accent: hsl(240 3.7% 15.9%);
-  --sidebar-accent-foreground: hsl(240 4.8% 95.9%);
-  --sidebar-border: hsl(240 3.7% 15.9%);
-  --sidebar-ring: hsl(217.2 91.2% 59.8%);
+  --sidebar: hsl(160 22% 8%);
+  --sidebar-foreground: hsl(40 30% 90%);
+  --sidebar-primary: hsl(43 74% 55%);
+  --sidebar-primary-foreground: hsl(160 25% 6%);
+  --sidebar-accent: hsl(158 45% 40%);
+  --sidebar-accent-foreground: hsl(40 30% 95%);
+  --sidebar-border: hsl(43 20% 15%);
+  --sidebar-ring: hsl(43 74% 55%);
 }
 
 @theme inline {
@@ -120,5 +203,76 @@ body {
   }
   body {
     @apply bg-background text-foreground;
+  }
+
+  /* Luxury typography enhancements */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  /* Elegant link styling */
+  a {
+    transition: color 0.2s ease-in-out;
+  }
+
+  /* Premium button transitions */
+  button {
+    transition: all 0.2s ease-in-out;
+  }
+}
+
+/* Utility classes for the luxury theme */
+@layer utilities {
+  /* Gold gradient for special elements */
+  .bg-gold-gradient {
+    background: linear-gradient(
+      135deg,
+      hsl(43 74% 55%) 0%,
+      hsl(43 80% 40%) 100%
+    );
+  }
+
+  /* Emerald gradient for primary actions */
+  .bg-emerald-gradient {
+    background: linear-gradient(
+      135deg,
+      hsl(158 50% 35%) 0%,
+      hsl(158 64% 22%) 100%
+    );
+  }
+
+  /* Luxury text gradient */
+  .text-gold-gradient {
+    background: linear-gradient(
+      135deg,
+      hsl(43 74% 55%) 0%,
+      hsl(43 80% 40%) 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Elegant shadow for cards */
+  .shadow-luxury {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05),
+      0 10px 20px -2px rgba(0, 0, 0, 0.04), 0 0 0 1px rgba(212, 175, 55, 0.05);
+  }
+
+  /* Gold border accent */
+  .border-gold-accent {
+    border-color: hsl(43 74% 49%);
+  }
+
+  /* Hover glow effect */
+  .hover-glow:hover {
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
   }
 }

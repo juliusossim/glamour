@@ -1,0 +1,7 @@
+#import "../fragments/order.graphql"
+
+mutation CreateOrder($input: CreateOrderInput!) {
+  createOrder(input: $input) {
+    ...OrderBasicFields
+  }
+}

@@ -1,0 +1,48 @@
+fragment OrderItemFields on OrderItem {
+  productId
+  quantity
+  price
+}
+
+fragment OrderItemWithProductFields on OrderItem {
+  productId
+  quantity
+  price
+  product {
+    id
+    name
+    imageUrl
+  }
+}
+
+fragment ShippingAddressFields on ShippingAddress {
+  street
+  city
+  state
+  zipCode
+  country
+}
+
+fragment OrderBasicFields on Order {
+  id
+  status
+  total
+  createdAt
+}
+
+fragment OrderListFields on Order {
+  ...OrderBasicFields
+  items {
+    ...OrderItemFields
+  }
+}
+
+fragment OrderDetailFields on Order {
+  ...OrderBasicFields
+  items {
+    ...OrderItemWithProductFields
+  }
+  shippingAddress {
+    ...ShippingAddressFields
+  }
+}

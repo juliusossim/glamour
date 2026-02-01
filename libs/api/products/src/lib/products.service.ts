@@ -9,7 +9,7 @@ export class ProductsService {
       description: 'Premium quality wireless headphones with active noise cancellation, 30-hour battery life, and superior sound quality.',
       price: 199.99,
       category: 'Electronics',
-      imageUrl: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500',
+      imageUrls: ['https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500', 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500', 'https://images.unsplash.com/photo-1516707570261-6f3b6f3f4b2d?w=500', 'https://images.unsplash.com/photo-1495107334309-fcf20504a5ab?w=500', 'https://images.unsplash.com/photo-1512499617640-c2f9992c3ba6?w=500'],
       inStock: true,
       rating: 4.5,
       reviewCount: 234,
@@ -20,7 +20,7 @@ export class ProductsService {
       description: 'Advanced fitness tracking, heart rate monitoring, GPS, and smartphone integration in a sleek design.',
       price: 349.99,
       category: 'Electronics',
-      imageUrl: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500',
+      imageUrls: ['https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500', 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500', 'https://images.unsplash.com/photo-1516707570261-6f3b6f3f4b2d?w=500', 'https://images.unsplash.com/photo-1495107334309-fcf20504a5ab?w=500', 'https://images.unsplash.com/photo-1512499617640-c2f9992c3ba6?w=500'],
       inStock: true,
       rating: 4.3,
       reviewCount: 189,
@@ -31,7 +31,7 @@ export class ProductsService {
       description: 'Comfortable and sustainable organic cotton t-shirt, perfect for everyday wear.',
       price: 29.99,
       category: 'Clothing',
-      imageUrl: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500',
+      imageUrls: ['https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500', 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=500', 'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=500', 'https://images.unsplash.com/photo-1495121605193-b116b5b09a6c?w=500', 'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=500'],
       inStock: false,
       rating: 4.7,
       reviewCount: 92,
@@ -42,7 +42,7 @@ export class ProductsService {
       description: 'Insulated water bottle that keeps drinks cold for 24 hours or hot for 12 hours.',
       price: 24.99,
       category: 'Home & Kitchen',
-      imageUrl: 'https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=500',
+      imageUrls: ['https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=500', 'https://images.unsplash.com/photo-1510626176961-4bfb1a3c5f3e?w=500', 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=500', 'https://images.unsplash.com/photo-1526403224542-6c5a6d3f0b5b?w=500', 'https://images.unsplash.com/photo-1517686469429-8bdb88a3f2c7?w=500'],
       inStock: true,
       rating: 4.6,
       reviewCount: 412,
@@ -53,7 +53,7 @@ export class ProductsService {
       description: 'Non-slip, eco-friendly yoga mat with extra cushioning for comfortable practice.',
       price: 45.99,
       category: 'Sports',
-      imageUrl: 'https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?w=500',
+      imageUrls: ['https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?w=500', 'https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?w=500', 'https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?w=500', 'https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?w=500', 'https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?w=500'],
       inStock: true,
       rating: 4.4,
       reviewCount: 156,
@@ -64,7 +64,7 @@ export class ProductsService {
       description: 'High-capacity power bank with fast charging and multiple USB ports.',
       price: 59.99,
       category: 'Electronics',
-      imageUrl: 'https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=500',
+      imageUrls: ['https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=500', 'https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=500', 'https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=500', 'https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=500', 'https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=500'],
       inStock: true,
       rating: 4.2,
       reviewCount: 298,
@@ -75,7 +75,7 @@ export class ProductsService {
       description: 'Professional running shoes with advanced cushioning and breathable mesh upper.',
       price: 129.99,
       category: 'Sports',
-      imageUrl: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500',
+      imageUrls: ['https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500', 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500', 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500', 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500', 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500'],
       inStock: true,
       rating: 4.8,
       reviewCount: 523,
@@ -86,7 +86,7 @@ export class ProductsService {
       description: 'Programmable coffee maker with thermal carafe and customizable brew strength.',
       price: 89.99,
       category: 'Home & Kitchen',
-      imageUrl: 'https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e6?w=500',
+      imageUrls: ['https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e6?w=500', 'https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e6?w=500', 'https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e6?w=500', 'https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e6?w=500', 'https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e6?w=500'],
       inStock: false,
       rating: 4.1,
       reviewCount: 167,
@@ -97,7 +97,7 @@ export class ProductsService {
       description: 'Durable and stylish backpack with laptop compartment and multiple pockets.',
       price: 79.99,
       category: 'Accessories',
-      imageUrl: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500',
+      imageUrls: ['https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500', 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500', 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500', 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500', 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500'],
       inStock: true,
       rating: 4.5,
       reviewCount: 201,
@@ -108,7 +108,7 @@ export class ProductsService {
       description: 'Ergonomic wireless keyboard and mouse combo with long battery life.',
       price: 69.99,
       category: 'Electronics',
-      imageUrl: 'https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=500',
+      imageUrls: ['https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=500', 'https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=500', 'https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=500', 'https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=500', 'https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=500'],
       inStock: true,
       rating: 4.3,
       reviewCount: 145,
@@ -119,7 +119,7 @@ export class ProductsService {
       description: 'UV protection polarized sunglasses with stylish frame design.',
       price: 149.99,
       category: 'Accessories',
-      imageUrl: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=500',
+      imageUrls: ['https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=500', 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=500', 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=500', 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=500', 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=500'],
       inStock: true,
       rating: 4.6,
       reviewCount: 89,
@@ -130,7 +130,7 @@ export class ProductsService {
       description: 'Adjustable LED desk lamp with touch controls and multiple brightness levels.',
       price: 39.99,
       category: 'Home & Kitchen',
-      imageUrl: 'https://images.unsplash.com/photo-1565306257569-4eb0e3c41b24?w=500',
+      imageUrls: ['https://images.unsplash.com/photo-1565306257569-4eb0e3c41b24?w=500', 'https://images.unsplash.com/photo-1565306257569-4eb0e3c41b24?w=500', 'https://images.unsplash.com/photo-1565306257569-4eb0e3c41b24?w=500', 'https://images.unsplash.com/photo-1565306257569-4eb0e3c41b24?w=500', 'https://images.unsplash.com/photo-1565306257569-4eb0e3c41b24?w=500'],
       inStock: true,
       rating: 4.4,
       reviewCount: 276,
@@ -148,13 +148,15 @@ export class ProductsService {
         );
       }
       if (filter.minPrice !== undefined) {
+        const minPrice = filter.minPrice;
         filteredProducts = filteredProducts.filter(
-          p => p.price >= filter.minPrice!
+          p => p.price >= minPrice
         );
       }
       if (filter.maxPrice !== undefined) {
+        const maxPrice = filter.maxPrice;
         filteredProducts = filteredProducts.filter(
-          p => p.price <= filter.maxPrice!
+          p => p.price <= maxPrice
         );
       }
       if (filter.inStock !== undefined) {

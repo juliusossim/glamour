@@ -119,9 +119,11 @@ npx nx e2e-ci shop-e2e
 
 ### 3. 📖 Storybook Component Library
 
-Interactive component documentation with Storybook:
+Interactive component documentation with Storybook: Shadcn components excluded in the config.
 
 ```bash
+# Generate stories using nx generators
+npx nx g @nx/react:stories --project=@org/shop-shared-ui
 # Run Storybook dev server
 npx nx storybook shop-shared-ui
 

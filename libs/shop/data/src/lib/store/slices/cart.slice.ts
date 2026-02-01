@@ -1,12 +1,8 @@
-import type { Product } from '@org/models';
+import type { CartItem, Product } from '@org/models';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export interface CartItem {
-  product: Product;
-  quantity: number;
-}
 
-interface CartState {
+export interface CartState {
   items: CartItem[];
   isOpen: boolean;
 }

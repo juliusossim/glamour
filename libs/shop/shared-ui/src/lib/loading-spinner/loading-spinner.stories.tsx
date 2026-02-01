@@ -11,11 +11,19 @@ export default meta;
 type Story = StoryObj<typeof LoadingSpinner>;
 
 export const Primary = {
-  args: {},
+  args: {
+    title: 'Please Wait...',
+    message: 'Fetching data',
+    imageUrl: 'https://graphicsfamily.com/wp-content/uploads/edd/2019/01/free-creative-logo-template.jpg',
+  },
 } satisfies Story;
 
 export const Heading = {
-  args: {},
+  args: {
+    title: 'LoadingSpinner',
+    message: 'LoadingSpinner',
+    imageUrl: 'https://graphicsfamily.com/wp-content/uploads/edd/2019/01/free-creative-logo-template.jpg',
+  },
   play: async ({ canvas }) => {
     await expect(canvas.getByText(/LoadingSpinner/gi)).toBeTruthy();
   },

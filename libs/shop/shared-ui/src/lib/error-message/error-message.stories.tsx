@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { ErrorMessage } from './error-message';
 import { expect } from 'storybook/test';
+import { ErrorMessage } from './error-message';
 
 const meta = {
   component: ErrorMessage,
@@ -15,15 +15,15 @@ type Story = StoryObj<typeof ErrorMessage>;
 
 export const Primary = {
   args: {
-    message: '',
+    message: 'Something went wrong. Please try again later.',
   },
 } satisfies Story;
 
 export const Heading = {
   args: {
-    message: '',
+    message: 'An error occurred while loading data.',
   },
   play: async ({ canvas }) => {
-    await expect(canvas.getByText(/ErrorMessage/gi)).toBeTruthy();
+    await expect(canvas.getByText(/error/gi)).toBeTruthy();
   },
 } satisfies Story;

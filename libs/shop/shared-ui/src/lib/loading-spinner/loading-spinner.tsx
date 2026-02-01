@@ -1,13 +1,25 @@
-export function LoadingSpinner() {
+import { LoadingSpinnerProps } from '@org/models';
+import { Item, ItemContent, ItemMedia, ItemTitle } from '../ui/item';
+import { Spinner } from '../ui/spinner';
+export function LoadingSpinner(props: Readonly<LoadingSpinnerProps>) {
   return (
-    <div className="flex flex-col items-center justify-center py-12 min-h-[200px]">
-      <div className="flex gap-2 justify-center">
-        <div className="w-4 h-4 bg-primary rounded-full animate-bounce [animation-delay:-0.32s]" />
-        <div className="w-4 h-4 bg-primary rounded-full animate-bounce [animation-delay:-0.16s]" />
-        <div className="w-4 h-4 bg-primary rounded-full animate-bounce" />
-      </div>
-      <p className="mt-4 text-muted-foreground">Loading...</p>
-    </div>
+      <Item 
+        variant="muted"
+        className="max-w-2xl max-h-dvw flex flex-col gap-4 [--radius:1rem]"
+      >
+        <ItemContent>
+          <ItemTitle className="line-clamp-1">{props.title}</ItemTitle>
+        </ItemContent>
+        <ItemMedia className=" max-w-2xs h-48 rounded-lg overflow-hidden">
+          <img src={props.imageUrl} alt="" />
+        </ItemMedia>
+        <ItemContent className="flex flex-row items-center justify-between gap-4">
+          <p className="text-sm">{props.message}</p>
+            <ItemMedia>
+          <Spinner />
+        </ItemMedia>
+        </ItemContent>
+      </Item>
   );
 }
 

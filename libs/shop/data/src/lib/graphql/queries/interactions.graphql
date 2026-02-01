@@ -1,0 +1,7 @@
+#import "../fragments/social-interactions.graphql"
+
+query GetInteractions($productId: ID!) {
+  interactions(productId: $productId) {
+    ...SocialInteractionsFields
+  }
+}
