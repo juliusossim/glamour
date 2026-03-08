@@ -12,14 +12,19 @@
     "./package.json": "./package.json"
   },
   "nx": {
+    "targets": {
+      "typecheck": {
+        "command": "tsc -b libs/shop/feature-products/tsconfig.lib.json --emitDeclarationOnly"
+      }
+    },
     "tags": [
       "scope:shop",
       "type:feature"
     ]
   },
   "devDependencies": {
-    "@org/models": "*",
-    "@org/shop-data": "*",
-    "@org/shop-shared-ui": "*"
+    "@org/models": "workspace:*",
+    "@org/shop-data": "workspace:*",
+    "@org/shared-ui": "workspace:*"
   }
 }

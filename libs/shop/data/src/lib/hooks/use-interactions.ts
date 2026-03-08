@@ -1,9 +1,18 @@
+import { useMutation, useQuery } from '@apollo/client/react';
 import {
-    useGetInteractionsQuery,
-    useToggleLikeMutation,
-    useToggleReglamMutation,
-    useToggleShareMutation,
-    type SocialInteractionsFieldsFragment,
+  GetInteractionsDocument,
+  ToggleLikeDocument,
+  ToggleReglamDocument,
+  ToggleShareDocument,
+  type GetInteractionsQuery,
+  type GetInteractionsQueryVariables,
+  type ToggleLikeMutation,
+  type ToggleLikeMutationVariables,
+  type ToggleReglamMutation,
+  type ToggleReglamMutationVariables,
+  type ToggleShareMutation,
+  type ToggleShareMutationVariables,
+  type SocialInteractionsFieldsFragment,
 } from '../graphql';
 
 /**
@@ -14,7 +23,10 @@ import {
  * without manual `cache.writeQuery` calls.
  */
 export function useInteractions(productId: string) {
-  const { data, loading, error, refetch } = useGetInteractionsQuery({
+  const { data, loading, error, refetch } = useQuery<
+    GetInteractionsQuery,
+    GetInteractionsQueryVariables
+  >(GetInteractionsDocument, {
     variables: { productId },
     skip: !productId,
   });
@@ -23,7 +35,6 @@ export function useInteractions(productId: string) {
 
   // Base interaction state for optimistic responses
   const getBaseState = (): SocialInteractionsFieldsFragment => ({
-    __typename: 'SocialInteractions',
     productId,
     likes: interactions?.likes ?? 0,
     shares: interactions?.shares ?? 0,
@@ -33,11 +44,16 @@ export function useInteractions(productId: string) {
     userReglammed: interactions?.userReglammed ?? false,
   });
 
-  const [toggleLikeMutation, { loading: likeLoading }] = useToggleLikeMutation({
-    optimisticResponse: () => {
+  const [toggleLikeMutation, { loading: likeLoading }] = useMutation<
+    ToggleLikeMutation,
+    ToggleLikeMutationVariables
+  >(ToggleLikeDocument, {
+    optimisticResponse: (): ToggleLikeMutation => {
       const base = getBaseState();
       return {
+        __typename: 'Mutation',
         toggleLike: {
+          __typename: 'SocialInteractions',
           ...base,
           userLiked: !base.userLiked,
           likes: base.likes + (base.userLiked ? -1 : 1),
@@ -46,40 +62,47 @@ export function useInteractions(productId: string) {
     },
   });
 
-  const [toggleShareMutation, { loading: shareLoading }] =
-    useToggleShareMutation({
-      optimisticResponse: () => {
-        const base = getBaseState();
-        return {
-          toggleShare: {
-            ...base,
-            userShared: !base.userShared,
-            shares: base.shares + (base.userShared ? -1 : 1),
-          },
-        };
-      },
-    });
+  const [toggleShareMutation, { loading: shareLoading }] = useMutation<
+    ToggleShareMutation,
+    ToggleShareMutationVariables
+  >(ToggleShareDocument, {
+    optimisticResponse: (): ToggleShareMutation => {
+      const base = getBaseState();
+      return {
+        __typename: 'Mutation',
+        toggleShare: {
+          __typename: 'SocialInteractions',
+          ...base,
+          userShared: !base.userShared,
+          shares: base.shares + (base.userShared ? -1 : 1),
+        },
+      };
+    },
+  });
 
-  const [toggleReglamMutation, { loading: reglamLoading }] =
-    useToggleReglamMutation({
-      optimisticResponse: () => {
-        const base = getBaseState();
-        return {
-          toggleReglam: {
-            ...base,
-            userReglammed: !base.userReglammed,
-            reglams: base.reglams + (base.userReglammed ? -1 : 1),
-          },
-        };
-      },
-    });
+  const [toggleReglamMutation, { loading: reglamLoading }] = useMutation<
+    ToggleReglamMutation,
+    ToggleReglamMutationVariables
+  >(ToggleReglamDocument, {
+    optimisticResponse: (): ToggleReglamMutation => {
+      const base = getBaseState();
+      return {
+        __typename: 'Mutation',
+        toggleReglam: {
+          __typename: 'SocialInteractions',
+          ...base,
+          userReglammed: !base.userReglammed,
+          reglams: base.reglams + (base.userReglammed ? -1 : 1),
+        },
+      };
+    },
+  });
 
   const toggleLike = () => toggleLikeMutation({ variables: { productId } });
   const toggleShare = () => toggleShareMutation({ variables: { productId } });
   const toggleReglam = () => toggleReglamMutation({ variables: { productId } });
 
   const defaultInteractions: SocialInteractionsFieldsFragment = {
-    __typename: 'SocialInteractions',
     productId,
     likes: 0,
     shares: 0,

@@ -57,9 +57,10 @@ export type ParamsFor<T extends RoutePath> = T extends keyof RouteParams
   : Record<string, never>;
 
 // Type helper to get search params for a specific route
-export type SearchParamsFor<T extends RoutePath> = T extends keyof RouteSearchParams
-  ? RouteSearchParams[T]
-  : Record<string, never>;
+export type SearchParamsFor<T extends RoutePath> =
+  T extends keyof RouteSearchParams
+    ? RouteSearchParams[T]
+    : Record<string, never>;
 
 // Route meta information
 export interface RouteMeta {

@@ -2,17 +2,17 @@
 @import 'tw-animate-css';
 
 /* Scan library files for Tailwind classes */
-@source "../../../libs/shop/shared-ui/src/**/*.{js,ts,jsx,tsx}";
+@source "../../../libs/shared/components/src/**/*.{js,ts,jsx,tsx}";
 @source "../../../libs/shop/feature-products/src/**/*.{js,ts,jsx,tsx}";
 @source "../../../libs/shop/feature-product-detail/src/**/*.{js,ts,jsx,tsx}";
 @source "../../../libs/shop/data/src/**/*.{js,ts,jsx,tsx}";
 
 @custom-variant dark (&:is(.dark *));
 
-/* 
+/*
  * GLAMOUR REAL ESTATE - Luxury Theme
  * Colors convey: Wealth, Growth, Fulfillment, Luxury, Glamour
- * 
+ *
  * Primary: Deep Emerald Green - Growth, Wealth, Prosperity
  * Secondary: Rich Gold/Champagne - Luxury, Opulence
  * Accent: Burgundy Wine - Sophistication, Fulfillment
@@ -133,19 +133,6 @@
     --color-ivory: hsl(40 30% 92%);
     --color-charcoal: hsl(160 25% 6%);
   }
-}
-
-/* Base styles */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  border-color: var(--color-border);
-}
-
-html,
-body {
-  height: 100%;
 }
 
 body {

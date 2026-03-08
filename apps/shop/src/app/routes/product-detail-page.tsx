@@ -6,8 +6,8 @@
  */
 
 import {
-    useRouteNavigation,
-    type ProductDetailLoaderData,
+  useRouteNavigation,
+  type ProductDetailLoaderData,
 } from '@org/shop-data';
 import { useFetcher, useLoaderData } from 'react-router-dom';
 
@@ -23,7 +23,10 @@ export function ProductDetailPage() {
   };
 
   const handleAddToCart = () => {
-    fetcher.submit({ productId: product.id, quantity: '1' }, { method: 'post' });
+    fetcher.submit(
+      { productId: product.id, quantity: '1' },
+      { method: 'post' }
+    );
   };
 
   const getStars = () => {
@@ -55,7 +58,7 @@ export function ProductDetailPage() {
         {/* Product Image */}
         <div className="relative overflow-hidden rounded-xl">
           <img
-            src={product.imageUrl}
+            src={product.imageUrls[0]}
             alt={product.name}
             className="block h-auto w-full"
           />
@@ -97,11 +100,13 @@ export function ProductDetailPage() {
 
           {/* Price */}
           <div className="text-2xl font-bold text-indigo-500 md:text-3xl">
-            ${product.price.toFixed(2)}
+            ${product.price.best}
           </div>
 
           {/* Description */}
-          <p className="leading-relaxed text-slate-600">{product.description}</p>
+          <p className="leading-relaxed text-slate-600">
+            {product.description}
+          </p>
 
           {/* Meta Info */}
           <div className="flex flex-col gap-2 rounded-lg bg-slate-50 p-4">

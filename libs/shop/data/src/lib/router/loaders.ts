@@ -5,7 +5,12 @@
  * These run before components render and provide type-safe data loading.
  */
 
-import { ApiResponse, PaginatedResponse, Product, ProductFilter } from '@org/models';
+import {
+  ApiResponse,
+  DisplayProduct,
+  PaginatedResponse,
+  ProductFilter,
+} from '@org/models';
 import type { LoaderFunctionArgs } from 'react-router-dom';
 import { tokenStorage } from '../http/auth/token-storage';
 
@@ -13,7 +18,7 @@ const API_URL = 'http://localhost:3333/api';
 
 // Loader response types
 export interface ProductsLoaderData {
-  products: Product[];
+  products: DisplayProduct[];
   totalProducts: number;
   totalPages: number;
   currentPage: number;
@@ -21,7 +26,7 @@ export interface ProductsLoaderData {
 }
 
 export interface ProductDetailLoaderData {
-  product: Product;
+  product: DisplayProduct;
 }
 
 // Error types for loaders
@@ -90,17 +95,17 @@ export async function productsLoader({
     );
   }
 
-  const data = (await response.json()) as ApiResponse<PaginatedResponse<Product>>;
+  const data = (await response.json()) as PaginatedResponse<DisplayProduct>;
 
   if (!data.success) {
     throw new LoaderError(data.error || 'Failed to load products', 400);
   }
 
   return {
-    products: data.data.items,
-    totalProducts: data.data.total,
-    totalPages: data.data.totalPages,
-    currentPage: page,
+    products: data.data,
+    totalProducts: data.total,
+    totalPages: data.totalPages,
+    currentPage: data.page,
     filter,
   };
 }
@@ -134,7 +139,7 @@ export async function productDetailLoader({
     );
   }
 
-  const data = (await response.json()) as ApiResponse<Product>;
+  const data = (await response.json()) as ApiResponse<DisplayProduct>;
 
   if (!data.success) {
     throw new LoaderError(data.error || 'Failed to load product', 400);

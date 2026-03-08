@@ -2,22 +2,26 @@
  * Router Configuration
  *
  * Creates the data router with all routes, loaders, and actions.
- * 
+ *
  * Note: This provides the route configuration factory. The actual route
  * components are provided by the consuming app to avoid circular dependencies.
  */
 
-import { createBrowserRouter, redirect, type RouteObject } from 'react-router-dom';
 import {
-    addToCartAction,
-    loginAction,
-    logoutAction,
-    registerAction,
+  createBrowserRouter,
+  redirect,
+  type RouteObject,
+} from 'react-router-dom';
+import {
+  addToCartAction,
+  loginAction,
+  logoutAction,
+  registerAction,
 } from './actions';
 import {
-    authGuardLoader,
-    productDetailLoader,
-    productsLoader,
+  authGuardLoader,
+  productDetailLoader,
+  productsLoader,
 } from './loaders';
 import { ROUTE_PATHS } from './routes';
 
@@ -36,7 +40,9 @@ export interface RouterComponents {
 /**
  * Create the data router with provided components
  */
-export function createRouter(components: RouterComponents) {
+export function createRouter(
+  components: RouterComponents
+): ReturnType<typeof createBrowserRouter> {
   const {
     RootLayout,
     ProductsPage,
@@ -137,4 +143,3 @@ export function createRouter(components: RouterComponents) {
 
 // Export types for loaders
 export type { ProductDetailLoaderData, ProductsLoaderData } from './loaders';
-

@@ -5,7 +5,7 @@
  * Uses Tailwind CSS for styling.
  */
 
-import { LoadingSpinner } from '@org/shop-shared-ui';
+import { LoadingSpinner } from '@org/shared-ui';
 import { Suspense } from 'react';
 import { Outlet, ScrollRestoration, useNavigation } from 'react-router-dom';
 
@@ -36,7 +36,7 @@ export function RootLayout() {
             <LoadingSpinner />
           </div>
         )}
-        
+
         {/* Content Container */}
         <div className="w-full max-w-7xl px-5 py-6 sm:px-6 sm:py-8 md:px-10 md:py-10 lg:px-14 flex flex-col items-center sm:items-start">
           <Suspense fallback={<LoadingSpinner />}>

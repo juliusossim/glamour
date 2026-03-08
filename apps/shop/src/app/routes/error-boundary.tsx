@@ -5,6 +5,7 @@
  * Uses Tailwind CSS for styling.
  */
 
+import { useConfig } from '@org/shared-config';
 import {
   isRouteErrorResponse,
   useNavigate,
@@ -80,7 +81,7 @@ export function RouteErrorBoundary() {
           </button>
         </div>
 
-        {process.env.NODE_ENV === 'development' && error instanceof Error && (
+        {useConfig().env === 'development' && error instanceof Error && (
           <details className="mt-8 rounded-lg bg-slate-50 p-4 text-left">
             <summary className="cursor-pointer font-medium text-slate-600">
               Error Details

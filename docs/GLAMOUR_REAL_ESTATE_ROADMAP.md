@@ -1,6 +1,7 @@
 # Glamour Real Estate Platform - Implementation Roadmap
 
-> **Vision**: A disruptive real estate platform combining social commerce, commission-sharing referrals (Reglams), and AI-powered property discovery.
+> **Vision**: A disruptive real estate platform combining social commerce, commission-sharing
+> referrals (Reglams), and AI-powered property discovery.
 
 ---
 
@@ -22,7 +23,9 @@
 
 ## Executive Summary
 
-Glamour transforms real estate transactions by introducing **social commerce mechanics** to property sales. The platform enables property listings with a revolutionary **Reglam** system—a referral chain where commissions are distributed to all participants who contributed to a sale.
+Glamour transforms real estate transactions by introducing **social commerce mechanics** to property
+sales. The platform enables property listings with a revolutionary **Reglam** system—a referral
+chain where commissions are distributed to all participants who contributed to a sale.
 
 ### Key Differentiators
 
@@ -56,7 +59,15 @@ type PropertyType =
 
 type ListingType = 'sale' | 'rent' | 'lease' | 'auction' | 'joint-venture';
 
-type ListingStatus = 'draft' | 'pending-verification' | 'active' | 'under-offer' | 'sold' | 'rented' | 'expired' | 'withdrawn';
+type ListingStatus =
+  | 'draft'
+  | 'pending-verification'
+  | 'active'
+  | 'under-offer'
+  | 'sold'
+  | 'rented'
+  | 'expired'
+  | 'withdrawn';
 ```
 
 ### Reglam System
@@ -543,7 +554,11 @@ interface CommissionConfig {
   minimumPayout: number; // e.g., $10
 }
 
-function calculateCommissionDistribution(salePrice: number, chain: ReglamNode[], config: CommissionConfig): CommissionPayout[] {
+function calculateCommissionDistribution(
+  salePrice: number,
+  chain: ReglamNode[],
+  config: CommissionConfig
+): CommissionPayout[] {
   const totalCommission = salePrice * (config.baseCommission / 100);
   const platformCut = totalCommission * (config.platformFee / 100);
   const distributableCommission = totalCommission - platformCut;

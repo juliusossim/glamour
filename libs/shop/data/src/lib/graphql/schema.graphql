@@ -5,7 +5,10 @@ scalar DateTime
 scalar JSON
 
 type Query {
-  products(filter: ProductFilterInput, pagination: PaginationInput): ProductConnection!
+  products(
+    filter: ProductFilterInput
+    pagination: PaginationInput
+  ): ProductConnection!
   product(id: ID!): Product
   categories: [String!]!
   orders(pagination: PaginationInput): OrderConnection!
@@ -29,7 +32,7 @@ type Product {
   description: String!
   price: Float!
   category: String!
-  imageUrl: String!
+  imageUrls: [String!]!
   inStock: Boolean!
   rating: Float!
   reviewCount: Int!
@@ -103,7 +106,7 @@ input CreateProductInput {
   description: String!
   price: Float!
   category: String!
-  imageUrl: String!
+  imageUrls: [String!]!
   inStock: Boolean!
 }
 
@@ -112,7 +115,7 @@ input UpdateProductInput {
   description: String
   price: Float
   category: String
-  imageUrl: String
+  imageUrls: [String!]
   inStock: Boolean
 }
 

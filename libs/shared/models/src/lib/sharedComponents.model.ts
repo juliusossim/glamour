@@ -1,4 +1,9 @@
-import { ElementType, HTMLAttributes, PropsWithChildren, ReactNode } from 'react';
+import {
+  ElementType,
+  HTMLAttributes,
+  PropsWithChildren,
+  ReactNode,
+} from 'react';
 export interface LoadingSpinnerProps {
   message?: string;
   title?: string;
@@ -33,7 +38,6 @@ export interface SocialInteractionsProps {
   productId: string;
   initialData?: SocialInteractions;
 }
-
 
 export interface MediaRendererProps {
   /** Media source with URL and optional MIME type */
@@ -181,8 +185,7 @@ export interface TruncatedTextProps extends TypographyProps {
   readonly tooltipSide?: 'top' | 'right' | 'bottom' | 'left';
 }
 
-
-export interface Brand  {
+export interface Brand {
   /** Unique identifier for the brand */
   id: string;
   /** Brand display name */

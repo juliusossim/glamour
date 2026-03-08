@@ -1,5 +1,5 @@
 import { ProductsService } from './products.service';
-// eslint-disable-next-line
+
 import { ProductFilter } from '@org/models';
 
 describe('ProductsService', () => {
@@ -12,7 +12,7 @@ describe('ProductsService', () => {
   describe('getProducts', () => {
     it('should return all products when no filter is applied', () => {
       const result = service.getProducts();
-      expect(result.items).toHaveLength(10); // First page shows 10 items
+      expect(result.data).toHaveLength(10); // First page shows 10 items
       expect(result.total).toBe(12); // Total of 12 products
       expect(result.page).toBe(1);
       expect(result.pageSize).toBe(10);
@@ -23,7 +23,7 @@ describe('ProductsService', () => {
       const filter: ProductFilter = { category: 'Electronics' };
       const result = service.getProducts(filter);
 
-      result.items.forEach(product => {
+      result.data.forEach((product) => {
         expect(product.category).toBe('Electronics');
       });
     });
@@ -32,8 +32,8 @@ describe('ProductsService', () => {
       const filter: ProductFilter = { searchTerm: 'Wireless' };
       const result = service.getProducts(filter);
 
-      expect(result.items.length).toBeGreaterThan(0);
-      result.items.forEach(product => {
+      expect(result.data.length).toBeGreaterThan(0);
+      result.data.forEach((product) => {
         const matchesSearch =
           product.name.toLowerCase().includes('wireless') ||
           product.description.toLowerCase().includes('wireless');
@@ -45,7 +45,7 @@ describe('ProductsService', () => {
       const filter: ProductFilter = { inStock: true };
       const result = service.getProducts(filter);
 
-      result.items.forEach(product => {
+      result.data.forEach((product) => {
         expect(product.inStock).toBe(true);
       });
     });
@@ -54,9 +54,9 @@ describe('ProductsService', () => {
       const filter: ProductFilter = { minPrice: 50, maxPrice: 100 };
       const result = service.getProducts(filter);
 
-      result.items.forEach(product => {
-        expect(product.price).toBeGreaterThanOrEqual(50);
-        expect(product.price).toBeLessThanOrEqual(100);
+      result.data.forEach((product) => {
+        expect(product.price.best).toBeGreaterThanOrEqual(50);
+        expect(product.price.best).toBeLessThanOrEqual(100);
       });
     });
 
@@ -64,9 +64,9 @@ describe('ProductsService', () => {
       const page1 = service.getProducts(undefined, 1, 5);
       const page2 = service.getProducts(undefined, 2, 5);
 
-      expect(page1.items).toHaveLength(5);
-      expect(page2.items).toHaveLength(5);
-      expect(page1.items[0].id).not.toBe(page2.items[0].id);
+      expect(page1.data).toHaveLength(5);
+      expect(page2.data).toHaveLength(5);
+      expect(page1.data[0].id).not.toBe(page2.data[0].id);
       expect(page1.totalPages).toBe(3);
     });
 
@@ -78,10 +78,10 @@ describe('ProductsService', () => {
       };
       const result = service.getProducts(filter);
 
-      result.items.forEach(product => {
+      result.data.forEach((product) => {
         expect(product.category).toBe('Electronics');
         expect(product.inStock).toBe(true);
-        expect(product.price).toBeLessThanOrEqual(200);
+        expect(product.price.best).toBeLessThanOrEqual(200);
       });
     });
   });
@@ -90,20 +90,24 @@ describe('ProductsService', () => {
     it('should return product when valid id is provided', () => {
       const product = service.getProductById('1');
       expect(product).toBeDefined();
-      expect(product?.id).toBe('1');
-      expect(product?.name).toBe('Wireless Bluetooth Headphones');
+      expect(product.success).toBe(true);
+      expect(product.data?.id).toBe('1');
+      expect(product.data?.name).toBe('Wireless Bluetooth Headphones');
     });
 
-    it('should return undefined when invalid id is provided', () => {
+    it('should return not-found response when invalid id is provided', () => {
       const product = service.getProductById('invalid-id');
-      expect(product).toBeUndefined();
+      expect(product.success).toBe(false);
+      expect(product.data).toBeNull();
     });
   });
 
   describe('getCategories', () => {
     it('should return unique categories in alphabetical order', () => {
-      const categories = service.getCategories();
+      const response = service.getCategories();
+      const categories = response.data;
 
+      expect(response.success).toBe(true);
       expect(categories).toContain('Electronics');
       expect(categories).toContain('Sports');
       expect(categories).toContain('Clothing');
@@ -116,7 +120,7 @@ describe('ProductsService', () => {
     });
 
     it('should not have duplicate categories', () => {
-      const categories = service.getCategories();
+      const categories = service.getCategories().data;
       const uniqueCategories = [...new Set(categories)];
       expect(categories).toEqual(uniqueCategories);
     });

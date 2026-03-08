@@ -6,18 +6,18 @@
 
 import { useCallback, useMemo } from 'react';
 import {
-    NavigateOptions,
-    generatePath,
-    useNavigate as useRRNavigate,
-    useParams as useRRParams,
-    useSearchParams as useRRSearchParams,
+  NavigateOptions,
+  generatePath,
+  useNavigate as useRRNavigate,
+  useParams as useRRParams,
+  useSearchParams as useRRSearchParams,
 } from 'react-router-dom';
 import {
-    ParamsFor,
-    ROUTE_PATHS,
-    RoutePath,
-    RouteSearchParams,
-    SearchParamsFor,
+  ParamsFor,
+  ROUTE_PATHS,
+  RoutePath,
+  RouteSearchParams,
+  SearchParamsFor,
 } from './routes';
 
 /**
@@ -99,9 +99,7 @@ export function useTypedNavigate() {
 /**
  * Type-safe params hook for a specific route
  */
-export function useTypedParams<T extends RoutePath>(
-  _path: T
-): ParamsFor<T> {
+export function useTypedParams<T extends RoutePath>(_path: T): ParamsFor<T> {
   const params = useRRParams();
   return params as ParamsFor<T>;
 }
@@ -175,8 +173,9 @@ export function useRouteNavigation() {
   return useMemo(
     () => ({
       toHome: () => navigate(ROUTE_PATHS.HOME),
-      toProducts: (searchParams?: SearchParamsFor<typeof ROUTE_PATHS.PRODUCTS>) =>
-        navigate(ROUTE_PATHS.PRODUCTS, { searchParams }),
+      toProducts: (
+        searchParams?: SearchParamsFor<typeof ROUTE_PATHS.PRODUCTS>
+      ) => navigate(ROUTE_PATHS.PRODUCTS, { searchParams }),
       toProductDetail: (id: string) =>
         navigate(ROUTE_PATHS.PRODUCT_DETAIL, { params: { id } }),
       toCart: () => navigate(ROUTE_PATHS.CART),
@@ -197,5 +196,9 @@ export function useRouteNavigation() {
 }
 
 // Re-export route paths for convenience
-export { ROUTE_PATHS, type ParamsFor, type RoutePath, type SearchParamsFor } from './routes';
-
+export {
+  ROUTE_PATHS,
+  type ParamsFor,
+  type RoutePath,
+  type SearchParamsFor,
+} from './routes';

@@ -1,9 +1,9 @@
 /**
  * Token Storage Utility
- * 
+ *
  * Uses sessionStorage by default (cleared when browser closes).
  * Can switch to localStorage for "Remember Me" functionality.
- * 
+ *
  * Security Benefits of sessionStorage:
  * - Tokens are automatically cleared when the browser/tab closes
  * - Reduces risk of XSS token theft persisting across sessions
@@ -23,7 +23,7 @@ const isBrowser = globalThis.window !== undefined;
  */
 function getStorage(): Storage | null {
   if (!isBrowser) return null;
-  
+
   // Check if user opted for persistent storage
   const rememberMe = localStorage.getItem(TOKEN_KEYS.rememberMe) === 'true';
   return rememberMe ? localStorage : sessionStorage;
@@ -38,7 +38,7 @@ export const tokenStorage = {
    */
   getAccessToken(): string | null {
     if (!isBrowser) return null;
-    
+
     // Check both storages (sessionStorage first, then localStorage for persistence)
     return (
       sessionStorage.getItem(TOKEN_KEYS.accessToken) ||
@@ -51,7 +51,7 @@ export const tokenStorage = {
    */
   getRefreshToken(): string | null {
     if (!isBrowser) return null;
-    
+
     return (
       sessionStorage.getItem(TOKEN_KEYS.refreshToken) ||
       localStorage.getItem(TOKEN_KEYS.refreshToken)
@@ -93,7 +93,7 @@ export const tokenStorage = {
    */
   updateAccessToken(accessToken: string): void {
     if (!isBrowser) return;
-    
+
     const storage = getStorage();
     if (storage) {
       storage.setItem(TOKEN_KEYS.accessToken, accessToken);

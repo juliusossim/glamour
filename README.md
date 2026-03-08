@@ -2,7 +2,31 @@
 
 <a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
 
-✨ A modern fashion e-commerce platform built with React, Redux Toolkit, Apollo GraphQL, and Nx monorepo ✨
+✨ A modern fashion e-commerce platform built with React, Redux Toolkit, Apollo GraphQL, and Nx
+monorepo ✨
+
+## 🎯 Recent Updates
+
+### ✨ React Hook Form Integration (Latest)
+
+We've implemented a comprehensive form management system using React Hook Form with Zod validation:
+
+- **Type-safe forms** with full TypeScript support
+- **Reusable form components** (FormInput, FormTextarea, FormSelect, FormCheckbox)
+- **Pre-built validation schemas** for common use cases
+- **Advanced hooks** for async submission, auto-save, multi-step forms
+- **Comprehensive documentation** and working examples
+
+**Quick Start**: See [`docs/QUICK_START_FORMS.md`](docs/QUICK_START_FORMS.md) **Complete Guide**:
+See [`docs/REACT_HOOK_FORM_GUIDE.md`](docs/REACT_HOOK_FORM_GUIDE.md)
+
+## 📚 Documentation
+
+- [Quick Start - Forms](docs/QUICK_START_FORMS.md) - Get started with React Hook Form in 5 minutes
+- [React Hook Form Guide](docs/REACT_HOOK_FORM_GUIDE.md) - Comprehensive form implementation guide
+- [React Hook Form Summary](docs/REACT_HOOK_FORM_SUMMARY.md) - Implementation summary
+- [Type-Safe Router](docs/TYPE_SAFE_ROUTER.md) - Type-safe routing implementation
+- [Glamour Roadmap](docs/GLAMOUR_REAL_ESTATE_ROADMAP.md) - Project roadmap
 
 ## 📦 Project Overview
 
@@ -23,7 +47,7 @@ A production-ready React e-commerce monorepo featuring:
 | `@org/shop-feature-products`       | Product listing feature with filtering and pagination                     |
 | `@org/shop-feature-product-detail` | Product detail page with add-to-cart functionality                        |
 | `@org/shop-data`                   | Data access layer (Redux Toolkit, RTK Query, Apollo Client, React Router) |
-| `@org/shop-shared-ui`              | Shared UI components (shadcn/ui, Tailwind CSS) with Storybook             |
+| `@org/shared-ui`                   | Shared UI components (shadcn/ui, Tailwind CSS) with Storybook             |
 | `@org/models`                      | Shared TypeScript data models                                             |
 | `@org/api-products`                | API product service library                                               |
 | `@org/shared-test-utils`           | Shared testing utilities and mock data                                    |
@@ -67,7 +91,7 @@ npx nx run-many -t lint
 npx nx e2e shop-e2e
 
 # Run Storybook (component library)
-npx nx storybook shop-shared-ui
+npx nx storybook shared-ui
 
 # Generate GraphQL types
 npm run codegen
@@ -123,15 +147,16 @@ Interactive component documentation with Storybook: Shadcn components excluded i
 
 ```bash
 # Generate stories using nx generators
-npx nx g @nx/react:stories --project=@org/shop-shared-ui
+npx nx g @nx/react:stories --project=@org/shared-ui
 # Run Storybook dev server
-npx nx storybook shop-shared-ui
+npx nx storybook shared-ui
 
 # Build static Storybook
-npx nx build-storybook shop-shared-ui
+npx nx build-storybook @org/shared-ui
 ```
 
-Components include: ProductCard, ProductGrid, LoadingSpinner, ErrorMessage, and shadcn/ui primitives.
+Components include: ProductCard, ProductGrid, LoadingSpinner, ErrorMessage, and shadcn/ui
+primitives.
 
 [Learn more about Storybook →](https://storybook.js.org/)
 
@@ -160,14 +185,16 @@ Multiple state management patterns are demonstrated:
 
 ### 6. 🔧 Self-Healing CI
 
-The CI pipeline includes `nx fix-ci` which automatically identifies and suggests fixes for common issues:
+The CI pipeline includes `nx fix-ci` which automatically identifies and suggests fixes for common
+issues:
 
 ```bash
 # In CI, this command provides automated fixes
 npx nx fix-ci
 ```
 
-This feature helps maintain a healthy CI pipeline by automatically detecting and suggesting solutions for:
+This feature helps maintain a healthy CI pipeline by automatically detecting and suggesting
+solutions for:
 
 - Missing dependencies
 - Incorrect task configurations
@@ -238,21 +265,25 @@ npx nx show project shop --web                  # View project details
 # Development
 npx nx serve shop                               # Serve React app with API
 npx nx serve api                                # Serve backend API only
-npx nx storybook shop-shared-ui                 # Run Storybook
+npx nx storybook shared-ui                      # Run Storybook
 npm run codegen                                 # Generate GraphQL types
 
 # Building
 npx nx build shop                               # Build React app
-npx nx build-storybook shop-shared-ui           # Build static Storybook
+npx nx build-storybook shared-ui                # Build static Storybook
 
 # Testing
 npx nx test shop-data                           # Test a specific library
 npx nx e2e shop-e2e                             # Run E2E tests
 npx nx run-many -t test                         # Test all projects
 
-# Linting
+# Code Quality & Formatting
+npm run format                                  # Format all files with Prettier
+npm run format:check                            # Check formatting (CI)
+npm run format:affected                         # Format only changed files
 npx nx lint shop-feature-products               # Lint a specific library
 npx nx run-many -t lint                         # Lint all projects
+npm run lint:fix                                # Lint and auto-fix all projects
 
 # Running multiple tasks
 npx nx run-many -t build                        # Build all projects
@@ -263,6 +294,38 @@ npx nx run-many -t lint test build              # Run multiple targets
 npx nx affected -t build                        # Build only affected projects
 npx nx affected -t test                         # Test only affected projects
 ```
+
+## ✨ Code Quality & Formatting
+
+This workspace uses enterprise-grade code quality tools:
+
+### Prettier
+
+Automatic code formatting ensures consistent style across the entire codebase.
+
+**Configuration**: Industry-standard settings in [.prettierrc](.prettierrc)
+
+**Key Features**:
+
+- 80 character line width
+- Single quotes for JS/TS
+- Trailing commas (ES5)
+- Automatic formatting on save (VS Code)
+- Pre-commit hooks via lint-staged
+
+**Documentation**: See [.prettierrc.md](.prettierrc.md) for complete details.
+
+### ESLint
+
+TypeScript and React linting with strict rules.
+
+**Integration**: Works seamlessly with Prettier via `eslint-config-prettier`.
+
+### EditorConfig
+
+Ensures consistent editor settings across different IDEs.
+
+**Supported**: Indentation, line endings, encoding, and more.
 
 ## 🎯 Adding New Features
 
@@ -290,11 +353,14 @@ npx nx g @nx/react:component my-component --project=my-lib
 npx nx g @nx/node:lib my-api-lib
 ```
 
-You can use `npx nx list` to see all available plugins and `npx nx list <plugin-name>` to see all generators for a specific plugin.
+You can use `npx nx list` to see all available plugins and `npx nx list <plugin-name>` to see all
+generators for a specific plugin.
 
 ## Nx Cloud
 
-Nx Cloud ensures a [fast and scalable CI](https://nx.dev/ci/intro/why-nx-cloud?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) pipeline. It includes features such as:
+Nx Cloud ensures a
+[fast and scalable CI](https://nx.dev/ci/intro/why-nx-cloud?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+pipeline. It includes features such as:
 
 - [Remote caching](https://nx.dev/ci/features/remote-cache?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
 - [Task distribution across multiple machines](https://nx.dev/ci/features/distribute-task-execution?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
@@ -303,7 +369,9 @@ Nx Cloud ensures a [fast and scalable CI](https://nx.dev/ci/intro/why-nx-cloud?u
 
 ## Install Nx Console
 
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
+Nx Console is an editor extension that enriches your developer experience. It lets you run tasks,
+generate code, and improves code autocompletion in your IDE. It is available for VSCode and
+IntelliJ.
 
 [Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
 

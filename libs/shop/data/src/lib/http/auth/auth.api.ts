@@ -1,14 +1,14 @@
 import { httpClient } from '../http-client';
 import type {
-    AuthResponse,
-    AuthTokens,
-    ChangePasswordRequest,
-    LoginCredentials,
-    RegisterCredentials,
-    ResetPasswordConfirm,
-    ResetPasswordRequest,
-    UpdateProfileRequest,
-    User,
+  AuthResponse,
+  AuthTokens,
+  ChangePasswordRequest,
+  LoginCredentials,
+  RegisterCredentials,
+  ResetPasswordConfirm,
+  ResetPasswordRequest,
+  UpdateProfileRequest,
+  User,
 } from './auth.types';
 import { tokenStorage } from './token-storage';
 

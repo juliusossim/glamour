@@ -1,43 +1,41 @@
 import { renderHook, waitFor } from '@testing-library/react';
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { useProducts } from './use-products';
-import {ProductFilter} from "@org/models";
+import { ProductFilter } from '@org/models';
 
 // Mock fetch
 global.fetch = vi.fn();
 
 const mockProductsResponse = {
   success: true,
-  data: {
-    items: [
-      {
-        id: '1',
-        name: 'Product 1',
-        description: 'Description 1',
-        price: 99.99,
-        category: 'Electronics',
-        imageUrl: 'https://via.placeholder.com/300',
-        inStock: true,
-        rating: 4.5,
-        reviewCount: 10,
-      },
-      {
-        id: '2',
-        name: 'Product 2',
-        description: 'Description 2',
-        price: 149.99,
-        category: 'Electronics',
-        imageUrl: 'https://via.placeholder.com/300',
-        inStock: false,
-        rating: 4.0,
-        reviewCount: 5,
-      },
-    ],
-    total: 2,
-    page: 1,
-    pageSize: 10,
-    totalPages: 1,
-  },
+  data: [
+    {
+      id: '1',
+      name: 'Product 1',
+      description: 'Description 1',
+      price: { min: 89.99, best: 99.99 },
+      category: 'Electronics',
+      imageUrls: ['https://via.placeholder.com/300'],
+      inStock: true,
+      rating: 4.5,
+      reviewCount: 10,
+    },
+    {
+      id: '2',
+      name: 'Product 2',
+      description: 'Description 2',
+      price: { min: 129.99, best: 149.99 },
+      category: 'Electronics',
+      imageUrls: ['https://via.placeholder.com/300'],
+      inStock: false,
+      rating: 4.0,
+      reviewCount: 5,
+    },
+  ],
+  total: 2,
+  page: 1,
+  pageSize: 10,
+  totalPages: 1,
 };
 
 describe('useProducts', () => {
@@ -64,7 +62,7 @@ describe('useProducts', () => {
       expect(result.current.loading).toBe(false);
     });
 
-    expect(result.current.products).toEqual(mockProductsResponse.data.items);
+    expect(result.current.products).toEqual(mockProductsResponse.data);
     expect(result.current.totalProducts).toBe(2);
     expect(result.current.totalPages).toBe(1);
     expect(result.current.error).toBeNull();
@@ -170,7 +168,7 @@ describe('useProducts', () => {
     const { result, rerender } = renderHook(
       ({ filter }) => useProducts(filter),
       {
-        initialProps: { filter: undefined } as {filter?: ProductFilter},
+        initialProps: { filter: undefined } as { filter?: ProductFilter },
       }
     );
 
@@ -181,7 +179,7 @@ describe('useProducts', () => {
     expect(fetch).toHaveBeenCalledTimes(1);
 
     // Change filter
-    rerender({ filter: { category: 'Electronics' }});
+    rerender({ filter: { category: 'Electronics' } });
 
     await waitFor(() => {
       expect(fetch).toHaveBeenCalledTimes(2);

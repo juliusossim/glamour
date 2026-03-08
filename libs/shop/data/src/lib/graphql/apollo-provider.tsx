@@ -8,6 +8,8 @@ interface ApolloProviderWrapperProps {
   readonly children: ReactNode;
 }
 
-export function ApolloProviderWrapper({ children }: ApolloProviderWrapperProps) {
+export function ApolloProviderWrapper({
+  children,
+}: ApolloProviderWrapperProps) {
   return <ApolloProvider client={apolloClient}>{children}</ApolloProvider>;
 }

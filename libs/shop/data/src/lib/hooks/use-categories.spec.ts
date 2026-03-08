@@ -33,7 +33,9 @@ describe('useCategories', () => {
 
     expect(result.current.categories).toEqual(mockCategories);
     expect(result.current.error).toBeNull();
-    expect(fetch).toHaveBeenCalledWith('http://localhost:3333/api/products/categories');
+    expect(fetch).toHaveBeenCalledWith(
+      'http://localhost:3333/api/products/categories'
+    );
   });
 
   it('should handle fetch errors', async () => {
@@ -53,7 +55,10 @@ describe('useCategories', () => {
   it('should handle non-ok response', async () => {
     (fetch as any).mockResolvedValueOnce({
       ok: true,
-      json: async () => ({ success: false, error: 'Failed to load categories' }),
+      json: async () => ({
+        success: false,
+        error: 'Failed to load categories',
+      }),
     });
 
     const { result } = renderHook(() => useCategories());
@@ -121,7 +126,13 @@ describe('useCategories', () => {
   });
 
   it('should maintain categories order from API', async () => {
-    const orderedCategories = ['Accessories', 'Clothing', 'Electronics', 'Home & Kitchen', 'Sports'];
+    const orderedCategories = [
+      'Accessories',
+      'Clothing',
+      'Electronics',
+      'Home & Kitchen',
+      'Sports',
+    ];
     (fetch as any).mockResolvedValueOnce({
       ok: true,
       json: async () => ({ success: true, data: orderedCategories }),

@@ -5,18 +5,18 @@
  * Uses Tailwind CSS for styling.
  */
 
-import type { Product, ProductFilter } from '@org/models';
+import type { DisplayProduct, ProductFilter } from '@org/models';
+import { LoadingSpinner, ProductGrid } from '@org/shared-ui';
 import {
-    useCategories,
-    useRouteNavigation,
-    type ProductsLoaderData,
+  useCategories,
+  useRouteNavigation,
+  type ProductsLoaderData,
 } from '@org/shop-data';
-import { LoadingSpinner, ProductGrid } from '@org/shop-shared-ui';
 import { useEffect, useState } from 'react';
 import {
-    useLoaderData,
-    useNavigation,
-    useSearchParams,
+  useLoaderData,
+  useNavigation,
+  useSearchParams,
 } from 'react-router-dom';
 
 export function ProductsPage() {
@@ -44,7 +44,7 @@ export function ProductsPage() {
     setInStockOnly(searchParams.get('inStock') === 'true');
   }, [searchParams]);
 
-  const handleProductSelect = (product: Product) => {
+  const handleProductSelect = (product: DisplayProduct) => {
     toProductDetail(product.id);
   };
 

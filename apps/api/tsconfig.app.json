@@ -2,11 +2,14 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "dist",
+    "rootDir": "src",
     "module": "nodenext",
     "types": ["node"],
-    "rootDir": "src",
     "moduleResolution": "nodenext",
-    "tsBuildInfoFile": "dist/tsconfig.app.tsbuildinfo"
+    "jsx": "react-jsx",
+    "declarationMap": false,
+    "emitDeclarationOnly": false,
+    "disableSourceOfProjectReferenceRedirect": true
   },
   "include": ["src/**/*.ts"],
   "exclude": [
@@ -20,6 +23,9 @@
     "eslint.config.mjs"
   ],
   "references": [
+    {
+      "path": "../../libs/shared/config/tsconfig.lib.json"
+    },
     {
       "path": "../../libs/shared/models/tsconfig.lib.json"
     },

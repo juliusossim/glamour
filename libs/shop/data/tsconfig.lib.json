@@ -2,20 +2,18 @@
   "extends": "../../../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "dist",
+    "composite": true,
+    "tsBuildInfoFile": "dist/tsconfig.lib.tsbuildinfo",
+    "declaration": true,
+    "declarationMap": false,
+    "emitDeclarationOnly": false,
     "lib": ["es2022", "dom", "dom.iterable"],
-    "types": [
-      "node",
-      "@nx/react/typings/cssmodule.d.ts",
-      "@nx/react/typings/image.d.ts"
-    ],
-    "rootDir": "src",
-    "jsx": "react-jsx",
-    "tsBuildInfoFile": "dist/tsconfig.lib.tsbuildinfo"
+    "types": ["node", "@nx/react/typings/cssmodule.d.ts", "@nx/react/typings/image.d.ts"],
+    "jsx": "react-jsx"
   },
   "exclude": [
     "out-tsc",
     "dist",
-    "**/generated/**",
     "**/*.generated.ts",
     "**/*.generated.tsx",
     "**/*.spec.ts",
@@ -44,6 +42,9 @@
   ],
   "include": ["src/**/*.js", "src/**/*.jsx", "src/**/*.ts", "src/**/*.tsx"],
   "references": [
+    {
+      "path": "../../shared/config/tsconfig.lib.json"
+    },
     {
       "path": "../../shared/models/tsconfig.lib.json"
     }

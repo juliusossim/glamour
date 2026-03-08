@@ -5,6 +5,9 @@
   "nx": {
     "projectType": "application",
     "targets": {
+      "typecheck": {
+        "command": "tsc -b apps/api/tsconfig.app.json --emitDeclarationOnly"
+      },
       "build": {
         "executor": "@nx/esbuild:esbuild",
         "outputs": [
@@ -119,12 +122,13 @@
       }
     },
     "tags": [
-      "scope:api"
+      "scope:api",
+      "type:app"
     ]
   },
   "dependencies": {
     "express": "^4.21.2",
-    "@org/api-products": "*",
-    "@org/models": "*"
+    "@org/api-products": "workspace:*",
+    "@org/models": "workspace:*"
   }
 }

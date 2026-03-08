@@ -5,22 +5,18 @@ const config: CodegenConfig = {
   schema: 'libs/shop/data/src/lib/graphql/schema.graphql',
   documents: ['libs/shop/data/src/lib/graphql/**/*.graphql'],
   generates: {
-    'libs/shop/data/src/lib/graphql/generated/index.ts': {
-      plugins: [
-        'typescript',
-        'typescript-operations',
-        'typescript-react-apollo',
-      ],
+    'libs/shop/data/src/lib/graphql/generated/': {
+      preset: 'client',
+      plugins: [],
+      presetConfig: {
+        fragmentMasking: false,
+      },
       config: {
-        withHooks: true,
-        withHOC: false,
-        withComponent: false,
+        useTypeImports: true,
         scalars: {
           DateTime: 'string',
           JSON: 'Record<string, unknown>',
         },
-        fragmentMasking: false,
-        dedupeFragments: true,
       },
     },
   },

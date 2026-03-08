@@ -1,5 +1,90 @@
-# Add files here to ignore them from prettier formatting
-/dist
-/coverage
-/.nx/cache
-/.nx/workspace-data
+# Dependencies
+node_modules
+.pnp
+.pnp.js
+
+# Build outputs
+dist
+build
+out
+out-tsc
+.next
+.vercel
+.netlify
+
+# Coverage and test reports
+coverage
+.nyc_output
+*.lcov
+test-results
+
+# Cache directories
+.cache
+.parcel-cache
+.nx/cache
+.nx/workspace-data
+.turbo
+.temp
+tmp
+
+# Environment and config
+.env
+.env.local
+.env.*.local
+*.env
+
+# Lock files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+bun.lockb
+
+# Generated files
+**/generated/**
+**/*.generated.ts
+**/*.generated.tsx
+**/*.generated.js
+**/*.generated.jsx
+.storybook/public
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+pnpm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# Nx
+.nx
+
+# Storybook
+storybook-static
+build-storybook
+
+# Docker
+Dockerfile*
+docker-compose*.yml
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Misc
+*.min.js
+*.min.css
+*.bundle.js
+CHANGELOG.md

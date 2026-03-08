@@ -1,4 +1,4 @@
-import { LoadingSpinner } from '@org/shop-shared-ui';
+import { LoadingSpinner } from '@org/shared-ui';
 import { lazy, Suspense } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 

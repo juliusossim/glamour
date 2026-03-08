@@ -11,7 +11,7 @@ fragment OrderItemWithProductFields on OrderItem {
   product {
     id
     name
-    imageUrl
+    imageUrls
   }
 }
 

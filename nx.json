@@ -17,6 +17,8 @@
     ],
     "sharedGlobals": []
   },
+  "enforceModuleBoundaries": true,
+
   "plugins": [
     {
       "plugin": "@nx/js/typescript",

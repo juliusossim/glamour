@@ -2,12 +2,12 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { authApi } from './auth.api';
 import { tokenStorage } from './token-storage';
 import type {
-    ChangePasswordRequest,
-    LoginCredentials,
-    RegisterCredentials,
-    ResetPasswordConfirm,
-    ResetPasswordRequest,
-    UpdateProfileRequest
+  ChangePasswordRequest,
+  LoginCredentials,
+  RegisterCredentials,
+  ResetPasswordConfirm,
+  ResetPasswordRequest,
+  UpdateProfileRequest,
 } from './auth.types';
 
 // Query keys

@@ -1,0 +1,36 @@
+[17:24:37.605] [INFO] storybook v10.2.3
+[17:24:37.685] [ERROR] [38;2;241;97;97mSB_CORE-SERVER_0007 (MainFileEvaluationError): Storybook couldn't evaluate your [33m.storybook/main.ts[39m file.
+
+Original error:
+[37mError: Transform failed with 1 error:
+<stdin>:31:7: ERROR: Multiple exports with the same name "default"
+    at failureErrorWithLog (/Users/juliusossim/Documents/fashion/node_modules/.pnpm/esbuild@0.27.3/node_modules/esbuild/lib/main.js:1467:15)
+    at /Users/juliusossim/Documents/fashion/node_modules/.pnpm/esbuild@0.27.3/node_modules/esbuild/lib/main.js:736:50
+    at responseCallbacks.<computed> (/Users/juliusossim/Documents/fashion/node_modules/.pnpm/esbuild@0.27.3/node_modules/esbuild/lib/main.js:603:9)
+    at handleIncomingPacket (/Users/juliusossim/Documents/fashion/node_modules/.pnpm/esbuild@0.27.3/node_modules/esbuild/lib/main.js:658:12)
+    at Socket.readFromStdout (/Users/juliusossim/Documents/fashion/node_modules/.pnpm/esbuild@0.27.3/node_modules/esbuild/lib/main.js:581:7)
+    at Socket.emit (node:events:507:28)
+    at addChunk (node:internal/streams/readable:559:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:510:3)
+    at Readable.push (node:internal/streams/readable:390:5)
+    at Pipe.onStreamRead (node:internal/stream_base_commons:189:23)[39m[39m
+    at loadMainConfig (file:///Users/juliusossim/Documents/fashion/node_modules/.pnpm/storybook@10.2.3_@testing-library+dom@10.4.0_prettier@2.8.8_react-dom@19.0.0_react@19.0.0__react@19.0.0/node_modules/storybook/dist/_node-chunks/chunk-MVRFS4XG.js:11707:11)
+    at async buildDevStandalone (file:///Users/juliusossim/Documents/fashion/node_modules/.pnpm/storybook@10.2.3_@testing-library+dom@10.4.0_prettier@2.8.8_react-dom@19.0.0_react@19.0.0__react@19.0.0/node_modules/storybook/dist/core-server/index.js:7518:16)
+    at async withTelemetry (file:///Users/juliusossim/Documents/fashion/node_modules/.pnpm/storybook@10.2.3_@testing-library+dom@10.4.0_prettier@2.8.8_react-dom@19.0.0_react@19.0.0__react@19.0.0/node_modules/storybook/dist/_node-chunks/chunk-JS7T7TRL.js:218:12)
+    at async dev (file:///Users/juliusossim/Documents/fashion/node_modules/.pnpm/storybook@10.2.3_@testing-library+dom@10.4.0_prettier@2.8.8_react-dom@19.0.0_react@19.0.0__react@19.0.0/node_modules/storybook/dist/bin/core.js:2734:3)
+    at async _Command.<anonymous> (file:///Users/juliusossim/Documents/fashion/node_modules/.pnpm/storybook@10.2.3_@testing-library+dom@10.4.0_prettier@2.8.8_react-dom@19.0.0_react@19.0.0__react@19.0.0/node_modules/storybook/dist/bin/core.js:2801:92)
+[17:24:37.687] [WARN] Broken build, fix the error above.
+You may need to refresh the browser.
+[17:24:37.689] [WARN]   Failed to load preset: "/Users/juliusossim/Documents/fashion/libs/shared/components/.storybook/main.ts"
+[17:24:37.689] [ERROR] [38;2;241;97;97mError: Transform failed with 1 error:
+<stdin>:31:7: ERROR: Multiple exports with the same name "default"[39m
+    at failureErrorWithLog (/Users/juliusossim/Documents/fashion/node_modules/.pnpm/esbuild@0.27.3/node_modules/esbuild/lib/main.js:1467:15)
+    at /Users/juliusossim/Documents/fashion/node_modules/.pnpm/esbuild@0.27.3/node_modules/esbuild/lib/main.js:736:50
+    at responseCallbacks.<computed> (/Users/juliusossim/Documents/fashion/node_modules/.pnpm/esbuild@0.27.3/node_modules/esbuild/lib/main.js:603:9)
+    at handleIncomingPacket (/Users/juliusossim/Documents/fashion/node_modules/.pnpm/esbuild@0.27.3/node_modules/esbuild/lib/main.js:658:12)
+    at Socket.readFromStdout (/Users/juliusossim/Documents/fashion/node_modules/.pnpm/esbuild@0.27.3/node_modules/esbuild/lib/main.js:581:7)
+    at Socket.emit (node:events:507:28)
+    at addChunk (node:internal/streams/readable:559:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:510:3)
+    at Readable.push (node:internal/streams/readable:390:5)
+    at Pipe.onStreamRead (node:internal/stream_base_commons:189:23)

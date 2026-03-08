@@ -1,7 +1,6 @@
 import type { CartItem, Product } from '@org/models';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-
 export interface CartState {
   items: CartItem[];
   isOpen: boolean;
@@ -107,6 +106,6 @@ export const selectCartItemCount = (state: { cart: CartState }) =>
   state.cart.items.reduce((total, item) => total + item.quantity, 0);
 export const selectCartTotal = (state: { cart: CartState }) =>
   state.cart.items.reduce(
-    (total, item) => total + item.product.price * item.quantity,
+    (total, item) => total + item.product.price.best * item.quantity,
     0
   );

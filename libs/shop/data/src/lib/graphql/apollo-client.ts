@@ -6,9 +6,19 @@ import {
 } from '@apollo/client';
 import { ErrorLink } from '@apollo/client/link/error';
 import { RetryLink } from '@apollo/client/link/retry';
+import { getConfig } from '@org/shared-config';
 import { tokenStorage } from '../http/auth/token-storage';
 
-const GRAPHQL_URL = 'http://localhost:3000/graphql';
+// Resolve GraphQL URL from injected runtime config; fall back to localhost.
+let _apiBase = 'http://localhost:3000';
+try {
+  const cfg = getConfig();
+  if (cfg.apiBaseUrl) _apiBase = String(cfg.apiBaseUrl);
+} catch (e) {
+  console.error('e', e);
+  // If config not initialized, fall back to default. Apps should call `createConfig` at bootstrap.
+}
+const GRAPHQL_URL = `${_apiBase.replace(/\/$/, '')}/graphql`;
 
 // Helper function to handle auth errors (defined early for use in errorLink)
 const handleAuthError = () => {
@@ -38,7 +48,20 @@ const authLink = new ApolloLink((operation, forward) => {
 });
 
 // Error Link - centralized error handling using ErrorLink class
-const errorLink = new ErrorLink(({ graphQLErrors, networkError, operation }) => {
+const errorLink = new ErrorLink((errorContext) => {
+  const { operation } = errorContext;
+  const graphQLErrors = (
+    errorContext as {
+      graphQLErrors?: Array<{
+        message: string;
+        path?: readonly (string | number)[];
+        extensions?: { code?: string };
+      }>;
+    }
+  ).graphQLErrors;
+  const networkError = (errorContext as { networkError?: { message: string } })
+    .networkError;
+
   if (graphQLErrors) {
     for (const err of graphQLErrors) {
       // Handle authentication errors
@@ -76,15 +99,23 @@ const retryLink = new RetryLink({
   attempts: {
     max: 3,
     retryIf: (error) => {
-      // Retry on network errors, not on GraphQL errors
-      return !!error && !error.result;
+      // Retry only when a transport-level error is present.
+      return Boolean(error);
     },
   },
 });
 
 // Logging Link (for development)
 const loggingLink = new ApolloLink((operation, forward) => {
-  if (process.env.NODE_ENV === 'development') {
+  let env = 'development';
+  try {
+    const cfg = getConfig();
+    env = cfg.env ?? env;
+  } catch (e) {
+    console.error('e', e);
+  }
+
+  if (env === 'development') {
     console.log(`[GraphQL Request]: ${operation.operationName}`);
   }
   return forward(operation);
@@ -93,7 +124,13 @@ const loggingLink = new ApolloLink((operation, forward) => {
 // Create Apollo Client
 // Link chain order: error → retry → logging → auth → http
 export const apolloClient = new ApolloClient({
-  link: ApolloLink.from([errorLink, retryLink, loggingLink, authLink, httpLink]),
+  link: ApolloLink.from([
+    errorLink,
+    retryLink,
+    loggingLink,
+    authLink,
+    httpLink,
+  ]),
   cache: new InMemoryCache({
     typePolicies: {
       // Normalize SocialInteractions by productId for automatic cache updates
@@ -135,4 +172,3 @@ export const apolloClient = new ApolloClient({
 
 export { ApolloClient, gql, InMemoryCache } from '@apollo/client';
 export { handleAuthError };
-

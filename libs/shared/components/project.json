@@ -1,0 +1,16 @@
+{
+  "name": "@org/shared-ui",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shared/components/src",
+  "projectType": "library",
+  "tags": ["scope:shared", "type:ui"],
+  "targets": {
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "libs/shared/components",
+        "command": "tsc -b tsconfig.lib.json --emitDeclarationOnly"
+      }
+    }
+  }
+}

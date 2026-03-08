@@ -2,14 +2,17 @@
   "extends": "../../../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "dist",
-    "types": [
-      "node",
-      "@nx/react/typings/cssmodule.d.ts",
-      "@nx/react/typings/image.d.ts"
-    ],
-    "rootDir": "src",
+    "composite": true,
+    "tsBuildInfoFile": "dist/tsconfig.lib.tsbuildinfo",
+    "declaration": true,
+    "declarationMap": false,
+    "emitDeclarationOnly": false,
+    "disableSourceOfProjectReferenceRedirect": true,
+    "lib": ["es2022", "dom", "dom.iterable"],
+    "types": ["node", "@nx/react/typings/cssmodule.d.ts", "@nx/react/typings/image.d.ts"],
     "jsx": "react-jsx",
-    "tsBuildInfoFile": "dist/tsconfig.lib.tsbuildinfo"
+    "module": "esnext",
+    "moduleResolution": "bundler"
   },
   "exclude": [
     "out-tsc",

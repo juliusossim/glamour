@@ -12,12 +12,17 @@
     "./package.json": "./package.json"
   },
   "nx": {
+    "targets": {
+      "typecheck": {
+        "command": "tsc -b libs/shop/data/tsconfig.lib.json --emitDeclarationOnly"
+      }
+    },
     "tags": [
       "scope:shop",
-      "type:data"
+      "type:data-access"
     ]
   },
   "devDependencies": {
-    "@org/models": "*"
+    "@org/models": "workspace:*"
   }
 }

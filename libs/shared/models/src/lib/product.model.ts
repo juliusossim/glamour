@@ -1,13 +1,11 @@
 export interface Product {
   id: string;
   name: string;
-  description: string;
-  price: number;
   category: string;
+  description: string;
+  price: { min: number; best: number };
   imageUrls: string[];
   inStock: boolean;
-  rating: number;
-  reviewCount: number;
 }
 
 export interface ApiResponse<T> {
@@ -17,12 +15,12 @@ export interface ApiResponse<T> {
   error?: string;
 }
 
-export interface PaginatedResponse<T> {
-  items: T[];
+export interface PaginatedResponse<T> extends ApiResponse<T[]> {
   total: number;
   page: number;
   pageSize: number;
   totalPages: number;
+  pivotId?: string; // For cursor-based pagination
 }
 
 export interface ProductFilter {
@@ -31,4 +29,10 @@ export interface ProductFilter {
   maxPrice?: number;
   inStock?: boolean;
   searchTerm?: string;
+}
+
+export interface DisplayProduct extends Product {
+  rating: number;
+  reviewCount: number;
+  discount?: number;
 }

@@ -1,6 +1,7 @@
 # Type-Safe React Router Implementation
 
-This document describes the type-safe routing system implemented using React Router v6's Data Router APIs.
+This document describes the type-safe routing system implemented using React Router v6's Data Router
+APIs.
 
 ## Table of Contents
 
@@ -193,9 +194,7 @@ Type-safe search params with getters and setters:
 import { useTypedSearchParams, ROUTE_PATHS } from '@org/shop-data';
 
 function ProductList() {
-  const { searchParams, setSearchParams, getParam } = useTypedSearchParams(
-    ROUTE_PATHS.PRODUCTS
-  );
+  const { searchParams, setSearchParams, getParam } = useTypedSearchParams(ROUTE_PATHS.PRODUCTS);
 
   // Read current category
   const category = getParam('category');
@@ -245,6 +244,7 @@ function Header() {
 ## Data Loaders
 
 Loaders fetch data before the route renders, enabling:
+
 - Parallel data fetching
 - Loading states via `useNavigation()`
 - Automatic error handling
@@ -265,9 +265,7 @@ export interface ProductsLoaderData {
   filter: ProductFilter;
 }
 
-export async function productsLoader({
-  request,
-}: LoaderFunctionArgs): Promise<ProductsLoaderData> {
+export async function productsLoader({ request }: LoaderFunctionArgs): Promise<ProductsLoaderData> {
   const url = new URL(request.url);
   // Extract filters from URL search params
   const search = url.searchParams.get('search');
@@ -299,9 +297,7 @@ export async function productDetailLoader({
 Protects routes that require authentication:
 
 ```typescript
-export async function authGuardLoader({
-  request,
-}: LoaderFunctionArgs): Promise<null> {
+export async function authGuardLoader({ request }: LoaderFunctionArgs): Promise<null> {
   if (!tokenStorage.isAuthenticated()) {
     const url = new URL(request.url);
     throw redirect(`/login?redirect=${encodeURIComponent(url.pathname)}`);
@@ -333,17 +329,14 @@ import type { ProductsLoaderData } from '@org/shop-data';
 function ProductsPage() {
   const data = useLoaderData() as ProductsLoaderData;
   const navigation = useNavigation();
-  
+
   const isLoading = navigation.state === 'loading';
 
   return (
     <div>
       {isLoading && <LoadingOverlay />}
       <ProductGrid products={data.products} />
-      <Pagination 
-        current={data.currentPage} 
-        total={data.totalPages} 
-      />
+      <Pagination current={data.currentPage} total={data.totalPages} />
     </div>
   );
 }
@@ -378,9 +371,7 @@ export async function loginAction({
 Handles adding items to cart:
 
 ```typescript
-export async function addToCartAction({
-  request,
-}: ActionFunctionArgs): Promise<ActionResponse> {
+export async function addToCartAction({ request }: ActionFunctionArgs): Promise<ActionResponse> {
   const formData = await request.formData();
   const productId = formData.get('productId') as string;
   const quantity = Number.parseInt(formData.get('quantity') as string, 10);
@@ -403,10 +394,7 @@ function AddToCartButton({ productId }: { productId: string }) {
   return (
     <button
       onClick={() => {
-        fetcher.submit(
-          { productId, quantity: '1' },
-          { method: 'post' }
-        );
+        fetcher.submit({ productId, quantity: '1' }, { method: 'post' });
       }}
       disabled={isSubmitting}
     >
@@ -430,14 +418,14 @@ function LoginPage() {
   return (
     <Form method="post">
       {actionData?.error && <ErrorMessage>{actionData.error}</ErrorMessage>}
-      
+
       <input name="email" type="email" required />
       <input name="password" type="password" required />
       <label>
         <input name="rememberMe" type="checkbox" value="true" />
         Remember me
       </label>
-      
+
       <button type="submit" disabled={isSubmitting}>
         {isSubmitting ? 'Signing in...' : 'Sign In'}
       </button>
@@ -458,12 +446,7 @@ The router is created using the `createRouter` factory:
 // apps/shop/src/main.tsx
 import { createRouter } from '@org/shop-data';
 import { RouterProvider } from 'react-router-dom';
-import {
-  RootLayout,
-  ProductsPage,
-  ProductDetailPage,
-  RouteErrorBoundary,
-} from './app/routes';
+import { RootLayout, ProductsPage, ProductDetailPage, RouteErrorBoundary } from './app/routes';
 
 const router = createRouter({
   RootLayout,
@@ -575,11 +558,9 @@ function handleCheckout() {
 ```typescript
 function CartItem({ item }: { item: CartItem }) {
   const fetcher = useFetcher();
-  
+
   // Optimistic update
-  const quantity = fetcher.formData
-    ? Number(fetcher.formData.get('quantity'))
-    : item.quantity;
+  const quantity = fetcher.formData ? Number(fetcher.formData.get('quantity')) : item.quantity;
 
   return (
     <div>
@@ -724,7 +705,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
       <Route path="products" element={<Products />} />
     </Route>
   </Routes>
-</BrowserRouter>
+</BrowserRouter>;
 ```
 
 **After:**
@@ -739,7 +720,7 @@ const router = createRouter({
   // ...
 });
 
-<RouterProvider router={router} />
+<RouterProvider router={router} />;
 ```
 
 ### From `useNavigate` to `useTypedNavigate`
@@ -764,7 +745,8 @@ navigate(ROUTE_PATHS.PRODUCT_DETAIL, { params: { id } });
 
 ### Loader Not Running
 
-Ensure the route has a `loader` property in the route config and that you're using `<RouterProvider>` instead of `<BrowserRouter>`.
+Ensure the route has a `loader` property in the route config and that you're using
+`<RouterProvider>` instead of `<BrowserRouter>`.
 
 ### Type Errors with Params
 

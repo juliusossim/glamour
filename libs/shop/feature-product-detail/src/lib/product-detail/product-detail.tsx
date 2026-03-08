@@ -1,6 +1,6 @@
-import { useProduct } from '@org/shop-data';
-import { Button, ErrorMessage, LoadingSpinner } from '@org/shop-shared-ui';
 import { useNavigate, useParams } from 'react-router-dom';
+import { Button, ErrorMessage, LoadingSpinner } from '@org/shared-ui';
+import { useProduct } from './useProduct';
 
 export function ProductDetail() {
   const { id } = useParams<{ id: string }>();
@@ -54,7 +54,7 @@ export function ProductDetail() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 bg-card rounded-lg p-8 shadow-md">
         <div className="relative w-full h-[400px] md:h-[500px] bg-muted rounded-lg overflow-hidden">
           <img
-            src={product.imageUrl}
+            src={product.imageUrls[0]}
             alt={product.name}
             className="w-full h-full object-cover"
           />
@@ -90,7 +90,7 @@ export function ProductDetail() {
           </div>
 
           <div className="text-3xl font-bold text-foreground">
-            ${product.price.toFixed(2)}
+            ${product.price.best.toFixed(2)}
           </div>
 
           <div className="text-base">

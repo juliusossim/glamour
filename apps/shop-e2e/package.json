@@ -5,6 +5,10 @@
   "nx": {
     "implicitDependencies": [
       "@org/shop"
+    ],
+    "tags": [
+      "scope:shop",
+      "type:app"
     ]
   }
 }

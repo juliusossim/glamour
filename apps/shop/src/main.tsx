@@ -1,3 +1,4 @@
+import { createConfig } from '@org/shared-config';
 import {
   ApolloProviderWrapper,
   createRouter,
@@ -21,6 +22,13 @@ const router = createRouter({
   ProductsPage,
   ProductDetailPage,
   ErrorBoundary: RouteErrorBoundary,
+});
+
+// Initialize runtime config for the shop app (injected at bootstrap)
+createConfig({
+  apiBaseUrl:
+    (import.meta as any).env?.VITE_API_BASE_URL ?? 'http://localhost:3000',
+  env: (import.meta as any).env?.MODE ?? 'development',
 });
 
 const root = ReactDOM.createRoot(

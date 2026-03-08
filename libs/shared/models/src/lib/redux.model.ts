@@ -1,4 +1,4 @@
-import { Product, ProductFilter } from "./product.model.js";
+import { Product, ProductFilter } from './product.model.js';
 
 export interface ProductsState {
   items: Product[];
@@ -15,4 +15,3 @@ export interface CartItem {
   product: Product;
   quantity: number;
 }
-

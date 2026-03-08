@@ -88,12 +88,16 @@ test.describe('Product Detail Page', () => {
     await expect(reviewsDetail).toBeVisible();
   });
 
-  test('should show out of stock overlay for unavailable products', async ({ page }) => {
+  test('should show out of stock overlay for unavailable products', async ({
+    page,
+  }) => {
     // Navigate back to products
     await page.goto('/products');
 
     // Find and click an out-of-stock product if available
-    const outOfStockCards = page.locator('[class*="product-card"][class*="out-of-stock"]');
+    const outOfStockCards = page.locator(
+      '[class*="product-card"][class*="out-of-stock"]'
+    );
     const count = await outOfStockCards.count();
 
     if (count > 0) {

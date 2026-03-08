@@ -1,173 +1,266 @@
-// eslint-disable-next-line
-import { Product, ProductFilter } from '@org/models';
+import {
+  ApiResponse,
+  DisplayProduct,
+  PaginatedResponse,
+  ProductFilter,
+} from '@org/models';
 
 export class ProductsService {
-  private products: Product[] = [
+  private readonly products: DisplayProduct[] = [
     {
       id: '1',
       name: 'Wireless Bluetooth Headphones',
-      description: 'Premium quality wireless headphones with active noise cancellation, 30-hour battery life, and superior sound quality.',
-      price: 199.99,
+      description:
+        'Premium quality wireless headphones with active noise cancellation, 30-hour battery life, and superior sound quality.',
+      price: { min: 199.99, best: 249.99 },
       category: 'Electronics',
-      imageUrls: ['https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500', 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500', 'https://images.unsplash.com/photo-1516707570261-6f3b6f3f4b2d?w=500', 'https://images.unsplash.com/photo-1495107334309-fcf20504a5ab?w=500', 'https://images.unsplash.com/photo-1512499617640-c2f9992c3ba6?w=500'],
+      imageUrls: [
+        'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500',
+        'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500',
+        'https://images.unsplash.com/photo-1516707570261-6f3b6f3f4b2d?w=500',
+        'https://images.unsplash.com/photo-1495107334309-fcf20504a5ab?w=500',
+        'https://images.unsplash.com/photo-1512499617640-c2f9992c3ba6?w=500',
+      ],
+      inStock: true,
+      rating: 4.5,
+      reviewCount: 234,
+      discount: 20,
+    },
+    {
+      id: '2',
+      name: 'Smart Watch Pro',
+      description:
+        'Advanced fitness tracking, heart rate monitoring, GPS, and smartphone integration in a sleek design.',
+      price: { min: 249.99, best: 299.99 },
+      category: 'Electronics',
+      imageUrls: [
+        'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500',
+        'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500',
+        'https://images.unsplash.com/photo-1516707570261-6f3b6f3f4b2d?w=500',
+        'https://images.unsplash.com/photo-1495107334309-fcf20504a5ab?w=500',
+        'https://images.unsplash.com/photo-1512499617640-c2f9992c3ba6?w=500',
+      ],
+      inStock: true,
+      rating: 4.8,
+      reviewCount: 456,
+    },
+    {
+      id: '3',
+      name: 'Organic Cotton T-Shirt',
+      description:
+        'Comfortable and sustainable organic cotton t-shirt, perfect for everyday wear.',
+      price: { min: 19.99, best: 29.99 },
+      category: 'Clothing',
+      imageUrls: [
+        'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500',
+        'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=500',
+        'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=500',
+        'https://images.unsplash.com/photo-1495121605193-b116b5b09a6c?w=500',
+        'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=500',
+      ],
+      inStock: false,
+      rating: 4.2,
+      reviewCount: 123,
+    },
+    {
+      id: '4',
+      name: 'Stainless Steel Water Bottle',
+      description:
+        'Insulated water bottle that keeps drinks cold for 24 hours or hot for 12 hours.',
+      price: { min: 24.99, best: 34.99 },
+      category: 'Home & Kitchen',
+      imageUrls: [
+        'https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=500',
+        'https://images.unsplash.com/photo-1510626176961-4bfb1a3c5f3e?w=500',
+        'https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=500',
+        'https://images.unsplash.com/photo-1526403224542-6c5a6d3f0b5b?w=500',
+        'https://images.unsplash.com/photo-1517686469429-8bdb88a3f2c7?w=500',
+      ],
+      inStock: true,
+      rating: 4.7,
+      reviewCount: 321,
+    },
+    {
+      id: '5',
+      name: 'Yoga Mat Premium',
+      description:
+        'Non-slip, eco-friendly yoga mat with extra cushioning for comfortable practice.',
+      price: { min: 49.99, best: 69.99 },
+      category: 'Sports',
+      imageUrls: [
+        'https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?w=500',
+        'https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?w=500',
+        'https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?w=500',
+        'https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?w=500',
+        'https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?w=500',
+      ],
+      inStock: true,
+      rating: 4.6,
+      reviewCount: 198,
+    },
+    {
+      id: '6',
+      name: 'Portable Charger 20000mAh',
+      description:
+        'High-capacity power bank with fast charging and multiple USB ports.',
+      price: { min: 39.99, best: 59.99 },
+      category: 'Electronics',
+      imageUrls: [
+        'https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=500',
+        'https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=500',
+        'https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=500',
+        'https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=500',
+        'https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=500',
+      ],
+      inStock: true,
+      rating: 4.3,
+      reviewCount: 150,
+    },
+    {
+      id: '7',
+      name: 'Running Shoes Elite',
+      description:
+        'Professional running shoes with advanced cushioning and breathable mesh upper.',
+      price: { min: 129.99, best: 179.99 },
+      category: 'Sports',
+      imageUrls: [
+        'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500',
+        'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500',
+        'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500',
+        'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500',
+        'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500',
+      ],
+      inStock: true,
+      rating: 4.9,
+      reviewCount: 512,
+    },
+    {
+      id: '8',
+      name: 'Coffee Maker Deluxe',
+      description:
+        'Programmable coffee maker with thermal carafe and customizable brew strength.',
+      price: { min: 89.99, best: 129.99 },
+      category: 'Home & Kitchen',
+      imageUrls: [
+        'https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e6?w=500',
+        'https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e6?w=500',
+        'https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e6?w=500',
+        'https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e6?w=500',
+        'https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e6?w=500',
+      ],
+      inStock: false,
+      rating: 4.4,
+      reviewCount: 210,
+    },
+    {
+      id: '9',
+      name: 'Backpack Urban Explorer',
+      description:
+        'Durable and stylish backpack with laptop compartment and multiple pockets.',
+      price: { min: 79.99, best: 99.99 },
+      category: 'Accessories',
+      imageUrls: [
+        'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500',
+        'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500',
+        'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500',
+        'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500',
+        'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500',
+      ],
       inStock: true,
       rating: 4.5,
       reviewCount: 234,
     },
     {
-      id: '2',
-      name: 'Smart Watch Pro',
-      description: 'Advanced fitness tracking, heart rate monitoring, GPS, and smartphone integration in a sleek design.',
-      price: 349.99,
-      category: 'Electronics',
-      imageUrls: ['https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500', 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500', 'https://images.unsplash.com/photo-1516707570261-6f3b6f3f4b2d?w=500', 'https://images.unsplash.com/photo-1495107334309-fcf20504a5ab?w=500', 'https://images.unsplash.com/photo-1512499617640-c2f9992c3ba6?w=500'],
-      inStock: true,
-      rating: 4.3,
-      reviewCount: 189,
-    },
-    {
-      id: '3',
-      name: 'Organic Cotton T-Shirt',
-      description: 'Comfortable and sustainable organic cotton t-shirt, perfect for everyday wear.',
-      price: 29.99,
-      category: 'Clothing',
-      imageUrls: ['https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500', 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=500', 'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=500', 'https://images.unsplash.com/photo-1495121605193-b116b5b09a6c?w=500', 'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=500'],
-      inStock: false,
-      rating: 4.7,
-      reviewCount: 92,
-    },
-    {
-      id: '4',
-      name: 'Stainless Steel Water Bottle',
-      description: 'Insulated water bottle that keeps drinks cold for 24 hours or hot for 12 hours.',
-      price: 24.99,
-      category: 'Home & Kitchen',
-      imageUrls: ['https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=500', 'https://images.unsplash.com/photo-1510626176961-4bfb1a3c5f3e?w=500', 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=500', 'https://images.unsplash.com/photo-1526403224542-6c5a6d3f0b5b?w=500', 'https://images.unsplash.com/photo-1517686469429-8bdb88a3f2c7?w=500'],
-      inStock: true,
-      rating: 4.6,
-      reviewCount: 412,
-    },
-    {
-      id: '5',
-      name: 'Yoga Mat Premium',
-      description: 'Non-slip, eco-friendly yoga mat with extra cushioning for comfortable practice.',
-      price: 45.99,
-      category: 'Sports',
-      imageUrls: ['https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?w=500', 'https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?w=500', 'https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?w=500', 'https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?w=500', 'https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?w=500'],
-      inStock: true,
-      rating: 4.4,
-      reviewCount: 156,
-    },
-    {
-      id: '6',
-      name: 'Portable Charger 20000mAh',
-      description: 'High-capacity power bank with fast charging and multiple USB ports.',
-      price: 59.99,
-      category: 'Electronics',
-      imageUrls: ['https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=500', 'https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=500', 'https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=500', 'https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=500', 'https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=500'],
-      inStock: true,
-      rating: 4.2,
-      reviewCount: 298,
-    },
-    {
-      id: '7',
-      name: 'Running Shoes Elite',
-      description: 'Professional running shoes with advanced cushioning and breathable mesh upper.',
-      price: 129.99,
-      category: 'Sports',
-      imageUrls: ['https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500', 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500', 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500', 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500', 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500'],
-      inStock: true,
-      rating: 4.8,
-      reviewCount: 523,
-    },
-    {
-      id: '8',
-      name: 'Coffee Maker Deluxe',
-      description: 'Programmable coffee maker with thermal carafe and customizable brew strength.',
-      price: 89.99,
-      category: 'Home & Kitchen',
-      imageUrls: ['https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e6?w=500', 'https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e6?w=500', 'https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e6?w=500', 'https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e6?w=500', 'https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e6?w=500'],
-      inStock: false,
-      rating: 4.1,
-      reviewCount: 167,
-    },
-    {
-      id: '9',
-      name: 'Backpack Urban Explorer',
-      description: 'Durable and stylish backpack with laptop compartment and multiple pockets.',
-      price: 79.99,
-      category: 'Accessories',
-      imageUrls: ['https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500', 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500', 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500', 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500', 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500'],
-      inStock: true,
-      rating: 4.5,
-      reviewCount: 201,
-    },
-    {
       id: '10',
       name: 'Wireless Keyboard and Mouse',
-      description: 'Ergonomic wireless keyboard and mouse combo with long battery life.',
-      price: 69.99,
+      description:
+        'Ergonomic wireless keyboard and mouse combo with long battery life.',
+      price: { min: 69.99, best: 89.99 },
       category: 'Electronics',
-      imageUrls: ['https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=500', 'https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=500', 'https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=500', 'https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=500', 'https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=500'],
+      imageUrls: [
+        'https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=500',
+        'https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=500',
+        'https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=500',
+        'https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=500',
+        'https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=500',
+      ],
       inStock: true,
-      rating: 4.3,
-      reviewCount: 145,
+      rating: 4.6,
+      reviewCount: 256,
     },
     {
       id: '11',
       name: 'Sunglasses Polarized',
-      description: 'UV protection polarized sunglasses with stylish frame design.',
-      price: 149.99,
+      description:
+        'UV protection polarized sunglasses with stylish frame design.',
+      price: { min: 149.99, best: 199.99 },
       category: 'Accessories',
-      imageUrls: ['https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=500', 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=500', 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=500', 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=500', 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=500'],
+      imageUrls: [
+        'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=500',
+        'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=500',
+        'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=500',
+        'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=500',
+        'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=500',
+      ],
       inStock: true,
-      rating: 4.6,
-      reviewCount: 89,
+      rating: 4.7,
+      reviewCount: 321,
     },
     {
       id: '12',
       name: 'Desk Lamp LED',
-      description: 'Adjustable LED desk lamp with touch controls and multiple brightness levels.',
-      price: 39.99,
+      description:
+        'Adjustable LED desk lamp with touch controls and multiple brightness levels.',
+      price: { min: 39.99, best: 59.99 },
       category: 'Home & Kitchen',
-      imageUrls: ['https://images.unsplash.com/photo-1565306257569-4eb0e3c41b24?w=500', 'https://images.unsplash.com/photo-1565306257569-4eb0e3c41b24?w=500', 'https://images.unsplash.com/photo-1565306257569-4eb0e3c41b24?w=500', 'https://images.unsplash.com/photo-1565306257569-4eb0e3c41b24?w=500', 'https://images.unsplash.com/photo-1565306257569-4eb0e3c41b24?w=500'],
+      imageUrls: [
+        'https://images.unsplash.com/photo-1565306257569-4eb0e3c41b24?w=500',
+        'https://images.unsplash.com/photo-1565306257569-4eb0e3c41b24?w=500',
+        'https://images.unsplash.com/photo-1565306257569-4eb0e3c41b24?w=500',
+        'https://images.unsplash.com/photo-1565306257569-4eb0e3c41b24?w=500',
+        'https://images.unsplash.com/photo-1565306257569-4eb0e3c41b24?w=500',
+      ],
       inStock: true,
-      rating: 4.4,
-      reviewCount: 276,
+      rating: 4.3,
+      reviewCount: 123,
     },
   ];
 
-  getProducts(filter?: ProductFilter, page = 1, pageSize = 10) {
+  getProducts(
+    filter?: ProductFilter,
+    page = 1,
+    pageSize = 10
+  ): PaginatedResponse<DisplayProduct> {
     let filteredProducts = [...this.products];
 
     // Apply filters
     if (filter) {
       if (filter.category) {
         filteredProducts = filteredProducts.filter(
-          p => p.category === filter.category
+          (p) => p.category === filter.category
         );
       }
       if (filter.minPrice !== undefined) {
         const minPrice = filter.minPrice;
         filteredProducts = filteredProducts.filter(
-          p => p.price >= minPrice
+          (p) => p.price.best >= minPrice
         );
       }
       if (filter.maxPrice !== undefined) {
         const maxPrice = filter.maxPrice;
         filteredProducts = filteredProducts.filter(
-          p => p.price <= maxPrice
+          (p) => p.price.best <= maxPrice
         );
       }
       if (filter.inStock !== undefined) {
         filteredProducts = filteredProducts.filter(
-          p => p.inStock === filter.inStock
+          (p) => p.inStock === filter.inStock
         );
       }
       if (filter.searchTerm) {
         const searchLower = filter.searchTerm.toLowerCase();
         filteredProducts = filteredProducts.filter(
-          p =>
+          (p) =>
             p.name.toLowerCase().includes(searchLower) ||
             p.description.toLowerCase().includes(searchLower) ||
             p.category.toLowerCase().includes(searchLower)
@@ -183,7 +276,9 @@ export class ProductsService {
     const items = filteredProducts.slice(startIndex, endIndex);
 
     return {
-      items,
+      data: items,
+      success: true,
+      message: 'Successfully fetched products',
       total,
       page,
       pageSize,
@@ -191,12 +286,21 @@ export class ProductsService {
     };
   }
 
-  getProductById(id: string): Product | undefined {
-    return this.products.find(p => p.id === id);
+  getProductById(id: string): ApiResponse<DisplayProduct | null> {
+    const product = this.products.find((p) => p.id === id);
+    return {
+      data: product ?? null,
+      success: Boolean(product),
+      message: product ? '' : 'Product not found',
+      error: product ? undefined : 'Product not found',
+    };
   }
 
-  getCategories(): string[] {
-    const categories = new Set(this.products.map(p => p.category));
-    return Array.from(categories).sort();
+  getCategories(): ApiResponse<string[]> {
+    const categories = new Set(this.products.map((p) => p.category));
+    return {
+      data: Array.from(categories).sort((a, b) => a.localeCompare(b)),
+      success: true,
+    };
   }
 }
