@@ -1,14 +1,6 @@
 // Route definitions and types
-export {
-  ROUTE_META,
-  ROUTE_PATHS,
-  type ParamsFor,
-  type RouteMeta,
-  type RouteParams,
-  type RoutePath,
-  type RouteSearchParams,
-  type SearchParamsFor,
-} from './routes';
+export * from './routes';
+export * from './types';
 
 // Router utilities
 export {

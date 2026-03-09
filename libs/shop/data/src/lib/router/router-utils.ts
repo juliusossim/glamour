@@ -13,12 +13,12 @@ import {
   useSearchParams as useRRSearchParams,
 } from 'react-router-dom';
 import {
-  ParamsFor,
   ROUTE_PATHS,
-  RoutePath,
-  RouteSearchParams,
-  SearchParamsFor,
-} from './routes';
+  type ParamsFor,
+  type RoutePath,
+  type RouteSearchParams,
+  type SearchParamsFor,
+} from '.';
 
 /**
  * Type-safe path builder with params substitution
@@ -194,11 +194,3 @@ export function useRouteNavigation() {
     [navigate]
   );
 }
-
-// Re-export route paths for convenience
-export {
-  ROUTE_PATHS,
-  type ParamsFor,
-  type RoutePath,
-  type SearchParamsFor,
-} from './routes';

@@ -68,14 +68,14 @@ export function createRouter(
         },
         {
           id: 'products',
-          path: 'products',
+          path: ROUTE_PATHS.PRODUCTS,
           element: <ProductsPage />,
           loader: productsLoader,
           errorElement: <ErrorBoundary />,
         },
         {
           id: 'product-detail',
-          path: 'products/:id',
+          path: `${ROUTE_PATHS.PRODUCTS}/:id`,
           element: <ProductDetailPage />,
           loader: productDetailLoader,
           action: addToCartAction,
@@ -84,7 +84,7 @@ export function createRouter(
         ...(CartPage
           ? [
               {
-                path: 'cart',
+                path: ROUTE_PATHS.CART,
                 element: <CartPage />,
               },
             ]
@@ -92,7 +92,7 @@ export function createRouter(
         ...(CheckoutPage
           ? [
               {
-                path: 'checkout',
+                path: ROUTE_PATHS.CHECKOUT,
                 element: <CheckoutPage />,
                 loader: authGuardLoader,
               },
@@ -101,7 +101,7 @@ export function createRouter(
         ...(LoginPage
           ? [
               {
-                path: 'login',
+                path: ROUTE_PATHS.LOGIN,
                 element: <LoginPage />,
                 action: loginAction,
               },
@@ -110,7 +110,7 @@ export function createRouter(
         ...(RegisterPage
           ? [
               {
-                path: 'register',
+                path: ROUTE_PATHS.REGISTER,
                 element: <RegisterPage />,
                 action: registerAction,
               },
@@ -119,7 +119,7 @@ export function createRouter(
         ...(ProfilePage
           ? [
               {
-                path: 'profile',
+                path: ROUTE_PATHS.PROFILE,
                 element: <ProfilePage />,
                 loader: authGuardLoader,
               },

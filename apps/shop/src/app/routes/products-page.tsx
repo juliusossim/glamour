@@ -172,10 +172,7 @@ export function ProductsPage() {
       {isLoading ? (
         <LoadingSpinner />
       ) : (
-        <ProductGrid
-          products={loaderData.products}
-          onProductSelect={handleProductSelect}
-        />
+        <ProductGrid products={loaderData.products} />
       )}
 
       {/* Pagination */}

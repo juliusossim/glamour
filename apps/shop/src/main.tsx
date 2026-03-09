@@ -26,9 +26,8 @@ const router = createRouter({
 
 // Initialize runtime config for the shop app (injected at bootstrap)
 createConfig({
-  apiBaseUrl:
-    (import.meta as any).env?.VITE_API_BASE_URL ?? 'http://localhost:3000',
-  env: (import.meta as any).env?.MODE ?? 'development',
+  apiBaseUrl: import.meta.env?.VITE_API_BASE_URL ?? 'http://localhost:3000',
+  env: import.meta.env?.MODE ?? 'development',
 });
 
 const root = ReactDOM.createRoot(
