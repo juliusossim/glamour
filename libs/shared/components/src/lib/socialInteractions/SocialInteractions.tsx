@@ -1,5 +1,5 @@
 import type { SocialInteractionsProps } from '@org/models';
-import { useInteractions } from '@org/shop-data';
+import { useInteractions } from '@org/shared-data';
 import { Heart, Repeat2, Share2 } from 'lucide-react';
 import { Button } from '../ui/button';
 import { Item } from '../ui/item';

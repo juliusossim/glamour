@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "@org/models": "workspace:*",
-    "@org/shop-data": "workspace:*"
+    "@org/shared-data": "workspace:*"
   },
   "devDependencies": {
     "@org/shared-test-utils": "workspace:*"

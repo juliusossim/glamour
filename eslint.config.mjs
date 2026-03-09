@@ -27,6 +27,18 @@ export default [
           allow: ['^.*/eslint(.base)?.config.[cm]?[jt]s$'],
           depConstraints: [
             {
+              sourceTag: 'scope:shared',
+              onlyDependOnLibsWithTags: ['scope:shared'],
+            },
+            {
+              sourceTag: 'scope:shop',
+              onlyDependOnLibsWithTags: ['scope:shop', 'scope:shared'],
+            },
+            {
+              sourceTag: 'scope:api',
+              onlyDependOnLibsWithTags: ['scope:api', 'scope:shared'],
+            },
+            {
               sourceTag: 'type:feature',
               onlyDependOnLibsWithTags: [
                 'type:ui',
@@ -45,7 +57,11 @@ export default [
             },
             {
               sourceTag: 'type:data-access',
-              onlyDependOnLibsWithTags: ['type:domain', 'type:shared'],
+              onlyDependOnLibsWithTags: [
+                'type:data-access',
+                'type:domain',
+                'type:shared',
+              ],
             },
             {
               sourceTag: 'type:domain',

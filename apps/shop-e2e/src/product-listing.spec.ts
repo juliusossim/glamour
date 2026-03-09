@@ -10,9 +10,8 @@ test.describe('Product Listing Page', () => {
     page,
   }) => {
     // Wait for products to load
-    await page.waitForSelector('[class*="product-card"]', { timeout: 10000 });
-
     const productCards = page.locator('[class*="product-card"]');
+    await expect(productCards.first()).toBeVisible({ timeout: 10000 });
     const count = await productCards.count();
     expect(count).toBeGreaterThan(0);
 
@@ -33,11 +32,10 @@ test.describe('Product Listing Page', () => {
     const categoryDropdown = page.locator('select');
     await categoryDropdown.selectOption('Electronics');
 
-    await page.waitForTimeout(500);
-
     const productCategories = page.locator(
       '[class*="product-card"] p:first-of-type'
     );
+    await expect(productCategories.first()).toHaveText('Electronics');
     const count = await productCategories.count();
 
     for (let i = 0; i < count; i++) {
@@ -50,9 +48,8 @@ test.describe('Product Listing Page', () => {
     const searchInput = page.locator('input[placeholder*="Search"]');
     await searchInput.fill('Wireless');
 
-    await page.waitForTimeout(500);
-
     const productNames = page.locator('[class*="product-card"] h3');
+    await expect(productNames.first()).toContainText(/wireless/i);
     const count = await productNames.count();
 
     expect(count).toBeGreaterThan(0);
@@ -64,8 +61,6 @@ test.describe('Product Listing Page', () => {
   test('should filter by in-stock only', async ({ page }) => {
     const inStockCheckbox = page.locator('input[type="checkbox"]').first();
     await inStockCheckbox.check();
-
-    await page.waitForTimeout(500);
 
     const outOfStockOverlays = page.locator('text="Out of Stock"');
     const count = await outOfStockOverlays.count();
@@ -89,16 +84,14 @@ test.describe('Product Listing Page', () => {
     page,
   }) => {
     const paginationSection = page.locator('[class*="pagination"]');
+    await expect(paginationSection).toBeVisible();
+    const previousButton = page.locator('button:has-text("Previous")');
+    const nextButton = page.locator('button:has-text("Next")');
+    const pageInfo = page.locator('[class*="page-info"]');
 
-    if (await paginationSection.isVisible()) {
-      const previousButton = page.locator('button:has-text("Previous")');
-      const nextButton = page.locator('button:has-text("Next")');
-      const pageInfo = page.locator('[class*="page-info"]');
-
-      await expect(previousButton).toBeVisible();
-      await expect(nextButton).toBeVisible();
-      await expect(pageInfo).toContainText(/Page \d+ of \d+/);
-    }
+    await expect(previousButton).toBeVisible();
+    await expect(nextButton).toBeVisible();
+    await expect(pageInfo).toContainText(/Page \d+ of \d+/);
   });
 
   test('should show results count', async ({ page }) => {

@@ -32,7 +32,7 @@
   },
   "devDependencies": {
     "@org/models": "workspace:*",
-    "@org/shop-data": "workspace:*",
+    "@org/shared-data": "workspace:*",
     "@org/shop-feature-product-detail": "workspace:*",
     "@org/shop-feature-products": "workspace:*",
     "@org/shared-ui": "workspace:*"

@@ -23,7 +23,6 @@ test.describe('Shop Homepage', () => {
   });
 
   test('should display the tagline', async ({ page }) => {
-    await page.waitForSelector('text=/Explore our wide selection/i');
     const tagline = page.locator('p:has-text("Explore our wide selection")');
     await expect(tagline).toBeVisible();
   });

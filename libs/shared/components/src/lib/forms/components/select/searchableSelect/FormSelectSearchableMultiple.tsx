@@ -33,7 +33,7 @@ export function FormSelectSearchableMultiple(props: Readonly<SelectProps>) {
     <FormField
       control={form.control}
       name={props.name}
-      render={({ field }) => {
+      render={() => {
         return (
           <FormItem>
             {props.label && (

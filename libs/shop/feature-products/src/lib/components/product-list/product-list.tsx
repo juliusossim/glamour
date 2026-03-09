@@ -1,8 +1,13 @@
+import { useGetProductsQuery } from '@org/shared-data';
 import { ProductGrid } from '@org/shared-ui';
-import { useProducts } from '@org/shop-data';
 
 export function ProductList() {
-  const { products } = useProducts();
+  const { data } = useGetProductsQuery({ page: 1, pageSize: 12, filters: {} });
+  const products = (data?.data ?? []).map((product) => ({
+    ...product,
+    rating: 0,
+    reviewCount: 0,
+  }));
 
   return (
     <section className="p-4">

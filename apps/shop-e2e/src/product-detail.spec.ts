@@ -54,21 +54,15 @@ test.describe('Product Detail Page', () => {
     await expect(addToCartButton).toBeVisible();
 
     const isDisabled = await addToCartButton.isDisabled();
-    const buttonText = await addToCartButton.textContent();
-
-    if (isDisabled) {
-      expect(buttonText).toBe('Out of Stock');
-    } else {
-      expect(buttonText).toBe('Add to Cart');
-    }
+    await expect(addToCartButton).toHaveText(
+      isDisabled ? 'Out of Stock' : 'Add to Cart'
+    );
   });
 
   test('should show product availability status', async ({ page }) => {
     const availability = page.locator('[class*="product-availability"]');
     await expect(availability).toBeVisible();
-
-    const text = await availability.textContent();
-    expect(text).toMatch(/In Stock|Out of Stock/);
+    await expect(availability).toHaveText(/In Stock|Out of Stock/);
   });
 
   test('should display product details section', async ({ page }) => {
@@ -98,18 +92,15 @@ test.describe('Product Detail Page', () => {
     const outOfStockCards = page.locator(
       '[class*="product-card"][class*="out-of-stock"]'
     );
-    const count = await outOfStockCards.count();
+    await expect(outOfStockCards.first()).toBeVisible();
+    await outOfStockCards.first().click();
+    await page.waitForURL('**/products/*');
 
-    if (count > 0) {
-      await outOfStockCards.first().click();
-      await page.waitForURL('**/products/*');
+    const outOfStockOverlay = page.locator('[class*="out-of-stock-overlay"]');
+    await expect(outOfStockOverlay).toBeVisible();
 
-      const outOfStockOverlay = page.locator('[class*="out-of-stock-overlay"]');
-      await expect(outOfStockOverlay).toBeVisible();
-
-      const addToCartButton = page.locator('[class*="add-to-cart-btn"]');
-      await expect(addToCartButton).toBeDisabled();
-      await expect(addToCartButton).toHaveText('Out of Stock');
-    }
+    const addToCartButton = page.locator('[class*="add-to-cart-btn"]');
+    await expect(addToCartButton).toBeDisabled();
+    await expect(addToCartButton).toHaveText('Out of Stock');
   });
 });

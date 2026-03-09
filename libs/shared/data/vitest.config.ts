@@ -1,16 +1,9 @@
-import react from '@vitejs/plugin-react';
-import { defineConfig } from 'vite';
+/// <reference types='vitest' />
+import { defineConfig } from 'vitest/config';
 
-export default defineConfig(() => ({
-  root: __dirname,
-  cacheDir: '../../../node_modules/.vite/libs/shop/data',
-  plugins: [react()],
-  // Uncomment this if you are using workers.
-  // worker: {
-  //  plugins: [ nxViteTsPaths() ],
-  // },
+export default defineConfig({
   test: {
-    name: '@org/data',
+    name: '@org/shared-data',
     watch: false,
     globals: true,
     environment: 'jsdom',
@@ -23,4 +16,4 @@ export default defineConfig(() => ({
       include: ['src/**/*.{ts,tsx}'],
     },
   },
-}));
+});

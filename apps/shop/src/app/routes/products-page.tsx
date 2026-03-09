@@ -5,13 +5,12 @@
  * Uses Tailwind CSS for styling.
  */
 
-import type { DisplayProduct, ProductFilter } from '@org/models';
-import { LoadingSpinner, ProductGrid } from '@org/shared-ui';
+import type { ProductFilter } from '@org/models';
 import {
-  useCategories,
-  useRouteNavigation,
+  useGetCategoriesQuery,
   type ProductsLoaderData,
-} from '@org/shop-data';
+} from '@org/shared-data';
+import { LoadingSpinner, ProductGrid } from '@org/shared-ui';
 import { useEffect, useState } from 'react';
 import {
   useLoaderData,
@@ -23,8 +22,8 @@ export function ProductsPage() {
   const loaderData = useLoaderData() as ProductsLoaderData;
   const navigation = useNavigation();
   const [searchParams, setSearchParams] = useSearchParams();
-  const { toProductDetail } = useRouteNavigation();
-  const { categories } = useCategories();
+  const { data: categoriesData } = useGetCategoriesQuery();
+  const categories = categoriesData ?? [];
 
   // Local state for controlled inputs
   const [searchTerm, setSearchTerm] = useState(
@@ -43,10 +42,6 @@ export function ProductsPage() {
     setSelectedCategory(searchParams.get('category') || '');
     setInStockOnly(searchParams.get('inStock') === 'true');
   }, [searchParams]);
-
-  const handleProductSelect = (product: DisplayProduct) => {
-    toProductDetail(product.id);
-  };
 
   const updateFilters = (
     updates: Partial<ProductFilter & { page?: string; search?: string }>

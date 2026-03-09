@@ -50,7 +50,7 @@
       "path": "../../shared/components/tsconfig.lib.json"
     },
     {
-      "path": "../data/tsconfig.lib.json"
+      "path": "../../shared/data/tsconfig.lib.json"
     }
   ]
 }

@@ -1,11 +1,7 @@
-// Legacy hooks (can be replaced with RTK Query hooks)
-export { useInteractions } from './lib/hooks/use-interactions';
-export { useCategories, useProducts } from './lib/hooks/use-products';
-
 // Redux Toolkit Store
 export {
-  StoreProvider,
   store,
+  StoreProvider,
   useAppDispatch,
   useAppSelector,
   useAppStore,
@@ -48,11 +44,10 @@ export {
 } from './lib/store';
 
 // Apollo Client (GraphQL)
-export { ApolloProviderWrapper, apolloClient, gql } from './lib/graphql';
-export * from './lib/graphql/generated';
+export * from './lib/graphql';
 
 // TanStack Query (HTTP/REST)
-export { QueryProvider, httpClient, queryClient } from './lib/http';
+export { httpClient, queryClient, QueryProvider } from './lib/http';
 
 // Auth hooks and types
 export {
@@ -86,10 +81,6 @@ export type {
 // Type-safe Router
 export {
   ActionError,
-  LoaderError,
-  ROUTE_META,
-  // Route paths and types
-  ROUTE_PATHS,
   addToCartAction,
   authGuardLoader,
   // Router utilities
@@ -98,6 +89,7 @@ export {
   composeLoaders,
   // Router factory
   createRouter,
+  LoaderError,
   // Actions
   loginAction,
   logoutAction,
@@ -105,6 +97,9 @@ export {
   // Loaders
   productsLoader,
   registerAction,
+  ROUTE_META,
+  // Route paths and types
+  ROUTE_PATHS,
   useRouteNavigation,
   useTypedNavigate,
   useTypedParams,
@@ -119,7 +114,7 @@ export type {
   RouteMeta,
   RouteParams,
   RoutePath,
-  RouteSearchParams,
   RouterComponents,
+  RouteSearchParams,
   SearchParamsFor,
 } from './lib/router';

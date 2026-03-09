@@ -1,0 +1,28 @@
+{
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "name": "@org/shared-data",
+  "sourceRoot": "libs/shared/data/src",
+  "projectType": "library",
+  "tags": ["scope:shared", "type:data-access"],
+  "targets": {
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsc -b libs/shared/data/tsconfig.lib.json --emitDeclarationOnly"
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "vitest --config libs/shared/data/vitest.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "libs/shared/data",
+        "command": "eslint ."
+      }
+    }
+  }
+}

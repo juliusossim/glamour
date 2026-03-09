@@ -22,13 +22,13 @@
     "paths": {
       "@/*": ["./apps/shop/src/*"],
       "@/components/*": ["./libs/shared/components/src/lib/*"],
-      "@/lib/*": ["./libs/shared/components/src/lib/*"],
+      "@org/models": ["./libs/shared/models/src/index.ts"],
       "@org/shared-ui": ["./libs/shared/components/src/index.ts"],
       "@org/shared-config": ["./libs/shared/config/src/index.ts"],
-      "@org/shared/hooks": ["./libs/shared/hooks/src/index.ts"],
-      "@org/models": ["./libs/shared/models/src/index.ts"],
+      "@org/shared-hooks": ["./libs/shared/hooks/src/index.ts"],
+      "@org/shared-models": ["./libs/shared/models/src/index.ts"],
       "@org/shared-test-utils": ["./libs/shared/test-utils/src/index.ts"],
-      "@org/shop-data": ["./libs/shop/data/src/index.ts"],
+      "@org/shared-data": ["./libs/shared/data/src/index.ts"],
       "@org/shop-feature-product-detail": ["./libs/shop/feature-product-detail/src/index.ts"],
       "@org/shop-feature-products": ["./libs/shop/feature-products/src/index.ts"],
       "@org/api-products": ["./libs/api/products/src/index.ts"]

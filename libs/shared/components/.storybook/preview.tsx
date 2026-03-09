@@ -1,6 +1,5 @@
-import { ApolloProviderWrapper, QueryProvider } from '@org/shop-data';
+import { ApolloProviderWrapper, QueryProvider } from '@org/shared-data';
 import type { Preview } from '@storybook/react-vite';
-import React from 'react';
 
 // Import Tailwind CSS styles
 import './styles.css';

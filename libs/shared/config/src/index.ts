@@ -4,7 +4,7 @@ export type AppConfig = {
   host?: string;
   port?: number;
   buildNumber?: string;
-  [key: string]: any;
+  [key: string]: unknown;
 };
 
 let _config: AppConfig | null = null;

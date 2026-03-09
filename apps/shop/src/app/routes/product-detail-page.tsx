@@ -8,7 +8,7 @@
 import {
   useRouteNavigation,
   type ProductDetailLoaderData,
-} from '@org/shop-data';
+} from '@org/shared-data';
 import { useFetcher, useLoaderData } from 'react-router-dom';
 
 export function ProductDetailPage() {

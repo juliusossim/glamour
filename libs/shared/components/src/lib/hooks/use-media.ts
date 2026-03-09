@@ -156,7 +156,7 @@ export function useMedia(source: MediaSource): UseMediaResult {
       type,
     });
     setVideoState(type === 'video' ? initialVideoState : null);
-  }, [source.url, source.mimeType]);
+  }, [source]);
 
   // ============================================================================
   // Video Controls

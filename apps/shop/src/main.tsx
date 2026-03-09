@@ -4,7 +4,7 @@ import {
   createRouter,
   QueryProvider,
   StoreProvider,
-} from '@org/shop-data';
+} from '@org/shared-data';
 import { StrictMode } from 'react';
 import * as ReactDOM from 'react-dom/client';
 import { RouterProvider } from 'react-router-dom';

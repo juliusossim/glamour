@@ -91,10 +91,9 @@ test.describe('Navigation Flow', () => {
 
     // Back button should still work
     const backButton = page.locator('button:has-text("Back to Products")');
-    if (await backButton.isVisible()) {
-      await backButton.click();
-      await page.waitForURL('**/products');
-      expect(page.url()).toContain('/products');
-    }
+    await expect(backButton).toBeVisible();
+    await backButton.click();
+    await page.waitForURL('**/products');
+    expect(page.url()).toContain('/products');
   });
 });

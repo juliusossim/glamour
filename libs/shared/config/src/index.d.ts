@@ -4,7 +4,7 @@ export type AppConfig = {
   host?: string;
   port?: number;
   buildNumber?: string;
-  [key: string]: any;
+  [key: string]: unknown;
 };
 export declare function createConfig(cfg: AppConfig): AppConfig;
 export declare function getConfig(): AppConfig;

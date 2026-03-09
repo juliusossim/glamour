@@ -1,10 +1,10 @@
+import { useGetProductsQuery } from '@org/shared-data';
 import { render, screen } from '@testing-library/react';
-import { vi, describe, it, expect, beforeEach } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { ProductList } from './product-list';
-import { useProducts } from '@org/shop-data';
 
-vi.mock('@org/shop-data', () => ({
-  useProducts: vi.fn(),
+vi.mock('@org/shared-data', () => ({
+  useGetProductsQuery: vi.fn(),
 }));
 
 vi.mock('@org/shared-ui', () => ({
@@ -22,12 +22,16 @@ describe('ProductList', () => {
     vi.clearAllMocks();
   });
 
-  it('should render products from useProducts', () => {
-    (useProducts as unknown as ReturnType<typeof vi.fn>).mockReturnValue({
-      products: [
-        { id: '1', name: 'Product One' },
-        { id: '2', name: 'Product Two' },
-      ],
+  it('should render products from useGetProductsQuery', () => {
+    (
+      useGetProductsQuery as unknown as ReturnType<typeof vi.fn>
+    ).mockReturnValue({
+      data: {
+        data: [
+          { id: '1', name: 'Product One' },
+          { id: '2', name: 'Product Two' },
+        ],
+      },
     });
 
     render(<ProductList />);
@@ -37,9 +41,25 @@ describe('ProductList', () => {
     expect(screen.getByText('Product Two')).toBeInTheDocument();
   });
 
-  it('should render empty grid when hook returns no products', () => {
-    (useProducts as unknown as ReturnType<typeof vi.fn>).mockReturnValue({
-      products: [],
+  it('should render empty grid when query has no data', () => {
+    (
+      useGetProductsQuery as unknown as ReturnType<typeof vi.fn>
+    ).mockReturnValue({
+      data: {
+        data: [],
+      },
+    });
+
+    render(<ProductList />);
+
+    expect(screen.getByTestId('product-grid')).toBeInTheDocument();
+  });
+
+  it('should render empty grid when query result is undefined', () => {
+    (
+      useGetProductsQuery as unknown as ReturnType<typeof vi.fn>
+    ).mockReturnValue({
+      data: undefined,
     });
 
     render(<ProductList />);

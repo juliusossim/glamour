@@ -1,6 +1,8 @@
 {
-  "name": "@org/shop-data",
+  "name": "@org/shared-data",
   "version": "0.0.1",
+  "private": true,
+  "type": "module",
   "main": "./src/index.ts",
   "types": "./src/index.ts",
   "exports": {
@@ -14,11 +16,11 @@
   "nx": {
     "targets": {
       "typecheck": {
-        "command": "tsc -b libs/shop/data/tsconfig.lib.json --emitDeclarationOnly"
+        "command": "tsc -b libs/shared/data/tsconfig.lib.json --emitDeclarationOnly"
       }
     },
     "tags": [
-      "scope:shop",
+      "scope:shared",
       "type:data-access"
     ]
   },

@@ -1,27 +1,21 @@
 import { useMutation, useQuery } from '@apollo/client/react';
+
 import {
   GetInteractionsDocument,
-  ToggleLikeDocument,
-  ToggleReglamDocument,
-  ToggleShareDocument,
   type GetInteractionsQuery,
   type GetInteractionsQueryVariables,
-  type ToggleLikeMutation,
-  type ToggleLikeMutationVariables,
-  type ToggleReglamMutation,
-  type ToggleReglamMutationVariables,
-  type ToggleShareMutation,
-  type ToggleShareMutationVariables,
   type SocialInteractionsFieldsFragment,
-} from '../graphql';
+  ToggleLikeDocument,
+  ToggleLikeMutation,
+  type ToggleLikeMutationVariables,
+  ToggleReglamDocument,
+  ToggleReglamMutation,
+  type ToggleReglamMutationVariables,
+  ToggleShareDocument,
+  ToggleShareMutation,
+  type ToggleShareMutationVariables,
+} from './generated/graphql';
 
-/**
- * Hook for managing social interactions (like, share, reglam) on products.
- *
- * Uses Apollo's automatic cache normalization via `keyFields: ['productId']`
- * on SocialInteractions type, so mutations automatically update the cache
- * without manual `cache.writeQuery` calls.
- */
 export function useInteractions(productId: string) {
   const { data, loading, error, refetch } = useQuery<
     GetInteractionsQuery,
@@ -33,7 +27,6 @@ export function useInteractions(productId: string) {
 
   const interactions = data?.interactions;
 
-  // Base interaction state for optimistic responses
   const getBaseState = (): SocialInteractionsFieldsFragment => ({
     productId,
     likes: interactions?.likes ?? 0,

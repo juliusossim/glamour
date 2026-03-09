@@ -33,7 +33,7 @@ export function FormSelectSearchableGroup(props: SelectProps) {
     <FormField
       control={form.control}
       name={props.name}
-      render={({ field }) => (
+      render={() => (
         <FormItem>
           <FormLabel htmlFor={props.name}>{props.label}</FormLabel>
           <FormControl>
