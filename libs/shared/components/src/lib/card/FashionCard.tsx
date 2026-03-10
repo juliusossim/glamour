@@ -1,4 +1,6 @@
+import { DisplayProduct } from '@org/models';
 import { Eye, Handshake } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import {
   Amount,
   BrandsCarousel,
@@ -22,7 +24,6 @@ import {
 import { Item, ItemContent } from '../ui/item';
 import { defaultBrands } from '../utils/mock';
 import { SOLD_TEXT } from '../utils/text/fashionCard';
-import { DisplayProduct } from '@org/models';
 
 export function FashionCard({
   product,
@@ -84,8 +85,13 @@ export function FashionCard({
             <SmallText>6k+ </SmallText>
             <SmallText>{SOLD_TEXT}</SmallText>
           </Text>
-          <Button type="submit" className="cursor-pointer">
-            <Eye />
+          <Button asChild>
+            <Link
+              to={`/products/${product.id}`}
+              aria-label={`View ${product.name}`}
+            >
+              <Eye />
+            </Link>
           </Button>
         </div>
 

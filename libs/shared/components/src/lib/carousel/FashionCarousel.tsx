@@ -13,13 +13,19 @@ export interface FashionCarouselProps extends PropsWithChildren {
   readonly product: Product;
 }
 
-export function FashionCarousel({ product, children }: FashionCarouselProps) {
+export function FashionCarousel({
+  product,
+  children,
+}: Readonly<FashionCarouselProps>) {
   return (
     <Carousel className="w-full py-0 group">
       <CarouselContent className="py-0">
         {children ??
           product.imageUrls.map((url) => (
-            <CarouselItem key={url} className="ml-0">
+            <CarouselItem
+              key={url}
+              className="ml-0 h-50 lg:h-55 xl:h-60 2xl:h-72"
+            >
               <MediaRenderer
                 source={{ url }}
                 alt={product.name}
