@@ -46,6 +46,9 @@
       "path": "../../libs/shared/data/tsconfig.lib.json"
     },
     {
+      "path": "../../libs/shared/hooks/tsconfig.lib.json"
+    },
+    {
       "path": "../../libs/shared/models/tsconfig.lib.json"
     }
   ]

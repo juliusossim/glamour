@@ -15,6 +15,9 @@
       "default": "./src/index.ts"
     }
   },
+  "dependencies": {
+    "@org/models": "workspace:*"
+  },
   "nx": {
     "targets": {
       "typecheck": {

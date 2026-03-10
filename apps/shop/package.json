@@ -33,6 +33,7 @@
   "devDependencies": {
     "@org/models": "workspace:*",
     "@org/shared-data": "workspace:*",
+    "@org/shared-hooks": "workspace:*",
     "@org/shop-feature-product-detail": "workspace:*",
     "@org/shop-feature-products": "workspace:*",
     "@org/shared-ui": "workspace:*"
