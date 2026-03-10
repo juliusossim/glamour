@@ -48,3 +48,15 @@ export interface RouteMeta {
   requiresAuth?: boolean;
   roles?: string[];
 }
+
+export interface RouterComponents {
+  RootLayout: React.ComponentType;
+  ProductsPage: React.ComponentType;
+  ProductDetailPage: React.ComponentType;
+  ErrorBoundary: React.ComponentType;
+  CartPage?: React.ComponentType;
+  CheckoutPage?: React.ComponentType;
+  LoginPage?: React.ComponentType;
+  RegisterPage?: React.ComponentType;
+  ProfilePage?: React.ComponentType;
+}

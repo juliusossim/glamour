@@ -243,52 +243,56 @@ function Header() {
 
 ## Data Loaders
 
-Loaders fetch data before the route renders, enabling:
+Loaders prime RTK Query cache before the route renders, enabling:
 
 - Parallel data fetching
-- Loading states via `useNavigation()`
+- Navigation-aware loading states via `useNavigation()`
 - Automatic error handling
 - Request cancellation via AbortSignal
+- A single component read path through RTK Query hooks
 
 ### `productsLoader`
 
-Fetches paginated product list with filters:
+Primes the products RTK Query cache using the current URL filters:
 
 ```typescript
-// libs/shop/data/src/lib/router/loaders.ts
-
-export interface ProductsLoaderData {
-  products: Product[];
-  totalProducts: number;
-  totalPages: number;
-  currentPage: number;
-  filter: ProductFilter;
-}
-
-export async function productsLoader({ request }: LoaderFunctionArgs): Promise<ProductsLoaderData> {
+export async function productsLoader({ request }: LoaderFunctionArgs): Promise<null> {
   const url = new URL(request.url);
-  // Extract filters from URL search params
   const search = url.searchParams.get('search');
-  const category = url.searchParams.get('category');
-  // ... fetch and return data
+
+  await store
+    .dispatch(
+      productsApi.endpoints.getProducts.initiate(
+        {
+          page: Number.parseInt(url.searchParams.get('page') || '1', 10),
+          pageSize: Number.parseInt(url.searchParams.get('pageSize') || '12', 10),
+          filters: search ? { searchTerm: search } : {},
+        },
+        { subscribe: false, forceRefetch: true }
+      )
+    )
+    .unwrap();
+
+  return null;
 }
 ```
 
 ### `productDetailLoader`
 
-Fetches a single product by ID:
+Primes the product detail cache entry for the current route param:
 
 ```typescript
-export interface ProductDetailLoaderData {
-  product: Product;
-}
+export async function productDetailLoader({ params, request }: LoaderFunctionArgs): Promise<null> {
+  await store
+    .dispatch(
+      productsApi.endpoints.getProduct.initiate(params.id!, {
+        subscribe: false,
+        forceRefetch: true,
+      })
+    )
+    .unwrap();
 
-export async function productDetailLoader({
-  params,
-  request,
-}: LoaderFunctionArgs): Promise<ProductDetailLoaderData> {
-  const { id } = params;
-  // Fetch product by ID
+  return null;
 }
 ```
 
@@ -320,14 +324,22 @@ import { composeLoaders, authGuardLoader, profileLoader } from '@org/shop-data';
 }
 ```
 
-### Using Loader Data in Components
+### Reading Route Data in Components
 
 ```typescript
-import { useLoaderData, useNavigation } from 'react-router-dom';
-import type { ProductsLoaderData } from '@org/shop-data';
+import { useGetProductsQuery } from '@org/shared-data';
+import { useNavigation, useSearchParams } from 'react-router-dom';
 
 function ProductsPage() {
-  const data = useLoaderData() as ProductsLoaderData;
+  const navigation = useNavigation();
+  const [searchParams] = useSearchParams();
+  const { data } = useGetProductsQuery({
+    page: Number.parseInt(searchParams.get('page') || '1', 10),
+    pageSize: 12,
+    filters: {
+      searchTerm: searchParams.get('search') || undefined,
+    },
+  });
   const navigation = useNavigation();
 
   const isLoading = navigation.state === 'loading';
@@ -335,8 +347,8 @@ function ProductsPage() {
   return (
     <div>
       {isLoading && <LoadingOverlay />}
-      <ProductGrid products={data.products} />
-      <Pagination current={data.currentPage} total={data.totalPages} />
+      <ProductGrid products={data?.data ?? []} />
+      <Pagination current={data?.page ?? 1} total={data?.totalPages ?? 1} />
     </div>
   );
 }
@@ -595,14 +607,14 @@ navigate(ROUTE_PATHS.PRODUCTS);
 navigate('/products');
 ```
 
-### 2. Type Your Loader Data
+### 2. Keep One Read Path Per Page
 
 ```typescript
 // ✅ Good
-const data = useLoaderData() as ProductsLoaderData;
+// Loader primes the cache, component reads from RTK Query
+const { data } = useGetProductsQuery(args);
 
-// ❌ Bad - untyped
-const data = useLoaderData();
+// Avoid mixing useLoaderData() and RTK Query for the same payload
 ```
 
 ### 3. Handle Loading States
@@ -676,8 +688,6 @@ productDetailLoader
 authGuardLoader
 composeLoaders
 LoaderError
-type ProductsLoaderData
-type ProductDetailLoaderData
 
 // Actions
 loginAction

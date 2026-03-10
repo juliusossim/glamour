@@ -1,25 +1,17 @@
 /**
  * Products Page Component
  *
- * Uses data router loader data instead of client-side fetching.
+ * Uses RTK Query data, with the route loader priming the cache before render.
  * Uses Tailwind CSS for styling.
  */
 
 import type { ProductFilter } from '@org/models';
-import {
-  useGetCategoriesQuery,
-  type ProductsLoaderData,
-} from '@org/shared-data';
+import { useGetCategoriesQuery, useGetProductsQuery } from '@org/shared-data';
 import { LoadingSpinner, ProductGrid } from '@org/shared-ui';
 import { useEffect, useState } from 'react';
-import {
-  useLoaderData,
-  useNavigation,
-  useSearchParams,
-} from 'react-router-dom';
+import { useNavigation, useSearchParams } from 'react-router-dom';
 
 export function ProductsPage() {
-  const loaderData = useLoaderData() as ProductsLoaderData;
   const navigation = useNavigation();
   const [searchParams, setSearchParams] = useSearchParams();
   const { data: categoriesData } = useGetCategoriesQuery();
@@ -35,6 +27,27 @@ export function ProductsPage() {
   const [inStockOnly, setInStockOnly] = useState(
     searchParams.get('inStock') === 'true'
   );
+
+  const filters: ProductFilter = {};
+  const search = searchParams.get('search');
+  const category = searchParams.get('category');
+  const inStock = searchParams.get('inStock');
+  const minPrice = searchParams.get('minPrice');
+  const maxPrice = searchParams.get('maxPrice');
+
+  if (search) filters.searchTerm = search;
+  if (category) filters.category = category;
+  if (inStock === 'true') filters.inStock = true;
+  if (minPrice) filters.minPrice = Number.parseFloat(minPrice);
+  if (maxPrice) filters.maxPrice = Number.parseFloat(maxPrice);
+
+  const page = Number.parseInt(searchParams.get('page') || '1', 10);
+  const pageSize = Number.parseInt(searchParams.get('pageSize') || '12', 10);
+  const { data: productsData } = useGetProductsQuery({
+    page,
+    pageSize,
+    filters,
+  });
 
   // Sync URL params with local state on navigation
   useEffect(() => {
@@ -93,18 +106,18 @@ export function ProductsPage() {
   };
 
   const handleNextPage = () => {
-    if (loaderData.currentPage < loaderData.totalPages) {
-      updateFilters({ page: String(loaderData.currentPage + 1) });
+    if (productsData && productsData.page < productsData.totalPages) {
+      updateFilters({ page: String(productsData.page + 1) });
     }
   };
 
   const handlePreviousPage = () => {
-    if (loaderData.currentPage > 1) {
-      updateFilters({ page: String(loaderData.currentPage - 1) });
+    if (productsData && productsData.page > 1) {
+      updateFilters({ page: String(productsData.page - 1) });
     }
   };
 
-  const isLoading = navigation.state === 'loading';
+  const isLoading = navigation.state === 'loading' || !productsData;
 
   return (
     <div className="w-full">
@@ -157,9 +170,9 @@ export function ProductsPage() {
       {/* Results Info */}
       <div className="mb-4 text-sm text-slate-500">
         <span>
-          {loaderData.totalProducts} products found
-          {loaderData.totalPages > 1 &&
-            ` • Page ${loaderData.currentPage} of ${loaderData.totalPages}`}
+          {productsData?.total ?? 0} products found
+          {(productsData?.totalPages ?? 0) > 1 &&
+            ` • Page ${productsData?.page} of ${productsData?.totalPages}`}
         </span>
       </div>
 
@@ -167,26 +180,27 @@ export function ProductsPage() {
       {isLoading ? (
         <LoadingSpinner />
       ) : (
-        <ProductGrid products={loaderData.products} />
+        <ProductGrid products={productsData.data} />
       )}
 
       {/* Pagination */}
-      {loaderData.totalPages > 1 && (
+      {(productsData?.totalPages ?? 0) > 1 && (
         <div className="mt-8 flex items-center justify-center gap-4 border-t border-slate-200 pt-4">
           <button
             onClick={handlePreviousPage}
-            disabled={loaderData.currentPage <= 1 || isLoading}
+            disabled={(productsData?.page ?? 1) <= 1 || isLoading}
             className="rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm transition-colors hover:border-indigo-500 hover:text-indigo-500 disabled:cursor-not-allowed disabled:opacity-50"
           >
             ← Previous
           </button>
           <span className="text-sm text-slate-600">
-            Page {loaderData.currentPage} of {loaderData.totalPages}
+            Page {productsData?.page} of {productsData?.totalPages}
           </span>
           <button
             onClick={handleNextPage}
             disabled={
-              loaderData.currentPage >= loaderData.totalPages || isLoading
+              (productsData?.page ?? 1) >= (productsData?.totalPages ?? 1) ||
+              isLoading
             }
             className="rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm transition-colors hover:border-indigo-500 hover:text-indigo-500 disabled:cursor-not-allowed disabled:opacity-50"
           >

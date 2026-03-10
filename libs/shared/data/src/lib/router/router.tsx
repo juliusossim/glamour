@@ -12,6 +12,7 @@ import {
   redirect,
   type RouteObject,
 } from 'react-router-dom';
+import type { RouterComponents } from '.';
 import {
   addToCartAction,
   loginAction,
@@ -24,18 +25,6 @@ import {
   productsLoader,
 } from './loaders';
 import { ROUTE_PATHS } from './routes';
-
-export interface RouterComponents {
-  RootLayout: React.ComponentType;
-  ProductsPage: React.ComponentType;
-  ProductDetailPage: React.ComponentType;
-  ErrorBoundary: React.ComponentType;
-  CartPage?: React.ComponentType;
-  CheckoutPage?: React.ComponentType;
-  LoginPage?: React.ComponentType;
-  RegisterPage?: React.ComponentType;
-  ProfilePage?: React.ComponentType;
-}
 
 /**
  * Create the data router with provided components
@@ -140,6 +129,3 @@ export function createRouter(
 
   return createBrowserRouter(routes);
 }
-
-// Export types for loaders
-export type { ProductDetailLoaderData, ProductsLoaderData } from './loaders';

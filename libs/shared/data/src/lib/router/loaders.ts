@@ -5,27 +5,16 @@
  * These run before components render and provide type-safe data loading.
  */
 
-import {
-  ApiResponse,
-  DisplayProduct,
-  PaginatedResponse,
-  ProductFilter,
-} from '@org/models';
+import { ProductFilter } from '@org/models';
 import type { LoaderFunctionArgs } from 'react-router-dom';
-import { getRestApiUrl } from '../config/runtime-config';
 import { tokenStorage } from '../http/auth/token-storage';
+import { productsApi } from '../store/api/products.api';
+import { store } from '../store/store';
 
-// Loader response types
-export interface ProductsLoaderData {
-  products: DisplayProduct[];
-  totalProducts: number;
-  totalPages: number;
-  currentPage: number;
-  filter: ProductFilter;
-}
+function bindAbort(signal: AbortSignal, abort: () => void) {
+  signal.addEventListener('abort', abort, { once: true });
 
-export interface ProductDetailLoaderData {
-  product: DisplayProduct;
+  return () => signal.removeEventListener('abort', abort);
 }
 
 // Error types for loaders
@@ -46,8 +35,7 @@ export class LoaderError extends Error {
  */
 export async function productsLoader({
   request,
-}: LoaderFunctionArgs): Promise<ProductsLoaderData> {
-  const apiUrl = getRestApiUrl();
+}: LoaderFunctionArgs): Promise<null> {
   const url = new URL(request.url);
   const searchParams = url.searchParams;
 
@@ -68,46 +56,39 @@ export async function productsLoader({
   const page = Number.parseInt(searchParams.get('page') || '1', 10);
   const pageSize = Number.parseInt(searchParams.get('pageSize') || '12', 10);
 
-  // Build query params
-  const params = new URLSearchParams({
-    page: page.toString(),
-    pageSize: pageSize.toString(),
-  });
+  const productsQuery = store.dispatch(
+    productsApi.endpoints.getProducts.initiate(
+      {
+        page,
+        pageSize,
+        filters: filter,
+      },
+      {
+        subscribe: false,
+        forceRefetch: true,
+      }
+    )
+  );
+  const releaseAbort = bindAbort(request.signal, () => productsQuery.abort());
 
-  if (filter.category) params.append('category', filter.category);
-  if (filter.minPrice !== undefined)
-    params.append('minPrice', filter.minPrice.toString());
-  if (filter.maxPrice !== undefined)
-    params.append('maxPrice', filter.maxPrice.toString());
-  if (filter.inStock !== undefined)
-    params.append('inStock', filter.inStock.toString());
-  if (filter.searchTerm) params.append('searchTerm', filter.searchTerm);
+  try {
+    await productsQuery.unwrap();
+  } catch (error) {
+    if (
+      typeof error === 'object' &&
+      error !== null &&
+      'status' in error &&
+      'error' in error
+    ) {
+      throw new LoaderError('Failed to load products');
+    }
 
-  const response = await fetch(`${apiUrl}/products?${params}`, {
-    signal: request.signal,
-  });
-
-  if (!response.ok) {
-    throw new LoaderError(
-      'Failed to load products',
-      response.status,
-      response.statusText
-    );
+    throw error;
+  } finally {
+    releaseAbort();
   }
 
-  const data = (await response.json()) as PaginatedResponse<DisplayProduct>;
-
-  if (!data.success) {
-    throw new LoaderError(data.error || 'Failed to load products', 400);
-  }
-
-  return {
-    products: data.data,
-    totalProducts: data.total,
-    totalPages: data.totalPages,
-    currentPage: data.page,
-    filter,
-  };
+  return null;
 }
 
 /**
@@ -117,38 +98,39 @@ export async function productsLoader({
 export async function productDetailLoader({
   params,
   request,
-}: LoaderFunctionArgs): Promise<ProductDetailLoaderData> {
-  const apiUrl = getRestApiUrl();
+}: LoaderFunctionArgs): Promise<null> {
   const { id } = params;
 
   if (!id) {
     throw new LoaderError('Product ID is required', 400, 'Bad Request');
   }
 
-  const response = await fetch(`${apiUrl}/products/${id}`, {
-    signal: request.signal,
-  });
+  const productQuery = store.dispatch(
+    productsApi.endpoints.getProduct.initiate(id, {
+      subscribe: false,
+      forceRefetch: true,
+    })
+  );
+  const releaseAbort = bindAbort(request.signal, () => productQuery.abort());
 
-  if (!response.ok) {
-    if (response.status === 404) {
+  try {
+    await productQuery.unwrap();
+  } catch (error) {
+    if (
+      typeof error === 'object' &&
+      error !== null &&
+      'status' in error &&
+      (error.status === 404 || error.status === '404')
+    ) {
       throw new LoaderError('Product not found', 404, 'Not Found');
     }
-    throw new LoaderError(
-      'Failed to load product',
-      response.status,
-      response.statusText
-    );
+
+    throw new LoaderError('Failed to load product');
+  } finally {
+    releaseAbort();
   }
 
-  const data = (await response.json()) as ApiResponse<DisplayProduct>;
-
-  if (!data.success) {
-    throw new LoaderError(data.error || 'Failed to load product', 400);
-  }
-
-  return {
-    product: data.data,
-  };
+  return null;
 }
 
 /**

@@ -1,7 +1,7 @@
 // Redux Toolkit Store
 export {
-  store,
   StoreProvider,
+  store,
   useAppDispatch,
   useAppSelector,
   useAppStore,
@@ -47,7 +47,7 @@ export {
 export * from './lib/graphql';
 
 // TanStack Query (HTTP/REST)
-export { httpClient, queryClient, QueryProvider } from './lib/http';
+export { QueryProvider, httpClient, queryClient } from './lib/http';
 
 // Auth hooks and types
 export {
@@ -81,6 +81,10 @@ export type {
 // Type-safe Router
 export {
   ActionError,
+  LoaderError,
+  ROUTE_META,
+  // Route paths and types
+  ROUTE_PATHS,
   addToCartAction,
   authGuardLoader,
   // Router utilities
@@ -89,7 +93,6 @@ export {
   composeLoaders,
   // Router factory
   createRouter,
-  LoaderError,
   // Actions
   loginAction,
   logoutAction,
@@ -97,9 +100,6 @@ export {
   // Loaders
   productsLoader,
   registerAction,
-  ROUTE_META,
-  // Route paths and types
-  ROUTE_PATHS,
   useRouteNavigation,
   useTypedNavigate,
   useTypedParams,
@@ -109,12 +109,10 @@ export {
 export type {
   ActionResponse,
   ParamsFor,
-  ProductDetailLoaderData,
-  ProductsLoaderData,
   RouteMeta,
   RouteParams,
   RoutePath,
-  RouterComponents,
   RouteSearchParams,
+  RouterComponents,
   SearchParamsFor,
 } from './lib/router';

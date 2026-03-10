@@ -1,22 +1,30 @@
 /**
  * Product Detail Page Component
  *
- * Uses data router loader data for product details.
+ * Uses RTK Query product data, with the route loader priming the cache.
  * Uses Tailwind CSS for styling.
  */
 
 import {
+  ROUTE_PATHS,
+  useGetProductQuery,
   useRouteNavigation,
-  type ProductDetailLoaderData,
+  useTypedParams,
 } from '@org/shared-data';
-import { useFetcher, useLoaderData } from 'react-router-dom';
+import { LoadingSpinner } from '@org/shared-ui';
+import { useFetcher } from 'react-router-dom';
 
 export function ProductDetailPage() {
-  const { product } = useLoaderData() as ProductDetailLoaderData;
+  const { id } = useTypedParams(ROUTE_PATHS.PRODUCT_DETAIL);
+  const { data: product } = useGetProductQuery(id);
   const { back } = useRouteNavigation();
   const fetcher = useFetcher();
 
   const isAddingToCart = fetcher.state === 'submitting';
+
+  if (!product) {
+    return <LoadingSpinner />;
+  }
 
   const handleBackClick = () => {
     back();

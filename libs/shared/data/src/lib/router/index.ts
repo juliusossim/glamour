@@ -13,18 +13,13 @@ export {
 } from './router-utils';
 
 // Router configuration
-export {
-  createRouter,
-  type ProductDetailLoaderData,
-  type ProductsLoaderData,
-  type RouterComponents,
-} from './router';
+export { createRouter } from './router';
 
 // Loaders
 export {
-  LoaderError,
   authGuardLoader,
   composeLoaders,
+  LoaderError,
   productDetailLoader,
   productsLoader,
 } from './loaders';

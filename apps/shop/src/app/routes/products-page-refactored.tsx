@@ -1,10 +1,10 @@
 // import { LoadingSpinner, ProductGrid } from '@org/shared-ui';
 // import {
-//   ProductsLoaderData,
+//   useGetProductsQuery,
 //   useTypedNavigate,
 //   useTypedSearchParams,
 // } from '@org/shop-data';
-// import { useLoaderData, useNavigation } from 'react-router-dom';
+// import { useNavigation } from 'react-router-dom';
 
 // import type { ProductFilterFormData } from '@org/shop-feature-products';
 
@@ -18,10 +18,18 @@
 //  * - Better maintainability
 //  */
 // export function ProductsPageRefactored() {
-//   const loaderData = useLoaderData() as ProductsLoaderData;
 //   const navigation = useNavigation();
 //   const navigate = useTypedNavigate();
 //   const [searchParams] = useTypedSearchParams('products');
+//   const { data: productsData } = useGetProductsQuery({
+//     page: Number.parseInt(searchParams.page || '1', 10),
+//     pageSize: 12,
+//     filters: {
+//       searchTerm: searchParams.search,
+//       category: searchParams.category,
+//       inStock: searchParams.inStock === 'true' ? true : undefined,
+//     },
+//   });
 
 //   // Extract current filters from URL
 //   const currentFilters: Partial<ProductFilterFormData> = {
@@ -55,16 +63,16 @@
 //       {/* Filters Form - Now using React Hook Form */}
 //       <ProductFiltersForm
 //         initialValues={currentFilters}
-//         categories={loaderData.categories || []}
+//         categories={[]}
 //         onFiltersChange={handleFiltersChange}
 //       />
 
 //       {/* Results Info */}
 //       <div className="mb-4 flex items-center justify-between">
 //         <span className="text-sm text-muted-foreground">
-//           {loaderData.totalProducts} products found
-//           {loaderData.totalPages > 1 &&
-//             ` • Page ${loaderData.currentPage} of ${loaderData.totalPages}`}
+//           {productsData?.total ?? 0} products found
+//           {(productsData?.totalPages ?? 0) > 1 &&
+//             ` • Page ${productsData?.page} of ${productsData?.totalPages}`}
 //         </span>
 
 //         {isLoading && (
@@ -79,7 +87,7 @@
 //         <div className="flex min-h-[400px] items-center justify-center">
 //           <LoadingSpinner />
 //         </div>
-//       ) : loaderData.products.length === 0 ? (
+//       ) : (productsData?.data.length ?? 0) === 0 ? (
 //         <div className="flex min-h-[400px] flex-col items-center justify-center rounded-lg border border-dashed border-border bg-muted/30 p-8">
 //           <p className="text-lg font-medium text-muted-foreground">
 //             No products found
@@ -90,34 +98,34 @@
 //         </div>
 //       ) : (
 //         <ProductGrid
-//           products={loaderData.products}
+//           products={productsData?.data ?? []}
 //           onProductSelect={handleProductSelect}
 //         />
 //       )}
 
 //       {/* Pagination - Could be extracted to a separate component */}
-//       {loaderData.totalPages > 1 && !isLoading && (
+//       {(productsData?.totalPages ?? 0) > 1 && !isLoading && (
 //         <div className="mt-8 flex items-center justify-center gap-2">
 //           <button
 //             onClick={() => {
 //               const newParams = new URLSearchParams(window.location.search);
-//               newParams.set('page', String(loaderData.currentPage - 1));
+//               newParams.set('page', String((productsData?.page ?? 1) - 1));
 //               navigate(`?${newParams.toString()}` as any, { replace: true });
 //             }}
-//             disabled={loaderData.currentPage === 1}
+//             disabled={(productsData?.page ?? 1) === 1}
 //             className="rounded-lg border border-border bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-muted disabled:cursor-not-allowed disabled:opacity-50"
 //           >
 //             Previous
 //           </button>
 
 //           <span className="px-4 text-sm text-muted-foreground">
-//             Page {loaderData.currentPage} of {loaderData.totalPages}
+//             Page {productsData?.page} of {productsData?.totalPages}
 //           </span>
 
 //           <button
 //             onClick={() => {
 //               const newParams = new URLSearchParams(window.location.search);
-//               newParams.set('page', String(loaderData.currentPage + 1));
+//               newParams.set('page', String((productsData?.page ?? 1) + 1));
 //               navigate(`?${newParams.toString()}` as any, { replace: true });
 //             }}
 //             disabled={loaderData.currentPage === loaderData.totalPages}
