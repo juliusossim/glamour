@@ -29,13 +29,7 @@ export function ProductDetailPage() {
     );
   };
 
-  const getStars = () => {
-    const stars = [];
-    for (let i = 0; i < 5; i++) {
-      stars.push(i < Math.floor(product.rating));
-    }
-    return stars;
-  };
+  const stars = [1, 2, 3, 4, 5];
 
   const getButtonText = () => {
     if (isAddingToCart) return 'Adding...';
@@ -84,10 +78,14 @@ export function ProductDetailPage() {
           {/* Rating */}
           <div className="flex items-center gap-2">
             <span className="text-xl text-slate-200">
-              {getStars().map((filled, idx) => (
+              {stars.map((starValue) => (
                 <span
-                  key={`star-${idx}`}
-                  className={filled ? 'text-orange-400' : ''}
+                  key={`star-${starValue}`}
+                  className={
+                    starValue <= Math.floor(product.rating)
+                      ? 'text-orange-400'
+                      : ''
+                  }
                 >
                   ★
                 </span>
@@ -133,7 +131,7 @@ export function ProductDetailPage() {
             <button
               onClick={handleAddToCart}
               disabled={!product.inStock || isAddingToCart}
-              className="w-full rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 px-8 py-4 text-base font-semibold text-white transition-all hover:opacity-90 hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0"
+              className="w-full rounded-lg bg-linear-to-br from-indigo-500 to-purple-600 px-8 py-4 text-base font-semibold text-white transition-all hover:opacity-90 hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0"
             >
               {getButtonText()}
             </button>

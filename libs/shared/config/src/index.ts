@@ -1,11 +1,11 @@
-export type AppConfig = {
+export interface AppConfig {
   apiBaseUrl?: string;
-  env?: string;
+  mode?: string;
+  buildNumber?: string;
   host?: string;
   port?: number;
-  buildNumber?: string;
   [key: string]: unknown;
-};
+}
 
 let _config: AppConfig | null = null;
 

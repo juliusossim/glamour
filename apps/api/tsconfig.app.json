@@ -2,14 +2,13 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "dist",
-    "rootDir": "src",
+    "composite": true,
     "module": "nodenext",
     "types": ["node"],
     "moduleResolution": "nodenext",
     "jsx": "react-jsx",
     "declarationMap": false,
-    "emitDeclarationOnly": false,
-    "disableSourceOfProjectReferenceRedirect": true
+    "emitDeclarationOnly": false
   },
   "include": ["src/**/*.ts"],
   "exclude": [

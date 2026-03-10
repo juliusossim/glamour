@@ -6,19 +6,8 @@ import {
 } from '@apollo/client';
 import { ErrorLink } from '@apollo/client/link/error';
 import { RetryLink } from '@apollo/client/link/retry';
-import { getConfig } from '@org/shared-config';
+import { getAppMode, getGraphqlUrl } from '../config/runtime-config';
 import { tokenStorage } from '../http/auth/token-storage';
-
-// Resolve GraphQL URL from injected runtime config; fall back to localhost.
-let _apiBase = 'http://localhost:3000';
-try {
-  const cfg = getConfig();
-  if (cfg.apiBaseUrl) _apiBase = String(cfg.apiBaseUrl);
-} catch (e) {
-  console.error('e', e);
-  // If config not initialized, fall back to default. Apps should call `createConfig` at bootstrap.
-}
-const GRAPHQL_URL = `${_apiBase.replace(/\/$/, '')}/graphql`;
 
 // Helper function to handle auth errors (defined early for use in errorLink)
 const handleAuthError = () => {
@@ -30,7 +19,7 @@ const handleAuthError = () => {
 
 // HTTP Link
 const httpLink = new HttpLink({
-  uri: GRAPHQL_URL,
+  uri: getGraphqlUrl,
   credentials: 'include',
 });
 
@@ -98,24 +87,13 @@ const retryLink = new RetryLink({
   },
   attempts: {
     max: 3,
-    retryIf: (error) => {
-      // Retry only when a transport-level error is present.
-      return Boolean(error);
-    },
+    retryIf: Boolean,
   },
 });
 
 // Logging Link (for development)
 const loggingLink = new ApolloLink((operation, forward) => {
-  let env = 'development';
-  try {
-    const cfg = getConfig();
-    env = cfg.env ?? env;
-  } catch (e) {
-    console.error('e', e);
-  }
-
-  if (env === 'development') {
+  if (getAppMode() === 'development') {
     console.log(`[GraphQL Request]: ${operation.operationName}`);
   }
   return forward(operation);

@@ -1,11 +1,25 @@
 import type { PaginatedResponse, Product, ProductFilter } from '@org/models';
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import {
+  type BaseQueryFn,
+  createApi,
+  fetchBaseQuery,
+  type FetchArgs,
+  type FetchBaseQueryError,
+} from '@reduxjs/toolkit/query/react';
+import { getRestApiUrl } from '../../config/runtime-config';
 
-const API_BASE_URL = 'http://localhost:3000/api';
+const dynamicBaseQuery: BaseQueryFn<
+  string | FetchArgs,
+  unknown,
+  FetchBaseQueryError
+> = (args, api, extraOptions) => {
+  const baseQuery = fetchBaseQuery({ baseUrl: getRestApiUrl() });
+  return baseQuery(args, api, extraOptions);
+};
 
 export const productsApi = createApi({
   reducerPath: 'productsApi',
-  baseQuery: fetchBaseQuery({ baseUrl: API_BASE_URL }),
+  baseQuery: dynamicBaseQuery,
   tagTypes: ['Products', 'Product', 'Categories'],
   endpoints: (builder) => ({
     getProducts: builder.query<

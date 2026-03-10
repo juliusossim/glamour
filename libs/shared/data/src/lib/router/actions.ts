@@ -7,10 +7,9 @@
 
 import type { ActionFunctionArgs } from 'react-router-dom';
 import { redirect } from 'react-router-dom';
+import { getRestApiUrl } from '../config/runtime-config';
 import { tokenStorage } from '../http/auth/token-storage';
 import { ROUTE_PATHS } from './routes';
-
-const API_URL = 'http://localhost:3333/api';
 
 // Action error type
 export class ActionError extends Error {
@@ -38,6 +37,7 @@ export interface ActionResponse<T = unknown> {
 export async function loginAction({
   request,
 }: ActionFunctionArgs): Promise<ActionResponse | Response> {
+  const apiUrl = getRestApiUrl();
   const formData = await request.formData();
   const email = formData.get('email') as string;
   const password = formData.get('password') as string;
@@ -54,7 +54,7 @@ export async function loginAction({
   }
 
   try {
-    const response = await fetch(`${API_URL}/auth/login`, {
+    const response = await fetch(`${apiUrl}/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
@@ -91,8 +91,9 @@ export async function loginAction({
  * Logout action
  */
 export async function logoutAction(): Promise<Response> {
+  const apiUrl = getRestApiUrl();
   try {
-    await fetch(`${API_URL}/auth/logout`, {
+    await fetch(`${apiUrl}/auth/logout`, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${tokenStorage.getAccessToken()}`,
@@ -113,6 +114,7 @@ export async function logoutAction(): Promise<Response> {
 export async function registerAction({
   request,
 }: ActionFunctionArgs): Promise<ActionResponse | Response> {
+  const apiUrl = getRestApiUrl();
   const formData = await request.formData();
   const email = formData.get('email') as string;
   const password = formData.get('password') as string;
@@ -135,7 +137,7 @@ export async function registerAction({
   }
 
   try {
-    const response = await fetch(`${API_URL}/auth/register`, {
+    const response = await fetch(`${apiUrl}/auth/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password, name }),

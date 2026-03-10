@@ -1,4 +1,4 @@
-import {
+import type {
   MediaMetadata,
   MediaSource,
   MediaType,
@@ -21,7 +21,7 @@ export type {
   UseMediaResult,
   VideoControls,
   VideoState,
-};
+} from '@org/models';
 
 // ============================================================================
 // Media Type Detection

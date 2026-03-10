@@ -24,7 +24,7 @@ test.describe('Product Listing Page', () => {
     const productName = firstProduct.locator('h3');
     await expect(productName).toBeVisible();
 
-    const productPrice = firstProduct.locator('text=/\\$\\d+\\.\\d{2}/');
+    const productPrice = firstProduct.locator(String.raw`text=/\$\d+\.\d{2}/`);
     await expect(productPrice).toBeVisible();
   });
 

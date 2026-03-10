@@ -7,12 +7,13 @@ import {
 import express from 'express';
 import { ProductsService } from '@org/api-products';
 import { createConfig, getConfig } from '@org/shared-config';
+import { apiEnv } from './env';
 
 // Initialize runtime config for the application here (apps read env and inject)
 createConfig({
-  host: process.env.HOST ?? 'localhost',
-  port: process.env.PORT ? Number(process.env.PORT) : 3333,
-  env: process.env.NODE_ENV ?? 'development',
+  host: apiEnv.host,
+  port: apiEnv.port,
+  mode: apiEnv.mode,
 });
 
 const app = express();
@@ -131,8 +132,8 @@ app.get('/api/products/:id', (req, res) => {
 });
 
 const config = getConfig();
-const host = config.host || 'localhost';
-const port = config.port || 3000;
+const host = config.host ?? apiEnv.host;
+const port = config.port ?? apiEnv.port;
 
 app.listen(port, host, () => {
   console.log(`[ ready ] http://${host}:${port}`);

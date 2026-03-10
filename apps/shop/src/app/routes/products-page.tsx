@@ -121,7 +121,7 @@ export function ProductsPage() {
           />
           <button
             type="submit"
-            className="w-full rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 px-6 py-3 font-medium text-white transition-opacity hover:opacity-90 sm:w-auto"
+            className="w-full rounded-lg bg-linear-to-br from-indigo-500 to-purple-600 px-6 py-3 font-medium text-white transition-opacity hover:opacity-90 sm:w-auto"
           >
             Search
           </button>
@@ -149,7 +149,7 @@ export function ProductsPage() {
               onChange={handleInStockChange}
               className="size-4 cursor-pointer rounded border-slate-300 text-indigo-500 focus:ring-indigo-500"
             />
-            In Stock Only
+            <span>In Stock Only</span>
           </label>
         </div>
       </form>

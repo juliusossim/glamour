@@ -15,6 +15,7 @@ import {
 export function RouteErrorBoundary() {
   const error = useRouteError();
   const navigate = useNavigate();
+  const { mode } = useConfig();
 
   let title = 'Something went wrong';
   let message = 'An unexpected error occurred.';
@@ -69,7 +70,7 @@ export function RouteErrorBoundary() {
         <div className="flex flex-wrap justify-center gap-4">
           <button
             onClick={handleRetry}
-            className="rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 px-6 py-3 font-medium text-white transition-opacity hover:opacity-90"
+            className="rounded-lg bg-linear-to-br from-indigo-500 to-purple-600 px-6 py-3 font-medium text-white transition-opacity hover:opacity-90"
           >
             Try Again
           </button>
@@ -81,7 +82,7 @@ export function RouteErrorBoundary() {
           </button>
         </div>
 
-        {useConfig().env === 'development' && error instanceof Error && (
+        {mode === 'development' && error instanceof Error && (
           <details className="mt-8 rounded-lg bg-slate-50 p-4 text-left">
             <summary className="cursor-pointer font-medium text-slate-600">
               Error Details

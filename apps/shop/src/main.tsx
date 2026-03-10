@@ -14,6 +14,7 @@ import {
   RootLayout,
   RouteErrorBoundary,
 } from './app/routes';
+import { shopEnv } from './env';
 import './styles.css';
 
 // Create the data router with type-safe routes
@@ -26,8 +27,9 @@ const router = createRouter({
 
 // Initialize runtime config for the shop app (injected at bootstrap)
 createConfig({
-  apiBaseUrl: import.meta.env?.VITE_API_BASE_URL ?? 'http://localhost:3000',
-  env: import.meta.env?.MODE ?? 'development',
+  apiBaseUrl: shopEnv.apiBaseUrl,
+  mode: shopEnv.mode,
+  buildNumber: shopEnv.buildNumber,
 });
 
 const root = ReactDOM.createRoot(

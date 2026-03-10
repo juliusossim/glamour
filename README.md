@@ -1,6 +1,6 @@
 # Glamour
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+[![Nx logo](https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png)](https://nx.dev)
 
 ✨ A modern fashion e-commerce platform built with React, Redux Toolkit, Apollo GraphQL, and Nx
 monorepo ✨
@@ -205,7 +205,7 @@ solutions for:
 
 ## 📁 Project Structure
 
-```
+```text
 glamour/
 ├── apps/
 │   ├── shop/               # React e-commerce storefront
@@ -329,25 +329,25 @@ Ensures consistent editor settings across different IDEs.
 
 ## 🎯 Adding New Features
 
-### Generate a new React application:
+### Generate a new React application
 
 ```bash
 npx nx g @nx/react:app my-app
 ```
 
-### Generate a new React library:
+### Generate a new React library
 
 ```bash
 npx nx g @nx/react:lib my-lib
 ```
 
-### Generate a new React component:
+### Generate a new React component
 
 ```bash
 npx nx g @nx/react:component my-component --project=my-lib
 ```
 
-### Generate a new API library:
+### Generate a new API library
 
 ```bash
 npx nx g @nx/node:lib my-api-lib

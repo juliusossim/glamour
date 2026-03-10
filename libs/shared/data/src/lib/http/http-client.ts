@@ -1,6 +1,5 @@
 import { tokenStorage } from './auth/token-storage';
-
-const API_BASE_URL = 'http://localhost:3000/api';
+import { getRestApiUrl } from '../config/runtime-config';
 
 interface FetchOptions extends RequestInit {
   params?: Record<string, string>;
@@ -13,10 +12,8 @@ interface ApiError extends Error {
 }
 
 class HttpClient {
-  private readonly baseUrl: string;
-
-  constructor(baseUrl: string) {
-    this.baseUrl = baseUrl;
+  private getBaseUrl(): string {
+    return getRestApiUrl();
   }
 
   private getAuthHeaders(): HeadersInit {
@@ -51,7 +48,7 @@ class HttpClient {
   }
 
   async get<T>(endpoint: string, options?: FetchOptions): Promise<T> {
-    const url = new URL(`${this.baseUrl}${endpoint}`);
+    const url = new URL(`${this.getBaseUrl()}${endpoint}`);
 
     if (options?.params) {
       Object.entries(options.params).forEach(([key, value]) => {
@@ -78,7 +75,7 @@ class HttpClient {
     data?: unknown,
     options?: FetchOptions
   ): Promise<T> {
-    const response = await fetch(`${this.baseUrl}${endpoint}`, {
+    const response = await fetch(`${this.getBaseUrl()}${endpoint}`, {
       ...options,
       method: 'POST',
       headers: {
@@ -98,7 +95,7 @@ class HttpClient {
     data?: unknown,
     options?: FetchOptions
   ): Promise<T> {
-    const response = await fetch(`${this.baseUrl}${endpoint}`, {
+    const response = await fetch(`${this.getBaseUrl()}${endpoint}`, {
       ...options,
       method: 'PUT',
       headers: {
@@ -118,7 +115,7 @@ class HttpClient {
     data?: unknown,
     options?: FetchOptions
   ): Promise<T> {
-    const response = await fetch(`${this.baseUrl}${endpoint}`, {
+    const response = await fetch(`${this.getBaseUrl()}${endpoint}`, {
       ...options,
       method: 'PATCH',
       headers: {
@@ -134,7 +131,7 @@ class HttpClient {
   }
 
   async delete<T>(endpoint: string, options?: FetchOptions): Promise<T> {
-    const response = await fetch(`${this.baseUrl}${endpoint}`, {
+    const response = await fetch(`${this.getBaseUrl()}${endpoint}`, {
       ...options,
       method: 'DELETE',
       headers: {
@@ -149,4 +146,4 @@ class HttpClient {
   }
 }
 
-export const httpClient = new HttpClient(API_BASE_URL);
+export const httpClient = new HttpClient();

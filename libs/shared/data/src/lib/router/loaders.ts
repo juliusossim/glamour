@@ -12,9 +12,8 @@ import {
   ProductFilter,
 } from '@org/models';
 import type { LoaderFunctionArgs } from 'react-router-dom';
+import { getRestApiUrl } from '../config/runtime-config';
 import { tokenStorage } from '../http/auth/token-storage';
-
-const API_URL = 'http://localhost:3333/api';
 
 // Loader response types
 export interface ProductsLoaderData {
@@ -48,6 +47,7 @@ export class LoaderError extends Error {
 export async function productsLoader({
   request,
 }: LoaderFunctionArgs): Promise<ProductsLoaderData> {
+  const apiUrl = getRestApiUrl();
   const url = new URL(request.url);
   const searchParams = url.searchParams;
 
@@ -83,7 +83,7 @@ export async function productsLoader({
     params.append('inStock', filter.inStock.toString());
   if (filter.searchTerm) params.append('searchTerm', filter.searchTerm);
 
-  const response = await fetch(`${API_URL}/products?${params}`, {
+  const response = await fetch(`${apiUrl}/products?${params}`, {
     signal: request.signal,
   });
 
@@ -118,13 +118,14 @@ export async function productDetailLoader({
   params,
   request,
 }: LoaderFunctionArgs): Promise<ProductDetailLoaderData> {
+  const apiUrl = getRestApiUrl();
   const { id } = params;
 
   if (!id) {
     throw new LoaderError('Product ID is required', 400, 'Bad Request');
   }
 
-  const response = await fetch(`${API_URL}/products/${id}`, {
+  const response = await fetch(`${apiUrl}/products/${id}`, {
     signal: request.signal,
   });
 
