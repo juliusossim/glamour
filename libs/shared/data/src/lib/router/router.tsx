@@ -35,7 +35,7 @@ export function createRouter(
   const {
     RootLayout,
     ProductsPage,
-    ProductDetailPage,
+    ProductDetailsPage,
     ErrorBoundary,
     CartPage,
     CheckoutPage,
@@ -65,7 +65,7 @@ export function createRouter(
         {
           id: 'product-detail',
           path: `${ROUTE_PATHS.PRODUCTS}/:id`,
-          element: <ProductDetailPage />,
+          element: <ProductDetailsPage />,
           loader: productDetailLoader,
           action: addToCartAction,
           errorElement: <ErrorBoundary />,

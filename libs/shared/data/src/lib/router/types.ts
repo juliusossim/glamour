@@ -4,7 +4,7 @@ import { ROUTE_PATHS } from './routes';
 export interface RouteParams {
   [ROUTE_PATHS.HOME]: Record<string, never>;
   [ROUTE_PATHS.PRODUCTS]: Record<string, never>;
-  [ROUTE_PATHS.PRODUCT_DETAIL]: { id: string };
+  [ROUTE_PATHS.PRODUCT_DETAILS]: { id: string };
   [ROUTE_PATHS.CART]: Record<string, never>;
   [ROUTE_PATHS.CHECKOUT]: Record<string, never>;
   [ROUTE_PATHS.LOGIN]: Record<string, never>;
@@ -52,7 +52,7 @@ export interface RouteMeta {
 export interface RouterComponents {
   RootLayout: React.ComponentType;
   ProductsPage: React.ComponentType;
-  ProductDetailPage: React.ComponentType;
+  ProductDetailsPage: React.ComponentType;
   ErrorBoundary: React.ComponentType;
   CartPage?: React.ComponentType;
   CheckoutPage?: React.ComponentType;

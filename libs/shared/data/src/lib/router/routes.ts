@@ -9,7 +9,7 @@ import { RouteMeta, RoutePath } from './types';
 export const ROUTE_PATHS = {
   HOME: '/',
   PRODUCTS: '/products',
-  PRODUCT_DETAIL: '/products/:id',
+  PRODUCT_DETAILS: '/products/:id',
   CART: '/cart',
   CHECKOUT: '/checkout',
   LOGIN: '/login',
@@ -22,7 +22,7 @@ export const ROUTE_PATHS = {
 export const ROUTE_META: Partial<Record<RoutePath, RouteMeta>> = {
   [ROUTE_PATHS.HOME]: { title: 'Home' },
   [ROUTE_PATHS.PRODUCTS]: { title: 'Products' },
-  [ROUTE_PATHS.PRODUCT_DETAIL]: { title: 'Product Details' },
+  [ROUTE_PATHS.PRODUCT_DETAILS]: { title: 'Product Details' },
   [ROUTE_PATHS.CART]: { title: 'Shopping Cart' },
   [ROUTE_PATHS.CHECKOUT]: { title: 'Checkout', requiresAuth: true },
   [ROUTE_PATHS.LOGIN]: { title: 'Login' },

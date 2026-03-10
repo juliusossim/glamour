@@ -79,40 +79,4 @@ export type {
 } from './lib/http';
 
 // Type-safe Router
-export {
-  ActionError,
-  LoaderError,
-  ROUTE_META,
-  // Route paths and types
-  ROUTE_PATHS,
-  addToCartAction,
-  authGuardLoader,
-  // Router utilities
-  buildPath,
-  buildUrl,
-  composeLoaders,
-  // Router factory
-  createRouter,
-  // Actions
-  loginAction,
-  logoutAction,
-  productDetailLoader,
-  // Loaders
-  productsLoader,
-  registerAction,
-  useRouteNavigation,
-  useTypedNavigate,
-  useTypedParams,
-  useTypedSearchParams,
-} from './lib/router';
-
-export type {
-  ActionResponse,
-  ParamsFor,
-  RouteMeta,
-  RouteParams,
-  RoutePath,
-  RouteSearchParams,
-  RouterComponents,
-  SearchParamsFor,
-} from './lib/router';
+export * from './lib/router';

@@ -12,7 +12,11 @@ export interface LoadingSpinnerProps {
 
 export interface ErrorMessageProps extends PropsWithChildren {
   message?: string;
+  classes?: string;
+  imageAlt?: string;
+  imageSrc?: string;
   onRetry?: () => void;
+  goBack?: () => void;
 }
 
 export interface AmountProps {

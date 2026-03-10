@@ -7,6 +7,7 @@ const meta = {
   title: 'ErrorMessage',
   argTypes: {
     onRetry: { action: 'onRetry executed!' },
+    goBack: { action: 'goBack executed!' },
   },
 } satisfies Meta<typeof ErrorMessage>;
 export default meta;

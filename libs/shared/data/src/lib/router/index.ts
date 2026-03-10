@@ -17,9 +17,9 @@ export { createRouter } from './router';
 
 // Loaders
 export {
+  LoaderError,
   authGuardLoader,
   composeLoaders,
-  LoaderError,
   productDetailLoader,
   productsLoader,
 } from './loaders';
