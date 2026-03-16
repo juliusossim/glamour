@@ -1,4 +1,4 @@
-import { AmountProps } from '@org/models';
+import type { AmountProps } from '@org/models';
 import { ItemContent } from '../ui/item';
 import { formatCurrency } from '../utils';
 

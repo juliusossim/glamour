@@ -64,7 +64,7 @@ export function createRouter(
         },
         {
           id: 'product-detail',
-          path: `${ROUTE_PATHS.PRODUCTS}/:id`,
+          path: ROUTE_PATHS.PRODUCT_DETAIL,
           element: <ProductDetailsPage />,
           loader: productDetailLoader,
           action: addToCartAction,

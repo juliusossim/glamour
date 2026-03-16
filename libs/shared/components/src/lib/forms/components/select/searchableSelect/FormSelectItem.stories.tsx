@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { FormSelectItem } from './FormItem';
+import { FormSelectItem } from './FormSelectItem';
 import { expect } from 'storybook/test';
 
 const meta = {

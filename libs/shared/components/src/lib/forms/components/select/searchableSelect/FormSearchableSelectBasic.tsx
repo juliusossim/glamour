@@ -1,6 +1,5 @@
 'use client';
 
-import { InputGroupAddon } from '../../../../ui/input-group';
 import { Button } from '../../../../ui/button';
 import {
   Combobox,
@@ -12,107 +11,107 @@ import {
   ComboboxTrigger,
   ComboboxValue,
 } from '../../../../ui/combobox';
-
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-} from '../../../../ui/form';
-
+import { InputGroupAddon } from '../../../../ui/input-group';
+import { FieldWrapper } from '../../FieldWrappper';
 import { SelectItemType, SelectProps } from '../type';
-import { useFormContext } from 'react-hook-form';
-import FormSelectItem from './FormItem';
+import FormSelectItem from './FormSelectItem';
+import { findSelectedItem } from './utils';
 
 export function FormSearchableSelectBasic(props: Readonly<SelectProps>) {
-  const form = useFormContext();
-
   return (
-    <FormField
-      control={form.control}
+    <FieldWrapper
       name={props.name}
-      render={() => {
+      label={props.label}
+      description={props.description}
+      required={props.required}
+    >
+      {(field) => {
+        const selectedItem = findSelectedItem(
+          props.options,
+          typeof field.value === 'string' ? field.value : null
+        );
+
         return (
-          <FormItem>
-            {props.label && (
-              <FormLabel>
-                {props.label}
-                {props.required && (
-                  <span className="text-destructive ml-1">*</span>
+          <Combobox
+            items={props.options}
+            autoHighlight={props.highlight}
+            itemToStringValue={(item?: SelectItemType) => item?.value ?? ''}
+            disabled={props.disabled}
+            value={selectedItem}
+            onValueChange={(value) => {
+              field.onChange(value?.value ?? '');
+              field.onBlur();
+            }}
+            isItemEqualToValue={(item, value) =>
+              item?.value !== undefined && value?.value !== undefined
+                ? item.value === value.value
+                : false
+            }
+          >
+            {!props.popup && (
+              <ComboboxInput
+                placeholder={props.placeholder}
+                showTrigger={false}
+                showClear={props.showClear}
+                onBlur={field.onBlur}
+                required={props.required}
+              >
+                {props.icon && (
+                  <InputGroupAddon align={props.iconPosition}>
+                    {props.icon}
+                  </InputGroupAddon>
                 )}
-              </FormLabel>
+              </ComboboxInput>
             )}
 
-            <FormControl>
-              <Combobox
-                items={props.options}
-                autoHighlight={props.highlight}
-                itemToStringValue={(item?: SelectItemType) => item?.value ?? ''}
-                disabled={props.disabled}
-                aria-invalid={!!form.formState.errors[props.name]}
-              >
-                {!props.popup && (
-                  <ComboboxInput
-                    placeholder={props.placeholder}
-                    showTrigger={false}
-                    showClear={props.showClear}
+            {props.popup && (
+              <ComboboxTrigger
+                render={
+                  <Button
+                    variant="outline"
+                    className="w-full justify-between font-normal"
                   >
-                    {props.icon && (
-                      <InputGroupAddon align={props.iconPosition}>
-                        {props.icon}
-                      </InputGroupAddon>
-                    )}
-                  </ComboboxInput>
-                )}
+                    <ComboboxValue placeholder={props.placeholder} />
+                  </Button>
+                }
+              />
+            )}
 
-                {props.popup && (
-                  <ComboboxTrigger
-                    render={
-                      <Button
-                        variant="outline"
-                        className="w-full justify-between font-normal"
-                      >
-                        <ComboboxValue placeholder={props.placeholder} />
-                      </Button>
-                    }
-                  />
-                )}
-
-                <ComboboxContent>
-                  {props.popup && (
-                    <ComboboxInput
-                      placeholder={props.placeholder}
-                      showTrigger={false}
-                      showClear={props.showClear}
-                    >
-                      {props.icon && (
-                        <InputGroupAddon align={props.iconPosition}>
-                          {props.icon}
-                        </InputGroupAddon>
-                      )}
-                    </ComboboxInput>
+            <ComboboxContent>
+              {props.popup && (
+                <ComboboxInput
+                  placeholder={props.placeholder}
+                  showTrigger={false}
+                  showClear={props.showClear}
+                  onBlur={field.onBlur}
+                  required={props.required}
+                >
+                  {props.icon && (
+                    <InputGroupAddon align={props.iconPosition}>
+                      {props.icon}
+                    </InputGroupAddon>
                   )}
+                </ComboboxInput>
+              )}
 
-                  <ComboboxEmpty>{props.emptyText}</ComboboxEmpty>
+              <ComboboxEmpty>{props.emptyText}</ComboboxEmpty>
 
-                  <ComboboxList>
-                    {(item: SelectItemType) => (
-                      <ComboboxItem
-                        key={item.value}
-                        value={item}
-                        disabled={item.disabled}
-                      >
-                        <FormSelectItem item={item} />
-                      </ComboboxItem>
-                    )}
-                  </ComboboxList>
-                </ComboboxContent>
-              </Combobox>
-            </FormControl>
-          </FormItem>
+              <ComboboxList>
+                {(item: SelectItemType) => (
+                  <ComboboxItem
+                    key={item.value}
+                    value={item}
+                    disabled={item.disabled}
+                  >
+                    <FormSelectItem item={item} />
+                  </ComboboxItem>
+                )}
+              </ComboboxList>
+            </ComboboxContent>
+          </Combobox>
         );
       }}
-    />
+    </FieldWrapper>
   );
 }
 

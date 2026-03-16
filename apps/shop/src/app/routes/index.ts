@@ -1,7 +1,7 @@
 import { createRouter } from '@org/shared-data';
 import { lazy } from 'react';
 
-const RootLayout = lazy(() => import('./RootLayout'));
+const RootLayout = lazy(() => import('./rootLayout/RootLayout'));
 
 const ProductsPage = lazy(
   () => import('./products/products-page/ProductsPage')

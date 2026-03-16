@@ -1,4 +1,5 @@
-import { DisplayProduct } from '@org/models';
+import type { DisplayProduct } from '@org/models';
+import { buildPath, ROUTE_PATHS } from '@org/shared-data';
 import { Eye, Handshake } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import {
@@ -10,7 +11,8 @@ import {
   Text,
   TruncatedText,
 } from '../..';
-import { FashionCarousel } from '../carousel/FashionCarousel';
+import { BadgeVariants } from '../carousel/brandCarousel/types';
+import { ProductCarousel } from '../carousel/productCarousel/ProductCarousel';
 import { Button } from '../ui/button';
 import {
   Card,
@@ -28,9 +30,13 @@ import { SOLD_TEXT } from '../utils/text/fashionCard';
 export function FashionCard({
   product,
 }: Readonly<{ product: DisplayProduct }>) {
+  const productDetailPath = buildPath(ROUTE_PATHS.PRODUCT_DETAIL, {
+    id: product.id,
+  });
+
   return (
     <Card className="w-full max-w-sm gap-0 pt-0 rounded-lg overflow-hidden">
-      <FashionCarousel product={product} />
+      <ProductCarousel product={product} />
       <CardHeader className="gap-0 ">
         <CardTitle>
           <Item className="py-0 px-0 gap-0 flex-col items-start">
@@ -64,7 +70,7 @@ export function FashionCard({
           <BrandsCarousel
             brands={defaultBrands}
             showNavigation={false}
-            badgeVariant="outline"
+            badgeVariant={BadgeVariants.OUTLINE}
           />
         </ItemContent>
       </CardContent>
@@ -85,10 +91,10 @@ export function FashionCard({
             <SmallText>6k+ </SmallText>
             <SmallText>{SOLD_TEXT}</SmallText>
           </Text>
-          <Button asChild>
+          <Button>
             <Link
-              to={`/products/${product.id}`}
-              aria-label={`View ${product.name}`}
+              to={productDetailPath}
+              className="flex flex-row items-center gap-1"
             >
               <Eye />
             </Link>

@@ -2,7 +2,6 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { SearchInput } from './Search';
 import { expect } from 'storybook/test';
 import { FormProvider, useForm } from 'react-hook-form';
-import { timezones } from '../forms/utils/formMocks';
 
 const meta = {
   component: SearchInput,
@@ -28,8 +27,7 @@ type Story = StoryObj<typeof SearchInput>;
 
 export const Primary = {
   args: {
-    options: timezones,
-    placeholder: 'Select a timezone',
+    placeholder: 'Search for products, brands, and more...',
     name: 'search',
     label: 'Search',
     showClear: true,

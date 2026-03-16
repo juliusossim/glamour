@@ -1,3 +1,4 @@
+import type { Ref } from 'react';
 import z from 'zod';
 import { CommonSchemas } from './commonSchemaBuilders';
 import { ValidationMessages } from './validationsMessages';
@@ -41,4 +42,18 @@ export const extractZodErrors = (error: z.ZodError) => {
     acc[path] = curr.message;
     return acc;
   }, {});
+};
+
+export const assignRef = <T>(ref: Ref<T> | undefined, node: T | null) => {
+  if (typeof ref === 'function') {
+    ref(node);
+  } else if (ref) {
+    ref.current = node;
+  }
+};
+
+export const composeRefs = <T>(...refs: Array<Ref<T> | undefined>) => {
+  return (node: T | null) => {
+    refs.forEach((ref) => assignRef(ref, node));
+  };
 };

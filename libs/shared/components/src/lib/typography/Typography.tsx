@@ -1,4 +1,4 @@
-import { TruncatedTextProps, type TypographyProps } from '@org/models';
+import type { TruncatedTextProps, TypographyProps } from '@org/models';
 import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip';
 import {
   alignStyles,
@@ -160,7 +160,7 @@ export function TruncatedText({
   showTooltip = true,
   tooltipSide = 'top',
   ...props
-}: TruncatedTextProps) {
+}: Readonly<TruncatedTextProps>) {
   const content = (
     <Typography
       {...props}

@@ -1,22 +1,22 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { FormInput } from './FormInput';
+import { FieldWrapper } from './FieldWrappper';
 import { expect } from 'storybook/test';
 
 const meta = {
-  component: FormInput,
-  title: 'FormInput',
-} satisfies Meta<typeof FormInput>;
+  component: FieldWrapper,
+  title: 'FieldWrapper',
+} satisfies Meta<typeof FieldWrapper>;
 export default meta;
 
-type Story = StoryObj<typeof FormInput>;
+type Story = StoryObj<typeof FieldWrapper>;
 
 export const Primary = {
   args: {
     name: '',
     label: '',
     description: '',
-    required: false,
-    className: '',
+    required: '',
+    children: '',
   },
 } satisfies Story;
 
@@ -25,10 +25,10 @@ export const Heading = {
     name: '',
     label: '',
     description: '',
-    required: true,
-    className: '',
+    required: '',
+    children: '',
   },
   play: async ({ canvas }) => {
-    await expect(canvas.getByText(/FormInput/gi)).toBeTruthy();
+    await expect(canvas.getByText(/FieldWrapper/gi)).toBeTruthy();
   },
 } satisfies Story;

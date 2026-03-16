@@ -2,11 +2,9 @@
 export { Amount } from './lib/amount/Amount';
 export { BrandBadge } from './lib/badge/BrandBadge';
 export { FashionCard } from './lib/card/FashionCard';
-export { BrandsCarousel } from './lib/carousel/BrandsCarousel';
+export { BrandsCarousel } from './lib/carousel/brandCarousel/BrandsCarousel';
 export { ErrorMessage } from './lib/error-message/error-message';
-export { SearchInput } from './lib/search/Search';
 export { LoadingSpinner } from './lib/loading-spinner/loading-spinner';
-export { ProductCard } from './lib/product-card/product-card';
 export { ProductGrid } from './lib/product-grid/product-grid';
 export { SocialInteractions } from './lib/socialInteractions/SocialInteractions';
 export { StarRating } from './lib/stars/Star';
@@ -110,14 +108,17 @@ export {
 } from './lib/ui/carousel';
 
 // Form components
+export { FieldWrapper } from './lib/forms/components/FieldWrappper';
+export type { FieldWrapperProps } from './lib/forms/components/FieldWrappper';
+export { SearchInput } from './lib/forms/components/search/Search';
 export { FormCheckbox } from './lib/forms/components/checkbox/FormCheckbox';
 export type { FormCheckboxProps } from './lib/forms/components/checkbox/FormCheckbox';
-export { FormTextarea } from './lib/forms/components/textArea/FormTextarea';
-export type { FormTextareaProps } from './lib/forms/components/textArea/FormTextarea';
 export { FormInput } from './lib/forms/components/input/FormInput';
 export type { FormInputProps } from './lib/forms/components/input/FormInput';
 export { FormSelect } from './lib/forms/components/select/FormSelect';
 export type { FormSelectProps } from './lib/forms/components/select/FormSelect';
+export { FormTextarea } from './lib/forms/components/textArea/FormTextarea';
+export type { FormTextareaProps } from './lib/forms/components/textArea/FormTextarea';
 
 // Form hooks
 export { useAsyncFormSubmit } from './lib/forms/hooks/useAsyncFormSubmit';

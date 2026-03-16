@@ -15,7 +15,7 @@ import { LoadingSpinner } from '@org/shared-ui';
 import { useFetcher } from 'react-router-dom';
 
 export function ProductDetailsPage() {
-  const { id } = useTypedParams(ROUTE_PATHS.PRODUCT_DETAILS);
+  const { id } = useTypedParams(ROUTE_PATHS.PRODUCT_DETAIL);
   const { data: product } = useGetProductQuery(id);
   const { back } = useRouteNavigation();
   const fetcher = useFetcher();

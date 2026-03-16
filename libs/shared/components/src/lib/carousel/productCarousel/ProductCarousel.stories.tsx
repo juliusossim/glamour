@@ -1,23 +1,22 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { ProductCarousel } from './ProductCarousel';
 import { expect } from 'storybook/test';
-import { defaultProduct } from '../utils/mock';
-import { ProductCarousel } from './productCarousel/ProductCarousel';
 
 const meta = {
   component: ProductCarousel,
-  title: 'FashionCarousel',
+  title: 'ProductCarousel',
 } satisfies Meta<typeof ProductCarousel>;
 export default meta;
 
 type Story = StoryObj<typeof ProductCarousel>;
 
 export const Primary = {
-  args: { product: defaultProduct },
+  args: {},
 } satisfies Story;
 
 export const Heading = {
-  args: { product: defaultProduct },
+  args: {},
   play: async ({ canvas }) => {
-    await expect(canvas.getByText(/FashionCarousel/gi)).toBeTruthy();
+    await expect(canvas.getByText(/ProductCarousel/gi)).toBeTruthy();
   },
 } satisfies Story;

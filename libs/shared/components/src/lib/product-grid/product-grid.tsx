@@ -1,4 +1,4 @@
-import { DisplayProduct } from '@org/models';
+import type { DisplayProduct } from '@org/models';
 import FashionCard from '../card/FashionCard';
 import { EMPTY_PRODUCTS_TEXT } from '../utils/text/productGrid';
 

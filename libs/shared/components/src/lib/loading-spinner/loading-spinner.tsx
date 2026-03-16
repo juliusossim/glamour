@@ -1,4 +1,4 @@
-import { LoadingSpinnerProps } from '@org/models';
+import type { LoadingSpinnerProps } from '@org/models';
 import { Item, ItemContent, ItemMedia, ItemTitle } from '../ui/item';
 import { Spinner } from '../ui/spinner';
 export function LoadingSpinner(props: Readonly<LoadingSpinnerProps>) {

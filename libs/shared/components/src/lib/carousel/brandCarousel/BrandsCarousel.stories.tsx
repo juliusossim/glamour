@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { BrandsCarousel } from './BrandsCarousel';
 import { expect } from 'storybook/test';
-import { defaultBrands } from '../utils/mock';
 
 const meta = {
   component: BrandsCarousel,
@@ -12,11 +11,11 @@ export default meta;
 type Story = StoryObj<typeof BrandsCarousel>;
 
 export const Primary = {
-  args: { brands: defaultBrands },
+  args: {},
 } satisfies Story;
 
 export const Heading = {
-  args: { brands: defaultBrands },
+  args: {},
   play: async ({ canvas }) => {
     await expect(canvas.getByText(/BrandsCarousel/gi)).toBeTruthy();
   },

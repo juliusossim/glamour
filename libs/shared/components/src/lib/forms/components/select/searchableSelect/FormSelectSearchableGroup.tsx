@@ -15,41 +15,77 @@ import {
   ComboboxValue,
 } from '../../../../ui/combobox';
 import { InputGroupAddon } from '../../../../ui/input-group';
+import { FieldWrapper } from '../../FieldWrappper';
 import { SelectItemType, SelectProps } from '../type';
-import {
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '../../../../ui/form';
-import { useFormContext } from 'react-hook-form';
-import FormSelectItem from './FormItem';
+import FormSelectItem from './FormSelectItem';
+import { findSelectedItem } from './utils';
 
 export function FormSelectSearchableGroup(props: SelectProps) {
-  const form = useFormContext();
   return (
-    <FormField
-      control={form.control}
+    <FieldWrapper
       name={props.name}
-      render={() => (
-        <FormItem>
-          <FormLabel htmlFor={props.name}>{props.label}</FormLabel>
-          <FormControl>
-            <Combobox
-              items={props.options}
-              autoHighlight={props.highlight}
-              itemToStringValue={(item: SelectItemType) => item.value}
-            >
-              {!props.popup && (
+      label={props.label}
+      description={props.description}
+      required={props.required}
+    >
+      {(field) => {
+        const selectedItem = findSelectedItem(
+          props.options,
+          typeof field.value === 'string' ? field.value : null
+        );
+
+        return (
+          <Combobox
+            items={props.options}
+            autoHighlight={props.highlight}
+            itemToStringValue={(item: SelectItemType) => item.value}
+            value={selectedItem}
+            onValueChange={(value) => {
+              field.onChange(value?.value ?? '');
+              field.onBlur();
+            }}
+            isItemEqualToValue={(item, value) => item.value === value.value}
+            disabled={props.disabled}
+          >
+            {!props.popup && (
+              <ComboboxInput
+                placeholder={props.placeholder}
+                showTrigger={false}
+                disabled={props.disabled}
+                showClear={props.showClear}
+                required={props.required}
+                onBlur={field.onBlur}
+              >
+                {props.icon && (
+                  <InputGroupAddon align={props.iconPosition}>
+                    {props.icon}
+                  </InputGroupAddon>
+                )}
+              </ComboboxInput>
+            )}
+
+            {props.popup && (
+              <ComboboxTrigger
+                render={
+                  <Button
+                    variant="outline"
+                    className=" w-full justify-between font-normal"
+                  >
+                    <ComboboxValue placeholder={props.placeholder} />
+                  </Button>
+                }
+              />
+            )}
+
+            <ComboboxContent alignOffset={-28} className="w-60">
+              {props.popup && (
                 <ComboboxInput
                   placeholder={props.placeholder}
                   showTrigger={false}
                   disabled={props.disabled}
                   showClear={props.showClear}
                   required={props.required}
-                  aria-invalid={!!form.formState.errors[props.name]}
+                  onBlur={field.onBlur}
                 >
                   {props.icon && (
                     <InputGroupAddon align={props.iconPosition}>
@@ -58,66 +94,30 @@ export function FormSelectSearchableGroup(props: SelectProps) {
                   )}
                 </ComboboxInput>
               )}
-
-              {props.popup && (
-                <ComboboxTrigger
-                  render={
-                    <Button
-                      variant="outline"
-                      className=" w-full justify-between font-normal"
-                    >
-                      <ComboboxValue />
-                    </Button>
-                  }
-                />
-              )}
-
-              <ComboboxContent alignOffset={-28} className="w-60">
-                {props.popup && (
-                  <ComboboxInput
-                    placeholder={props.placeholder}
-                    showTrigger={false}
-                    disabled={props.disabled}
-                    showClear={props.showClear}
-                    aria-invalid={!!form.formState.errors[props.name]}
-                    required={props.required}
-                  >
-                    {props.icon && (
-                      <InputGroupAddon align={props.iconPosition}>
-                        {props.icon}
-                      </InputGroupAddon>
-                    )}
-                  </ComboboxInput>
+              <ComboboxEmpty>{props.emptyText}</ComboboxEmpty>
+              <ComboboxList>
+                {(group) => (
+                  <ComboboxGroup key={group.label} items={group.items}>
+                    <ComboboxLabel>{group.label}</ComboboxLabel>
+                    <ComboboxCollection>
+                      {(item) => (
+                        <ComboboxItem
+                          key={item.value}
+                          value={item}
+                          disabled={item.disabled}
+                        >
+                          <FormSelectItem item={item} />
+                        </ComboboxItem>
+                      )}
+                    </ComboboxCollection>
+                  </ComboboxGroup>
                 )}
-                <ComboboxEmpty>{props.emptyText}</ComboboxEmpty>
-                <ComboboxList>
-                  {(group) => (
-                    <ComboboxGroup key={group.label} items={group.items}>
-                      <ComboboxLabel>{group.label}</ComboboxLabel>
-                      <ComboboxCollection>
-                        {(item) => (
-                          <ComboboxItem
-                            key={item.value}
-                            value={item}
-                            disabled={item.disabled}
-                          >
-                            <FormSelectItem item={item} />
-                          </ComboboxItem>
-                        )}
-                      </ComboboxCollection>
-                    </ComboboxGroup>
-                  )}
-                </ComboboxList>
-              </ComboboxContent>
-            </Combobox>
-          </FormControl>
-          {props.description && (
-            <FormDescription>{props.description}</FormDescription>
-          )}
-          <FormMessage />
-        </FormItem>
-      )}
-    />
+              </ComboboxList>
+            </ComboboxContent>
+          </Combobox>
+        );
+      }}
+    </FieldWrapper>
   );
 }
 export default FormSelectSearchableGroup;

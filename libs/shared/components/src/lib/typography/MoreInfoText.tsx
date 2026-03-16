@@ -1,9 +1,9 @@
+import type { HoverCardProps } from '@org/models';
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
 } from '../ui/hover-card';
-import { HoverCardProps } from '@org/models';
 
 export function MoreInfoText({
   openDelay = 10,

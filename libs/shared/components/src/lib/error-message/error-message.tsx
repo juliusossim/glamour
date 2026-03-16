@@ -1,4 +1,4 @@
-import { ErrorMessageProps } from '@org/models';
+import type { ErrorMessageProps } from '@org/models';
 import { ArrowLeft, RefreshCcw } from 'lucide-react';
 import MoreInfoText from '../typography/MoreInfoText';
 import { SmallText } from '../typography/Typography';
