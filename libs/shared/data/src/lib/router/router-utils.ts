@@ -13,12 +13,12 @@ import {
   useSearchParams as useRRSearchParams,
 } from 'react-router-dom';
 import {
-  ROUTE_PATHS,
   type ParamsFor,
   type RoutePath,
   type RouteSearchParams,
   type SearchParamsFor,
-} from '.';
+} from './types';
+import { ROUTE_PATHS } from './routes';
 
 /**
  * Type-safe path builder with params substitution

@@ -5,29 +5,6 @@ import { CarouselItem } from '../../ui/carousel';
 import CarouselWrapper from '../carouselWrapper/CarouselWrapper';
 import { BadgeVariants, BrandsCarouselProps } from './types';
 
-// ============================================================================
-// Component
-// ============================================================================
-
-/**
- * BrandsCarousel - An autoplay carousel showcasing brand badges
- *
- * @example
- * ```tsx
- * const brands = [
- *   { id: '1', name: 'Nike' },
- *   { id: '2', name: 'Adidas' },
- *   { id: '3', name: 'Puma' },
- * ];
- *
- * <BrandsCarousel
- *   brands={brands}
- *   autoplayDelay={3000}
- *   pauseOnHover
- *   onBrandClick={(brand) => navigate(`/brands/${brand.id}`)}
- * />
- * ```
- */
 export function BrandsCarousel({
   brands,
   autoplayDelay = 3000,

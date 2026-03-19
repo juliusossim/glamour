@@ -40,7 +40,7 @@ function ProductsPageContent() {
       </div>
 
       {isLoading ? (
-        <div className="flex min-h-[320px] items-center justify-center">
+        <div className="flex min-h-80 items-center justify-center">
           <LoadingSpinner />
         </div>
       ) : (

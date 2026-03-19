@@ -333,12 +333,15 @@ importers:
       '@org/models':
         specifier: workspace:*
         version: link:../../libs/shared/models
+      '@org/shared-data':
+        specifier: workspace:*
+        version: link:../../libs/shared/data
+      '@org/shared-hooks':
+        specifier: workspace:*
+        version: link:../../libs/shared/hooks
       '@org/shared-ui':
         specifier: workspace:*
         version: link:../../libs/shared/components
-      '@org/shop-data':
-        specifier: workspace:*
-        version: link:../../libs/shop/data
       '@org/shop-feature-product-detail':
         specifier: workspace:*
         version: link:../../libs/shop/feature-product-detail
@@ -358,17 +361,31 @@ importers:
         version: 2.8.1
 
   libs/shared/components:
-    devDependencies:
+    dependencies:
       '@org/models':
         specifier: workspace:*
         version: link:../models
+      '@org/shared-data':
+        specifier: workspace:*
+        version: link:../data
+    devDependencies:
       '@org/shared-test-utils':
         specifier: workspace:*
         version: link:../test-utils
 
   libs/shared/config: {}
 
-  libs/shared/hooks: {}
+  libs/shared/data:
+    devDependencies:
+      '@org/models':
+        specifier: workspace:*
+        version: link:../models
+
+  libs/shared/hooks:
+    dependencies:
+      '@org/models':
+        specifier: workspace:*
+        version: link:../models
 
   libs/shared/models: {}
 
@@ -386,24 +403,24 @@ importers:
 
   libs/shop/feature-product-detail:
     devDependencies:
+      '@org/shared-data':
+        specifier: workspace:*
+        version: link:../../shared/data
       '@org/shared-ui':
         specifier: workspace:*
         version: link:../../shared/components
-      '@org/shop-data':
-        specifier: workspace:*
-        version: link:../data
 
   libs/shop/feature-products:
     devDependencies:
       '@org/models':
         specifier: workspace:*
         version: link:../../shared/models
+      '@org/shared-data':
+        specifier: workspace:*
+        version: link:../../shared/data
       '@org/shared-ui':
         specifier: workspace:*
         version: link:../../shared/components
-      '@org/shop-data':
-        specifier: workspace:*
-        version: link:../data
 
 packages:
 

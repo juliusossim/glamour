@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { CommandWrapper } from './commandWrapper';
+import { CommandWrapper } from '../commandWrapper';
 import { expect } from 'storybook/test';
 
 const meta = {

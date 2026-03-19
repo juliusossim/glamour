@@ -51,7 +51,7 @@ export const SearchInput = React.forwardRef<HTMLInputElement, SearchInputProps>(
           const { ref: fieldRef, ...fieldProps } = field;
 
           return (
-            <InputGroup>
+            <InputGroup className="bg-white px-1">
               <InputGroupInput
                 {...fieldProps}
                 {...props}
@@ -79,9 +79,9 @@ export const SearchInput = React.forwardRef<HTMLInputElement, SearchInputProps>(
                   className="border-0"
                   size="icon-sm"
                   type="submit"
-                  variant="outline"
+                  variant="ghost"
                 >
-                  <Search />
+                  <Search color="black" />
                 </InputGroupButton>
               </ButtonGroup>
             </InputGroup>

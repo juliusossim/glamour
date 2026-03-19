@@ -7,6 +7,9 @@ export function Amount({
   originalPrice,
   discount,
   increment,
+  showIncrement = true,
+  showOriginalPrice = true,
+  showDiscount = true,
   currency,
   locale,
   className = '',
@@ -38,15 +41,15 @@ export function Amount({
   return (
     <ItemContent className={`flex flex-row items-center gap-2 ${className}`}>
       <p className="text-sm font-medium text-foreground">{formattedPrice}</p>
-      {formattedOriginal && (
+      {showOriginalPrice && formattedOriginal && (
         <p className="text-sm text-gray-500 line-through">
           {formattedOriginal}
         </p>
       )}
-      {calculatedDiscount && calculatedDiscount > 0 && (
+      {showDiscount && calculatedDiscount && calculatedDiscount > 0 && (
         <p className="text-sm text-red-500">-{calculatedDiscount}%</p>
       )}
-      {calculatedIncrement && calculatedIncrement > 0 && (
+      {showIncrement && calculatedIncrement && calculatedIncrement > 0 && (
         <p className="text-sm text-green-500">
           <span role="img" aria-label="increment">
             📈

@@ -74,7 +74,14 @@ export function detectMediaType(source: MediaSource): MediaType {
   if (mimeType !== 'unknown') return mimeType;
 
   // Priority 2: File extension (fallback)
-  return getMediaTypeFromExtension(source.url);
+  const extension = getMediaTypeFromExtension(source.url);
+  if (extension !== 'unknown') return extension;
+
+  // Fallback: Unknown
+  const urlType = source.url.toLowerCase();
+  if (urlType.includes('image')) return 'image';
+  if (urlType.includes('video')) return 'video';
+  return 'unknown';
 }
 
 /**

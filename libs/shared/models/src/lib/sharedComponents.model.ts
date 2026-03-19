@@ -27,6 +27,9 @@ export interface AmountProps {
   currency?: string; // ISO 4217 currency code (e.g., 'USD', 'EUR', 'NGN')
   locale?: string; // Override locale (e.g., 'en-US', 'en-NG')
   className?: string;
+  showOriginalPrice?: boolean;
+  showDiscount?: boolean;
+  showIncrement?: boolean;
 }
 export interface SocialInteractions {
   productId: string;
